@@ -16,7 +16,7 @@ SURE_CUMLE = re.compile(r"proje süre|destek süre|süre üst|süre sınır|azam
 SURE_SAYI = re.compile(r"(\d{1,2})\s*(ay|yıl|months?|years?)(?![\p{L}])" if False else r"(\d{1,2})\s*(ay|yıl|months?|years?)(?:dır|dir|lık|lik|ı|a)?(?![a-zçğıöşüA-ZÇĞİÖŞÜ])", re.I)
 GURULTU = re.compile(r"seyahat|kilometre|yolluk|yol,? konaklama|konaklama|yemek|kongre|konferans|toplantı|gündelik|harcırah|katılım ücreti|ödeme yapılmaktadır|brüt", re.I)
 GUCLU = re.compile(r"proje bütçesi|toplam bütçe|bütçe üst|destek üst limit|bütçe sınır|destek tutar|burs miktar|toplam destek|call budget|total budget|indicative budget|bütçeye sahip", re.I)
-VER = 2
+VER = 3
 
 def indir(url):
     req = urllib.request.Request(url, headers=UA)
@@ -72,7 +72,8 @@ def calistir(rows, manuel_enrich, log=print):
         if o and o.get("v") == VER and now - datetime.fromisoformat(o["t"]) < YENILE: continue
         try:
             t, tur = metin(u); b, s = cikar(t)
-            onb[u] = {"v": VER, "t": now.isoformat(timespec="seconds"), "tur": tur, "butce": b, "sure": s}
+            ham = [re.sub(r"\s+", " ", t[max(0, m.start()-60):m.end()+260]) for m in re.finditer(r"(?i)proje başına|yürütücü kuruluş başına|per project|per coordinator", t)][:6]
+            onb[u] = {"ham": ham, "v": VER, "t": now.isoformat(timespec="seconds"), "tur": tur, "butce": b, "sure": s}
         except Exception as e:
             onb[u] = {"v": VER, "t": now.isoformat(timespec="seconds"), "hata": str(e)[:120], "butce": "", "sure": ""}
             log(f"butce: {u} -> {e}")
