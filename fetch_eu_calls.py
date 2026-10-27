@@ -94,6 +94,7 @@ def main(out_path="eu_calls.json"):
             fp[str(x["metadata"].get("frameworkProgramme")) + "|" + str(x["metadata"].get("programmeDivision", ""))[:60]] += 1
         from pathlib import Path
         Path(__file__).with_name("teshis.json").write_text(json.dumps({"per_programme": {src: sum(1 for r in results if r[0] == src) for src, _, _ in PROGRAMMES},
+            "erasmus_raw": [{k: x["metadata"].get(k) for k in ("identifier", "title", "deadlineDate", "startDate", "status", "type")} for src, _, x in results if src == "erasmus"],
             "probe_total": probe.get("totalResults"), "probe_frameworks": fp.most_common(30),
             "probe_erasmus_sample": [ (x["metadata"].get("frameworkProgramme"), x["metadata"].get("identifier")) for x in probe.get("results", []) if "ERASMUS" in json.dumps(x["metadata"]).upper()][:10]}, ensure_ascii=False, indent=1), "utf-8")
     except Exception as ex:
