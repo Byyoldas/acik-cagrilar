@@ -16,7 +16,7 @@ SURE_CUMLE = re.compile(r"proje süre|destek süre|süre üst|süre sınır|azam
 SURE_SAYI = re.compile(r"(\d{1,2})\s*(ay|yıl|months?|years?)(?![\p{L}])" if False else r"(\d{1,2})\s*(ay|yıl|months?|years?)(?:dır|dir|lık|lik|ı|a)?(?![a-zçğıöşüA-ZÇĞİÖŞÜ])", re.I)
 GURULTU = re.compile(r"seyahat|kilometre|yolluk|yol,? konaklama|konaklama|yemek|kongre|konferans|toplantı|gündelik|harcırah|katılım ücreti|ödeme yapılmaktadır|brüt", re.I)
 GUCLU = re.compile(r"proje bütçesi|toplam bütçe|bütçe üst|destek üst limit|bütçe sınır|destek tutar|burs miktar|toplam destek|call budget|total budget|indicative budget|bütçeye sahip", re.I)
-VER = 4
+VER = 5
 
 def indir(url):
     req = urllib.request.Request(url, headers=UA)
@@ -80,6 +80,21 @@ def cikar_uidb(t):
         if re.search(r"\d", seg): out.append("Yürütücü kuruluş başına: " + seg[:300])
     return " · ".join(out)
 
+def cikar_ikili(t):
+    """İkili işbirliği: Türk tarafı (TÜBİTAK) ve ortak ülke tarafı üst limitleri."""
+    d = re.sub(r"\s+", " ", t.replace("\xa0", " "))
+    tl = re.search(r"(?:Turkish (?:partners|team)[^.]{0,100}?can receive|TÜBİTAK funds?)\s+up to\s+([\d.]{5,})\s*(Turkish Lira[s]?|TL|₺)(?:[^.]{0,12}?per (project|year))?", d, re.I) \
+        or re.search(r"(?:bütçe|destek) üst limiti[^.\d]{0,120}?([\d.]{5,})\s*(TL|₺)", d, re.I) \
+        or re.search(r"(?:bütçe|destek) üst limiti\s*:?\s*([\d.]{5,})\s*(TL|₺)", d, re.I)
+    out = []
+    if tl: out.append(f"Türk tarafı (TÜBİTAK): {tl.group(1)} TL" + (" / proje" if not tl.lastindex or tl.lastindex < 3 or (tl.group(3) or "project").lower() == "project" else " / yıl") + (" (Kurum Hissesi ve PTİ hariç)" if re.search(r"excl\. overhead|PTİ.{0,20}hariç|PTİ hariç", d[max(0, tl.start()-20):tl.end()+90]) else ""))
+    ULKE = {"German": "Alman", "Uzbek": "Özbek", "Jordanian": "Ürdün", "Bulgarian": "Bulgar", "Polish": "Polonyalı", "Chinese": "Çinli", "Korean": "Koreli", "Japanese": "Japon", "American": "ABD"}
+    for m in re.finditer(r"([A-Z][a-z]+) (?:partners?|team)[^.]{0,100}?up to\s+([\d.]{4,})\s*([A-Za-z]{2,12}(?: [A-Za-z]{3,8})?(?: \([A-Z]{3}\))?)\s*/?\s*per (project|year)", d):
+        if m.group(1) in ("Turkish", "Each", "The"): continue
+        out.append(f"{ULKE.get(m.group(1), m.group(1))} tarafı: {m.group(2)} {m.group(3)} / {'proje' if m.group(4) == 'project' else 'yıl'}")
+        break
+    return " · ".join(out)
+
 def calistir(rows, manuel_enrich, log=print):
     onb = json.loads(CACHE.read_text("utf-8")) if CACHE.exists() else {}
     now = datetime.now()
@@ -91,7 +106,7 @@ def calistir(rows, manuel_enrich, log=print):
         if o and o.get("v") == VER and now - datetime.fromisoformat(o["t"]) < YENILE: continue
         try:
             t, tur = metin(u); b, s = cikar(t)
-            u_b = cikar_uidb(t) if urller.get(u) == "uidb" else ""
+            u_b = (cikar_uidb(t) or cikar_ikili(t)) if urller.get(u) == "uidb" else ""
             onb[u] = {"uidb": u_b, "v": VER, "t": now.isoformat(timespec="seconds"), "tur": tur, "butce": b, "sure": s}
         except Exception as e:
             onb[u] = {"v": VER, "t": now.isoformat(timespec="seconds"), "hata": str(e)[:120], "butce": "", "sure": ""}
