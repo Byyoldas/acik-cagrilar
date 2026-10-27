@@ -13,7 +13,7 @@ YENILE = timedelta(days=7)
 PARA = re.compile(r"(\d[\d.,]*\s*(?:milyon|bin)?\s*(?:TL|₺|TRY|Euro|EUR|€|USD|\$|Avro))|((?:TL|₺|€)\s*\d[\d.,]*)", re.I)
 KONU = re.compile(r"bütçe|destek tutar|destek limit|azami|en fazla|üst limit|toplam|proje başına|burs miktar|aylık|ödenek|budget|funding|up to|maximum", re.I)
 SURE_CUMLE = re.compile(r"proje süre|destek süre|süre üst|süre sınır|azami süre|duration|project length", re.I)
-SURE_SAYI = re.compile(r"(\d{1,2})\s*(ay|yıl|months?|years?)(?![\p{L}])" if False else r"(\d{1,2})\s*(ay|yıl|months?|years?)(?![a-zçğıöşüA-ZÇĞİÖŞÜ])", re.I)
+SURE_SAYI = re.compile(r"(\d{1,2})\s*(ay|yıl|months?|years?)(?![\p{L}])" if False else r"(\d{1,2})\s*(ay|yıl|months?|years?)(?:dır|dir|lık|lik|ı|a)?(?![a-zçğıöşüA-ZÇĞİÖŞÜ])", re.I)
 GURULTU = re.compile(r"seyahat|kilometre|yolluk|yol,? konaklama|konaklama|yemek|kongre|konferans|toplantı|gündelik|harcırah|katılım ücreti|ödeme yapılmaktadır|brüt", re.I)
 GUCLU = re.compile(r"proje bütçesi|toplam bütçe|bütçe üst|destek üst limit|bütçe sınır|destek tutar|burs miktar|toplam destek|call budget|total budget|indicative budget|bütçeye sahip", re.I)
 VER = 2
@@ -43,7 +43,7 @@ def cumleler(t):
 def cikar(t):
     cs = cumleler(t)
     bt = [c for c in cs if PARA.search(c) and KONU.search(c)]
-    puan = lambda c: (0 if GUCLU.search(c) else 1 if re.search(r"bütçe|tutar|azami|en fazla|limit|budget|maximum", c, re.I) else 2) + (3 if GURULTU.search(c) else 0)
+    puan = lambda c: (0 if GUCLU.search(c) else 1 if re.search(r"bütçe|tutar|azami|en fazla|limit|budget|maximum", c, re.I) else 2) + (3 if GURULTU.search(c) and not GUCLU.search(c) else 0)
     bt.sort(key=puan)
     gor, secilen = set(), []
     for c in bt:
