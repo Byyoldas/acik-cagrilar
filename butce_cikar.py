@@ -12,7 +12,11 @@ UA = {"User-Agent": "Mozilla/5.0 (compatible; AcikCagrilarBot/1.0)"}
 YENILE = timedelta(days=7)
 PARA = re.compile(r"(\d[\d.,]*\s*(?:milyon|bin)?\s*(?:TL|₺|TRY|Euro|EUR|€|USD|\$|Avro))|((?:TL|₺|€)\s*\d[\d.,]*)", re.I)
 KONU = re.compile(r"bütçe|destek tutar|destek limit|azami|en fazla|üst limit|toplam|proje başına|burs miktar|aylık|ödenek|budget|funding|up to|maximum", re.I)
-SURE = re.compile(r"(?:süre\w*|duration)[^.\n]{0,80}?(?:en fazla|azami|maksimum|up to|maximum)?\s*(\d{1,2})\s*(ay|yıl|months?|years?)|(?:en fazla|azami|maksimum|up to|maximum)\s*(\d{1,2})\s*(ay|yıl|months?|years?)", re.I)
+SURE_CUMLE = re.compile(r"proje süre|destek süre|süre üst|süre sınır|azami süre|duration|project length", re.I)
+SURE_SAYI = re.compile(r"(\d{1,2})\s*(ay|yıl|months?|years?)(?![\p{L}])" if False else r"(\d{1,2})\s*(ay|yıl|months?|years?)(?![a-zçğıöşüA-ZÇĞİÖŞÜ])", re.I)
+GURULTU = re.compile(r"seyahat|kilometre|yolluk|yol,? konaklama|konaklama|yemek|kongre|konferans|toplantı|gündelik|harcırah|katılım ücreti|ödeme yapılmaktadır|brüt", re.I)
+GUCLU = re.compile(r"proje bütçesi|toplam bütçe|bütçe üst|destek üst limit|bütçe sınır|destek tutar|burs miktar|toplam destek|call budget|total budget|indicative budget|bütçeye sahip", re.I)
+VER = 2
 
 def indir(url):
     req = urllib.request.Request(url, headers=UA)
@@ -37,21 +41,24 @@ def cumleler(t):
     return [c.strip() for c in re.split(r"(?<=[.;:!?])\s+|\n{2,}|\n(?=[•\-–●])", t) if 25 <= len(c.strip()) <= 400]
 
 def cikar(t):
-    bt = [c for c in cumleler(t) if PARA.search(c) and KONU.search(c)]
-    # önce 'bütçe/tutar/azami' geçenler, sonra diğerleri
-    bt.sort(key=lambda c: 0 if re.search(r"bütçe|tutar|azami|en fazla|limit|budget|maximum", c, re.I) else 1)
+    cs = cumleler(t)
+    bt = [c for c in cs if PARA.search(c) and KONU.search(c)]
+    puan = lambda c: (0 if GUCLU.search(c) else 1 if re.search(r"bütçe|tutar|azami|en fazla|limit|budget|maximum", c, re.I) else 2) + (3 if GURULTU.search(c) else 0)
+    bt.sort(key=puan)
     gor, secilen = set(), []
     for c in bt:
         k = c[:60]
-        if k in gor: continue
-        gor.add(k); secilen.append(c)
+        if k in gor or puan(c) >= 3 and secilen: continue
+        gor.add(k); secilen.append(c[:300])
         if len(secilen) == 2: break
+    if secilen and puan(secilen[0]) >= 3: secilen = []        # yalnızca gürültülü (yol/konaklama vb.) cümle varsa yazma
     sure = ""
-    m = SURE.search(re.sub(r"\s+", " ", t))
-    if m:
-        n, b = (m.group(1), m.group(2)) if m.group(1) else (m.group(3), m.group(4))
-        b = {"ay": "ay", "yıl": "yıl"}.get(b.lower(), b.lower())
-        sure = f"{n} {b} (otomatik)"
+    for c in cs:
+        if SURE_CUMLE.search(c):
+            m = SURE_SAYI.search(c)
+            if m:
+                b = m.group(2).lower(); b = {"ay": "ay", "yıl": "yıl"}.get(b, b)
+                sure = f"{m.group(1)} {b} (otomatik)"; break
     return " | ".join(secilen), sure
 
 def calistir(rows, manuel_enrich, log=print):
@@ -62,12 +69,12 @@ def calistir(rows, manuel_enrich, log=print):
         if r[0] in KAYNAKLAR and r[8] and r[8].startswith("http"): urller.setdefault(r[8], r[0])
     for u in urller:
         o = onb.get(u)
-        if o and now - datetime.fromisoformat(o["t"]) < YENILE: continue
+        if o and o.get("v") == VER and now - datetime.fromisoformat(o["t"]) < YENILE: continue
         try:
             t, tur = metin(u); b, s = cikar(t)
-            onb[u] = {"t": now.isoformat(timespec="seconds"), "tur": tur, "butce": b, "sure": s}
+            onb[u] = {"v": VER, "t": now.isoformat(timespec="seconds"), "tur": tur, "butce": b, "sure": s}
         except Exception as e:
-            onb[u] = {"t": now.isoformat(timespec="seconds"), "hata": str(e)[:120], "butce": "", "sure": ""}
+            onb[u] = {"v": VER, "t": now.isoformat(timespec="seconds"), "hata": str(e)[:120], "butce": "", "sure": ""}
             log(f"butce: {u} -> {e}")
     CACHE.write_text(json.dumps({u: onb[u] for u in urller}, ensure_ascii=False, indent=1), "utf-8")
 
