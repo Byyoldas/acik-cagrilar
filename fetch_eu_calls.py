@@ -117,6 +117,8 @@ def main(out_path="eu_calls.json"):
         if casc and first(m, "callccm2Id"):   # API'nin verdiği adres boş sayfa açar; portalın kendi bağlantısı çağrı numarasını kullanır
             url = ("https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/"
                    "competitive-calls-cs/" + first(m, "callccm2Id"))
+        if not casc and code:                   # konu bağlantısı: portalın topic-details adresi
+            url = "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/" + code
         start = first(m, "startDate")[:10]
         rows.append([src,
                      pname + " · " + ("Kademeli fonlama (üçüncü taraf çağrısı)" if casc else "Doğrudan çağrı (AB)"),
