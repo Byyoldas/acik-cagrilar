@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Açık Çağrılar</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #1b2430; --muted: #5f6b7a; --line: #e3e7ed;
+    --accent: #00338D; --accent-soft: #e6ebf5; --on-accent: #ffffff; --brand2: #A30050;
+    --urgent-bg: #f8e4ed; --urgent-fg: #A30050;
+    --soon-bg: #fff3dc; --soon-fg: #8a5a00;
+    --ok-bg: #e8f3ec; --ok-fg: #1d6b3a;
+    --cont-bg: #e9eef6; --cont-fg: #33507a;
+    --shadow: 0 1px 2px rgba(20,30,50,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12161c; --card: #1a2029; --text: #e8ecf1; --muted: #9aa6b5; --line: #2a3340;
+      --accent: #8fb0f0; --accent-soft: #1b2740; --on-accent: #0b1a3d; --brand2: #ff8cbc;
+      --urgent-bg: #3d1a2b; --urgent-fg: #ff8cbc;
+      --soon-bg: #3b2f14; --soon-fg: #f5c46a;
+      --ok-bg: #173223; --ok-fg: #7fd3a0;
+      --cont-bg: #1f2a3a; --cont-fg: #9db8e0;
+      --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 32px 16px 56px; }
+  h1 { margin: 0 0 4px; font-size: 1.9rem; letter-spacing: -.01em; }
+  .lead { margin: 0 0 20px; color: var(--muted); }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 8px; }
+  .search { flex: 1 1 240px; min-width: 0; padding: 10px 12px; border: 1px solid var(--line);
+    border-radius: 10px; background: var(--card); color: var(--text); font: inherit; }
+  .search:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--line); background: var(--card); color: var(--text); font: inherit;
+    font-size: .88rem; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .subchips { margin: 8px 0 0 12px; padding-left: 12px; border-left: 3px solid var(--brand2); }
+  .subchips:empty { display: none; }
+  .dl { margin-left: auto; font: inherit; font-size: .88rem; padding: 7px 12px; border-radius: 10px;
+    border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
+  .dl:hover, .chip:hover { border-color: var(--accent); }
+  .stats { color: var(--muted); font-size: .9rem; margin: 10px 0 0; }
+
+  h2 { font-size: 1.2rem; margin: 32px 0 4px; display: flex; align-items: baseline; gap: 8px; }
+  h2 .n { font-size: .85rem; font-weight: 500; color: var(--muted); }
+  .sub { margin: 0 0 12px; color: var(--muted); font-size: .9rem; }
+  h3.group { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted);
+    margin: 22px 0 8px; font-weight: 600; }
+
+  .item { display: grid; grid-template-columns: 1fr auto; gap: 8px 20px; background: var(--card);
+    border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
+    box-shadow: var(--shadow); }
+  .item.is-urgent { border-left: 4px solid var(--urgent-fg); }
+  .item h3 { margin: 4px 0 2px; font-size: 1.02rem; line-height: 1.35; font-weight: 600; }
+  .prog { margin: 0; color: var(--muted); font-size: .85rem; }
+  .note { margin: 4px 0 0; color: var(--muted); font-size: .82rem; font-style: italic; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { font-size: .72rem; font-weight: 600; padding: 2px 8px; border-radius: 6px;
+    background: var(--accent-soft); color: var(--accent); }
+  .tag.plain { background: transparent; border: 1px solid var(--line); color: var(--muted); font-weight: 500; }
+
+  .when { text-align: right; min-width: 210px; }
+  .range { font-size: .88rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .range b { color: var(--text); font-weight: 600; }
+  .badge { display: inline-block; margin-top: 6px; font-size: .8rem; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px; }
+  .badge.urgent { background: var(--urgent-bg); color: var(--urgent-fg); }
+  .badge.soon { background: var(--soon-bg); color: var(--soon-fg); }
+  .badge.ok { background: var(--ok-bg); color: var(--ok-fg); }
+  .badge.cont { background: var(--cont-bg); color: var(--cont-fg); }
+  .opens { display: block; margin-top: 4px; font-size: .78rem; color: var(--muted); }
+
+  .links { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+    padding-top: 10px; border-top: 1px solid var(--line); }
+  .links a { font-size: .9rem; color: var(--accent); text-decoration: none; font-weight: 500; }
+  .links a:hover { text-decoration: underline; }
+  .links a.apply { background: var(--accent); color: var(--on-accent); padding: 6px 14px; border-radius: 8px; }
+  .links a.apply:hover { text-decoration: none; opacity: .9; }
+
+  details.det { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 8px; }
+  details.det summary { cursor: pointer; font-size: .88rem; font-weight: 600; color: var(--accent); }
+  .dgrid { display: grid; grid-template-columns: 150px 1fr; gap: 6px 14px; margin: 10px 0 0; font-size: .88rem; }
+  .dgrid dt { color: var(--muted); } .dgrid dd { margin: 0; }
+  .vflag { display: inline-block; margin-top: 8px; font-size: .75rem; padding: 2px 8px; border-radius: 6px; }
+  .vflag.dogrulandi { background: var(--ok-bg); color: var(--ok-fg); }
+  .vflag.kismi { background: var(--cont-bg); color: var(--cont-fg); }
+  .vflag.celiski { background: var(--urgent-bg); color: var(--urgent-fg); }
+  @media (max-width: 640px) { .dgrid { grid-template-columns: 1fr; } }
+  .tag.new { background: var(--brand2); color: var(--on-accent); }
+  h1 { color: var(--accent); }
+  h2 { border-left: 4px solid var(--brand2); padding-left: 10px; }
+  .newbox { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    box-shadow: var(--shadow); }
+  .newrow { display: grid; grid-template-columns: 92px 1fr auto; gap: 4px 16px; align-items: center;
+    padding: 11px 16px; text-decoration: none; color: var(--text); border-top: 1px solid var(--line); }
+  .newrow:first-child { border-top: 0; }
+  .newrow:hover { background: var(--accent-soft); }
+  .newdate { font-size: .82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .newtitle { font-weight: 600; font-size: .95rem; line-height: 1.35; }
+  .newmeta { font-size: .82rem; color: var(--muted); text-align: right; white-space: nowrap; }
+  .newmeta b { color: var(--text); font-weight: 600; }
+  .newmeta .badge { margin: 0 0 0 6px; padding: 2px 8px; }
+  .empty { padding: 28px; text-align: center; color: var(--muted); background: var(--card);
+    border: 1px dashed var(--line); border-radius: 12px; }
+  footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: .82rem; }
+  footer a { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .item { grid-template-columns: 1fr; }
+    .when { text-align: left; min-width: 0; }
+    .dl { margin-left: 0; }
+    .newrow { grid-template-columns: 1fr; }
+    .newmeta { text-align: left; white-space: normal; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Açık Çağrılar</h1>
+  <p class="lead">TÜBİTAK başvuru sistemlerinde şu anda açık olan çağrı ve programlar.</p>
+
+  <div class="controls">
+    <input class="search" id="q" type="search" placeholder="Çağrı, program veya kod ara…" aria-label="Ara">
+    <button class="dl" id="dl" type="button">Excel için indir (CSV)</button>
+  </div>
+  <div class="chips" id="chips" role="group" aria-label="Kaynak filtresi"></div>
+  <div class="chips subchips" id="subchips" role="group" aria-label="Ufuk Avrupa çağrı türü"></div>
+  <p class="stats" id="stats"></p>
+
+  <div id="list"></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+/* ---------------------------------------------------------------
+   DEMO VERİSİ — 26.10.2026 tarihinde TÜBİTAK sayfalarından alınmıştır.
+   Canlı sürümde bu dizi, günlük çalışan betik tarafından üretilen
+   JSON dosyasından yüklenecektir. Süresi dolan çağrılar, tarayıcıdaki
+   güncel saate göre otomatik gizlenir.
+   Satır: [kaynak, program, çağrı, kategori, kod, başlangıç, bitiş, 2.aşama, bilgi notu, programId, not]
+   --------------------------------------------------------------- */
+let DATA_DATE = "26.10.2026";
+
+const SOURCES = {
+  ardeb:  { label: "ARDEB",          full: "Araştırma Destek Programları", base: "https://ardeb-pbs.tubitak.gov.tr" },
+  uidb:   { label: "UIDB",           full: "Uluslararası İşbirliği",       base: "https://uidb-pbs.tubitak.gov.tr" },
+  bt:     { label: "Bilim ve Toplum", full: "Bilim ve Toplum",             base: "https://bilimtoplum-pbs.tubitak.gov.tr" },
+  bideb:  { label: "BİDEB",          full: "Bilim İnsanı Destek Programları", base: "https://ebideb.tubitak.gov.tr/basvuruacikprogramlar.htm", apply: "https://tybs.tubitak.gov.tr/" },
+  istka:  { label: "İSTKA",          full: "İstanbul Kalkınma Ajansı",     base: "https://www.istka.org.tr/acik-destek-programlari", noApply: true, linkLabel: "Programı incele ve başvur" },
+  eu:     { label: "Ufuk Avrupa",   full: "Ufuk Avrupa (AB Funding & Tenders Portalı)", base: "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals?status=31094502&frameworkProgramme=43108390", noApply: true, linkLabel: "Portalda aç", hideInAll: true },
+  tuseb:  { label: "TÜSEB",          full: "Türkiye Sağlık Enstitüleri Başkanlığı", base: "https://proje-destek.tuseb.gov.tr/", noApply: true, linkLabel: "Çağrıyı incele ve başvur" },
+  duyuru: { label: "Duyuru",         full: "TÜBİTAK Duyuruları (başvuru sistemi listelerinde yer almayan çağrılar)", base: "https://tubitak.gov.tr/tr/duyuru", noApply: true }
+};
+const NEW_DAYS = 30; // "Yeni açılan" penceresi (gün)
+
+const U = "https://tubitak.gov.tr/tr/destekler/akademik/ulusal-destek-programlari/";
+const DATA = [
+  // ARDEB
+  ["ardeb","1002 - HIZLI DESTEK PROGRAMI","1002-A HIZLI DESTEK MODÜLÜ - KKTC","","","","",0,U+"1002-hizli-destek-modulu",2],
+  ["ardeb","1002 - HIZLI DESTEK PROGRAMI","1002-A HIZLI DESTEK MODÜLÜ","","","","",0,U+"1002-hizli-destek-modulu",2],
+  ["ardeb","1002 - HIZLI DESTEK PROGRAMI","1002-B ACİL DESTEK MODÜLÜ","","","","",0,U+"1002-b-acil-destek-modulu",2],
+  ["ardeb","1005 - ULUSAL YENİ FİKİRLER VE ÜRÜNLER ARAŞTIRMA DESTEK PROGRAMI","KKTC 1005 ULUSAL YENİ FİKİRLER VE ÜRÜNLER ARAŞTIRMA DESTEK PROGRAMI","","","","",0,U+"1005-ulusal-yeni-fikirler-ve-urunler-arastirma-destek-programi",36],
+  ["ardeb","1005 - ULUSAL YENİ FİKİRLER VE ÜRÜNLER ARAŞTIRMA DESTEK PROGRAMI","ULUSAL YENİ FİKİRLER VE ÜRÜNLER ARAŞTIRMA DESTEK PROGRAMI","","","","",0,U+"1005-ulusal-yeni-fikirler-ve-urunler-arastirma-destek-programi",36],
+  ["ardeb","3005 - SOSYAL VE BEŞERİ BİLİMLERDE YENİLİKÇİ ÇÖZÜMLER ARAŞTIRMA PROJELERİ DESTEKLEME PROGRAMI","3005-A POLİTİKA GELİŞTİRME MODÜLÜ","","","","",0,"",92],
+  ["ardeb","3005 - SOSYAL VE BEŞERİ BİLİMLERDE YENİLİKÇİ ÇÖZÜMLER ARAŞTIRMA PROJELERİ DESTEKLEME PROGRAMI","3005-B TEKNOLOJİK İLERLEMELERİN TOPLUMSAL ETKİLERİ MODÜLÜ","","","","",0,"",92],
+  ["ardeb","3005 - SOSYAL VE BEŞERİ BİLİMLERDE YENİLİKÇİ ÇÖZÜMLER ARAŞTIRMA PROJELERİ DESTEKLEME PROGRAMI","KKTC 3005-A POLİTİKA GELİŞTİRME MODÜLÜ","","","","",0,"",92],
+  ["ardeb","3005 - SOSYAL VE BEŞERİ BİLİMLERDE YENİLİKÇİ ÇÖZÜMLER ARAŞTIRMA PROJELERİ DESTEKLEME PROGRAMI","KKTC 3005-B TEKNOLOJİK İLERLEMELERİN TOPLUMSAL ETKİLERİ MODÜLÜ","","","","",0,"",92],
+  ["ardeb","3501 - KARİYER GELİŞTİRME PROGRAMI","KKTC 3501 KARİYER GELİŞTİRME PROGRAMI","","","","",0,U+"3501-kariyer-gelistirme-programi",16],
+  ["ardeb","3501 - KARİYER GELİŞTİRME PROGRAMI","KARİYER GELİŞTİRME PROGRAMI","","","","",0,U+"3501-kariyer-gelistirme-programi",16],
+  ["ardeb","BİLİMSEL VE TEKNOLOJİK ARAŞTIRMA PROJELERİ - ÖZEL ÇAĞRILAR","1004 Platformları İle İş Birliği Çağrısı","1001","1004-İş Birliği","","",0,"https://tubitak.gov.tr/sites/default/files/2024-08/1004_platformlari_ile_isbirligi_cagrisi_bilgi_notu.pdf",85],
+
+  // UIDB
+  ["uidb","COST DESTEKLERİ","2515 - COST Aksiyon Üyeleri Ar-Ge Destek Programı","","","","",0,"https://www.tubitak.gov.tr/tr/kurumsal/uluslararasi/cok-tarafli-programlar/cost/icerik-2515-cost-aksiyon-uyeleri-ar-ge-destek-programi",47],
+  ["uidb","COST DESTEKLERİ","COST Aksiyonu Yönetim Komitesi (MC) Katılım Başvurusu - Destek Mektubu ile Başvuru","","","","",0,"https://tubitak.gov.tr/tr/destekler/uluslararasi-birlikleri/coklu-birligi-programlari/cost-bilim-ve-teknolojide-avrupa-isbirligi",47],
+  ["uidb","COST DESTEKLERİ","COST Aksiyonu Yönetim Komitesi (MC) Katılım Başvurusu - Devam Eden/Tamamlanmış Proje ile Başvuru","","","","",0,"https://tubitak.gov.tr/tr/destekler/uluslararasi-birlikleri/coklu-birligi-programlari/cost-bilim-ve-teknolojide-avrupa-isbirligi",47],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI (1. AŞAMA)","CETPartnership 2026 Ortak Çağrısı - 1. Aşama","Çoklu İşbirliği 1. Aşama","CETP 2026-1","2026-09-08","2026-10-27T23:59",0,"https://ufukavrupa.org.tr/tr/haberler/cetpartnership-2026-ortak-cagrisi",73],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI (1. AŞAMA)","WATER4ALL Ortaklığı 2026 Çağrısı 1. Aşama","Çoklu İşbirliği 1. Aşama","Water4ALL_2026_1","2026-09-08","2026-11-16T23:59",0,"https://ufukavrupa.org.tr/tr/node/6723",73],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI (1. AŞAMA)","DUT Ortaklığı 2026 Yılı Çağrısı 1. Aşama","Çoklu İşbirliği 1. Aşama","DUT_2026_1","2026-09-16","2026-11-20T23:59",0,"https://ufukavrupa.org.tr/sites/default/files/users/user20728/DUT%202026_%C4%B0ki%20a%C5%9Famal%C4%B1_S%C3%BCre%C3%A7%20Dok%C3%BCman%C4%B1.pdf",73],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI (1. AŞAMA)","FOREST 2026 Yılı Çağrısı (1. Aşama)","Çoklu İşbirliği 1. Aşama","FOREST-2026-1","2026-09-15","2026-12-08T23:59",0,"https://tubitak.gov.tr/sites/default/files/2026-09/FOREST_2026_Cagrisi_Ulusal_Surec_Dokumani.pdf",73],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI (1. AŞAMA)","BIODIVERSA+ 2026 Yılı BiodivFuture 1. Aşama Çağrısı","Çoklu İşbirliği (1. Aşama)","BiodivERsA+","2026-10-14","2026-11-16T23:59",0,"https://tubitak.gov.tr/sites/default/files/2026-10/biodiversa_2026_ulusal_basvuru_kurallari.pdf",73],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI","IRASME","Çoklu İşbirliği","IRASME","","",0,"https://tubitak.gov.tr/sites/default/files/2025-06/IRASME_Ulusal_Surecler_Dokumani.pdf",65],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI","CORNET","Çoklu İşbirliği","CRNT","","",0,"https://tubitak.gov.tr/sites/default/files/2026-02/CORNET-Ulusal_Kurallar_Dokumani.pdf",65],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI","Marlen 2026 Yılı Tek Aşamalı Çağrısı","Çoklu İşbirliği Tek Aşama","MARLEN-2026","2026-05-01","2026-11-03T17:30",0,"https://ufukavrupa.org.tr/sites/default/files/2026-04/MaRLEN_2026_Cagrisi_Tek%20a%C5%9Famal%C4%B1_S%C3%BCre%C3%A7%20Dok%C3%BCman%C4%B1.pdf",65],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI","EUROHPC-2025-NCC-01-01 (2. Aşama)","Çoklu İşbirliği 2. Aşama","EUROHPC-2025-NCC-01-01","2026-08-31","2026-11-02T23:59",1,"",65],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI","Belmont Forum - Resilience Ortak Araştırma Aksiyonu Çağrısı (2. Aşama)","Çoklu İşbirliği 2. Aşama","BLMNT FRM RLSNC 2","2026-10-12","2026-10-30T23:59",1,"https://tubitak.gov.tr/sites/default/files/2025-06/Iki_asamali_Surec_Dokumani_Resilience.pdf",65],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI","EP PerMed RTIC2026 (MultiPMData2026) Ortak Çağrısı 2. Aşama","Çoklu İşbirliği 2. Aşama","EP PerMed RTICs2026-2","2026-10-14","2026-10-30T23:59",1,"https://tubitak.gov.tr/sites/default/files/2025-10/EK_2_Ulusal_Basvuru_Kurallari_RTICs_2026_Olur_sonrasi_0.pdf",65],
+  ["uidb","ÇOKLU İŞBİRLİĞİ DESTEK PROGRAMLARI","LEAP-SE 2026 Ortak Çağrısı - 2. Aşama","Çoklu İşbirliği 2. Aşama","LEAP-SE 2026/2","2026-10-26","2026-11-30T23:59",1,"https://ufukavrupa.org.tr/tr/haberler/leap-se-2026-ortak-cagrisi-acildi",65],
+  ["uidb","İKİLİ İŞBİRLİĞİ DESTEK PROGRAMLARI","2501 - Araştırma Projeleri - ABD Ulusal Bilim Vakfı (NSF) ile İkili İşbirliği Programı","İkili İşbirliği","2501 NSF-Araştırma","","",0,"http://www.tubitak.gov.tr/tr/kurumsal/uluslararasi/ikili-isbirligi-destekleri/2501/icerik-2501-abd-ulusal-bilim-vakfi-nsf-ile-ikili-isbirligi-programi",49],
+  ["uidb","İKİLİ İŞBİRLİĞİ DESTEK PROGRAMLARI","2502 - Araştırma Projeleri - Bulgaristan Bilimler Akademisi (BAS) ile İkili İşbirliği Programı","İkili İşbirliği","2502 Bulgaristan BAS-Araştırma","","",0,"https://tubitak.gov.tr/tr/destekler/uluslararasi-birlikleri/ikili-birligi-programlari/2502-bulgaristan-bilimler-akademisi-bas-ile-ikili-isbirligi-programi",49],
+  ["uidb","İKİLİ İŞBİRLİĞİ DESTEK PROGRAMLARI","2507 - Araştırma Projeleri - Almanya Araştırmalar Konseyi (DFG) ile İkili İşbirliği Programı","İkili İşbirliği","2507 Almanya DFG-Araştırma","","",0,"https://tubitak.gov.tr/sites/default/files/2024-08/2507_TUBITAK_DFG_CfP_standingopen.pdf",49],
+  ["uidb","İKİLİ İŞBİRLİĞİ DESTEK PROGRAMLARI","2501 - Ar-Ge ve Yenilik Projeleri - ABD Ulusal Bilim Vakfı (NSF) ile İkili İşbirliği Programı","İkili İşbirliği","2501 NSF Amerika Ar-Ge ve Yenilik","","",0,"http://www.tubitak.gov.tr/tr/kurumsal/uluslararasi/ikili-isbirligi-destekleri/2501/icerik-2501-abd-ulusal-bilim-vakfi-nsf-ile-ikili-isbirligi-programi",49],
+  ["uidb","İKİLİ İŞBİRLİĞİ DESTEK PROGRAMLARI","2518 - Özbekistan Yükseköğretim, Bilim ve Yenilikler Bakanlığı (MHESI) ile İkili İşbirliği Çağrısı","İkili İşbirliği","2518 - MHESI- Özbekistan - Araştırma","2026-09-14","2026-12-14T23:59",0,"https://tubitak.gov.tr/sites/default/files/2026-09/2518-TUBITAK-MHESI-2026_Call_Text.pdf",49],
+  ["uidb","İKİLİ İŞBİRLİĞİ DESTEK PROGRAMLARI","2572 - Ürdün Ulusal Araştırma Geliştirme Merkezi (NCRD) ile İkili İşbirliği Çağrısı","İkili İşbirliği","2572 NCRD Ürdün Araştırma","2026-10-01","2026-12-31T23:59",0,"https://tubitak.gov.tr/sites/default/files/2026-09/TUBITAK-NCRD_Call_Text_2026.pdf",49],
+  ["uidb","İKİLİ İŞBİRLİĞİ DESTEK PROGRAMLARI","2531 - Alman Akademik Değişim Servisi (DAAD) ile İkili İşbirliği Seyahat Destek Çağrısı","İkili İşbirliği","2531 DAAD Almanya Seyahat","2026-10-07","2027-02-01T23:59",0,"https://tubitak.gov.tr/sites/default/files/2025-09/CfP_TUBITAK_DAAD_2025-26.pdf",49],
+
+  // Bilim ve Toplum
+  ["bt","BİLİM SÖYLEŞİLERİ","Bilim Söyleşileri Konuşmacı Başvurusu 2026-2027","","","2026-10-05","2026-11-05T17:30",0,"https://bilimsoylesileri.tubitak.gov.tr/tr",71],
+  ["bt","BİLİM SÖYLEŞİLERİ","Bilim Söyleşileri Okul/Kurum Başvurusu 2026-2027","","","2026-10-05","2026-11-05T17:30",0,"https://bilimsoylesileri.tubitak.gov.tr/tr",72],
+  ["bt","MİLLİ TEKNOLOJİ KULÜPLER BİRLİĞİ PROGRAMI","Milli Teknoloji Kulüpler Birliği Çağrısı","","","2025-03-31","2027-12-31T17:30",0,"https://tubitak.gov.tr/tr/destekler/bilim-toplum/ulusal-destek-programlari/milli-teknoloji-kulupler-birligi",103],
+  ["bt","4001 ULUSAL VE ULUSLARARASI YARIŞMA/ETKİNLİK KATILIM DESTEĞİ","4001-A Ulusal Yarışma/Etkinlik Katılım Desteği (3. Dönem)","","","","",0,"https://tubitak.gov.tr/4001",97],
+  ["bt","4001 ULUSAL VE ULUSLARARASI YARIŞMA/ETKİNLİK KATILIM DESTEĞİ","4001-B Uluslararası Yarışma/Etkinlik Katılım Desteği (3. Dönem)","","","","",0,"https://tubitak.gov.tr/4001",97],
+  ["bt","4003-T MİLLİ TEKNOLOJİ ATÖLYELERİ DESTEK PROGRAMI","4003-T Atölye Kurulum ve Faaliyet Dönemi Projesi Çağrısı","","","","",0,"https://tubitak.gov.tr/tr/destekler/bilim-toplum/ulusal-destek-programlari/milli-teknoloji-atolyeleri-proje-destegi",99],
+
+  // BİDEB (kapanış saati kaynakta yok → sadece tarih)
+  ["bideb","BİDEB","2204-B Ortaokul Öğrencileri Araştırma Projeleri Yarışması 2027/1","","","2026-10-21","2027-02-10",0,"http://tubitak.gov.tr/tr/yarismalar/icerik-ortaokul-ogrencileri-arastirma-projeleri-yarismasi",null],
+  ["bideb","BİDEB","2204-A Lise Öğrencileri Araştırma Projeleri Yarışması 2027/1","","","2026-09-28","2027-01-04",0,"http://tubitak.gov.tr/tr/yarismalar/icerik-lise-ogrencileri-arastirma-projeleri-yarismasi",null],
+  ["bideb","BİDEB","2247-B European Research Council (ERC) Support Program 2026/1","","","2026-02-12","2026-12-31",0,"http://www.tubitak.gov.tr/tr/burslar/doktora-sonrasi/arastirma-burs-programlari/icerik-2247-b-avrupa-arastirma-konseyi-erc-projeleri-guclendirme-destegi-programi",null],
+  ["bideb","BİDEB","2213-A Yurt Dışı Doktora Burs Programı 2026/1","","","2026-05-13","2026-12-31",0,"http://www.tubitak.gov.tr/2213a",null,"Bilimsel değerlendirmeler periyodik olarak yapılmaktadır."],
+  ["bideb","BİDEB","2211-E Doğrudan Yurt İçi Doktora Burs Programı 2026/2","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/bideb/2211",null,"Sonuç: E-posta ile bilgi verilecektir."],
+  ["bideb","BİDEB","2211-A Genel Yurt İçi Doktora Burs Programı 2026/2","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/bideb/2211",null,"Sonuç: E-posta ile bilgi verilecektir."],
+  ["bideb","BİDEB","2223-B Yurt İçi Bilimsel Etkinlik Düzenleme Desteği 2026/3","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/tr/destekler/bilimsel-etkinlik/etkinlik-duzenleme-destekleri/icerik-2223-b-yurt-ici-bilimsel-etkinlik-duzenleme-destegi",null],
+  ["bideb","BİDEB","2223-C Çok Katılımlı Uluslararası Etkinlik Düzenleme Desteği 2026/3","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/tr/destekler/bilimsel-etkinlik/etkinlik-duzenleme-destekleri/icerik-2223-c-cok-katilimli-uluslararasi-etkinlik-duzenleme-destegi",null],
+  ["bideb","BİDEB","2205-Lisans Burs Programı 2026/2","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/tr/burslar/lisans/burs-programlari/icerik-2205-lisans-burs-programi",null],
+  ["bideb","BİDEB","2224-A Yurt Dışı Bilimsel Etkinliklere Katılma Desteği Programı 2026/3","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/tr/destekler/bilimsel-etkinlik/etkinliklere-katilma-destekleri/icerik-2224-a-yurt-disi-bilimsel-etkinliklere-katilimi-destekleme-programi",null],
+  ["bideb","BİDEB","2210-A Genel Yurt İçi Yüksek Lisans Burs Programı 2026/2","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/bideb/2210",null],
+  ["bideb","BİDEB","2210-E Doğrudan Yurt İçi Yüksek Lisans Burs Programı 2026/2","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/bideb/2210",null],
+  ["bideb","BİDEB","2224-B Yurt İçi Bilimsel Etkinliklere Katılım Desteği Programı 2026/3","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/tr/destekler/bilimsel-etkinlik/etkinliklere-katilma-destekleri/icerik-2224-b-yurt-ici-bilimsel-etkinliklere-katilimi-destekleme-programi",null],
+  ["bideb","BİDEB","2210-C Öncelikli Alanlara Yönelik Yurt İçi Yüksek Lisans Burs Programı 2026/2","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/bideb/2210",null],
+  ["bideb","BİDEB","2210-D Sanayiye Yönelik Yurt İçi Yüksek Lisans Burs Programı 2026/2","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/bideb/2210",null],
+  ["bideb","BİDEB","2211-C Öncelikli Alanlara Yönelik Yurt İçi Doktora Burs Programı 2026/2","","","2026-10-05","2026-10-27T17:30",0,"http://www.tubitak.gov.tr/bideb/2211",null],
+
+  // TÜBİTAK Duyuruları — PBS listelerinde olmayanlar; tarihler duyuru metninden alınmıştır.
+  // 12. alan: duyuru tarihi
+  ["duyuru","1007 – Kamu Kurumları AR-GE Projeleri (SAVTAG)","1007 Balistik Kıyafet Geliştirilmesi Projesi Çağrısı","Kamu Kurumları AR-GE","","2026-10-16","2026-12-16T17:00",0,"https://tubitak.gov.tr/tr/duyuru/1007-programi-balistik-kiyafet-gelistirilmesi-projesi-cagrisi-acildi",null,"","2026-10-16"],
+  ["duyuru","1007 – Kamu Kurumları AR-GE Projeleri (SAVTAG)","1007 Balistik Amaçlı Aromatik Poliamid Geliştirilmesi Projesi Çağrısı","Kamu Kurumları AR-GE","","2026-10-16","2026-12-16T17:00",0,"https://tubitak.gov.tr/tr/duyuru/1007-programi-balistik-amacli-aromatik-poliamid-gelistirilmesi-projesi-cagrisi-acildi",null,"","2026-10-16"],
+  ["duyuru","1007 – Kamu Kurumları AR-GE Projeleri (SAVTAG)","1007 Alternatif Haberleşme Sistemi Geliştirilmesi Projesi Çağrısı","Kamu Kurumları AR-GE","","2026-10-09","2026-12-14T17:00",0,"https://tubitak.gov.tr/tr/duyuru/1007-programi-alternatif-haberlesme-sistemi-gelistirilmesi-projesi-cagrisi-acildi",null,"","2026-10-02"],
+  ["duyuru","2209 – Üniversite Öğrencileri Araştırma Projeleri (BİDEB)","2209-A ve 2209-B Üniversite Öğrencileri Araştırma Projeleri 2026 Yılı Çağrıları","Burs / Proje Desteği","","","2026-11-11",0,"https://tubitak.gov.tr/tr/duyuru/2209-universite-ogrencileri-arastirma-projeleri-destekleme-programi-ve-2209-b-universite-ogrencileri-sanayiye-yonelik-arastirma-projeleri-destegi-programi-2026-yili-cagrilari-acildi",null,"Duyuruda bitiş saati belirtilmemiş.","2026-10-09"],
+  ["duyuru","2247 – Ulusal Lider Araştırmacılar (BİDEB)","2247-A Ulusal Lider Araştırmacılar ve 2247-D Ulusal Genç Liderler Programı 2026 Yılı Çağrıları","Araştırmacı Desteği","","","2026-12-15",0,"https://tubitak.gov.tr/tr/duyuru/2247-ulusal-lider-arastirmacilar-programi-ve-2247-d-ulusal-genc-liderler-programi-2026-yili-cagrilari-acildi",null,"Başvurular TYBS üzerinden alınır. Duyuruda bitiş saati belirtilmemiş.","2026-10-08"],
+  ["duyuru","EUREKA","Eureka Globalstars Japonya 2026 Çağrısı","Uluslararası Ortak Çağrı","","2026-10-07","2027-01-20",0,"https://tubitak.gov.tr/tr/duyuru/eureka-globalstars-japonya-2026-cagrisi-acildi",null,"Tarih, uluslararası başvuru son tarihidir; ulusal süreç için duyuruya bakınız.","2026-10-08"],
+  ["duyuru","EMBO","EMBO Doktora Sonrası Araştırma Bursları 2027 Yılı 1. Dönem","Burs","","","2027-01-22T16:00",0,"https://tubitak.gov.tr/tr/duyuru/embo-doktora-sonrasi-arastirma-burslari-2027-yili-1-donem-basvurulari-basladi",null,"Kaynakta saat 14:00 (CET) olarak verilmiş; Türkiye saatiyle 16:00.","2026-10-01"],
+  ["duyuru","Yenilikçi KOBİ'ler İçin Avrupa Ortaklığı","Yenilikçi KOBİ'ler İçin Avrupa Ortaklığı (Innowwide) 5. Çağrısı","Ortaklık Çağrısı","","2026-10-01","2026-12-01T16:00",0,"https://tubitak.gov.tr/tr/duyuru/yenilikci-kobiler-icin-avrupa-ortakligi-innowwide-5-cagrisi-acildi",null,"Kaynakta saat 14:00 (CET) olarak verilmiş; Türkiye saatiyle 16:00.","2026-10-01"],
+  ["duyuru","Ufuk Avrupa – Sürdürülebilir Mavi Ekonomi Ortaklığı (SBEP)","SBEP 2026 Yılı Çok Uluslu Ortak Çağrısı – 1. Aşama (Ön-Proje)","Çoklu İşbirliği 1. Aşama","","","2026-11-23T23:59",0,"https://tubitak.gov.tr/tr/duyuru/ufuk-avrupa-programi-surdurulebilir-mavi-ekonomi-ortakligi-sbep-2026-yili-cok-uluslu-ortak-cagrisi-basvuruya-acildi",null,"Tarih, ulusal başvuru son tarihidir (uluslararası: 16.11.2026 15:00 CET; e-imza: 26.11.2026).","2026-09-27"]
+  ,
+  // Ufuk Avrupa — F&T Portalı Search API (eu_calls.json, 2026-10-27T08:47+03:00). Saatler Brüksel→İstanbul çevrilmiştir; yalnızca tarih olanlarda saat API'de yok.
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Excellence Hubs", "Tek aşamalı", "HORIZON-WIDERA-2023-ACCESS-07-01", "2026-08-25", "2026-10-27T19:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45640341", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "EIC defence call", "Tek aşamalı", "HORIZON-EIC-2026-DEFENCE-01", "2026-06-30", "2026-10-28", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-DEFENCE-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Biotechnology for Healthy Ageing", "Tek aşamalı", "HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-02", "2026-07-22", "2026-10-28", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "DeepRAP: Deep Reasoning, Abstraction & Planning towards trustworthy Cognitive AI Systems", "Tek aşamalı", "HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03", "2026-07-22", "2026-10-28", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Advanced Materials for Miniaturised Energy Harvesting Systems", "Tek aşamalı", "HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-01", "2026-07-22", "2026-10-28", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "EITCULTURE Business Plan 2026", "Çok kesimli", "HORIZON-EIT-2025-KIC-IBA-CC", "2026-09-25", "2026-10-30T19:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939704", null, "Gösterilen tarih bir sonraki son tarihtir.", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Drive the evolution of the internet towards open and interoperable Web 4.0 and Virtual Worlds: building blocks in priority areas (RIA) (Virtual Worlds Partnership)", "Tek aşamalı", "HORIZON-CL4-2025-03-HUMAN-16", "2026-09-03", "2026-11-03T14:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48401785", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Open Internet Stack: development of technological commons/open-source 3C building blocks (RIA)", "Tek aşamalı", "HORIZON-CL4-2025-03-DATA-11", "2026-09-03", "2026-11-03T14:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48400841", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "EIC Accelerator 2026 - Short proposal", "Tek aşamalı", "HORIZON-EIC-2026-ACCELERATOR-01", "2025-11-06", "2026-11-04", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-ACCELERATOR-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Industrial leadership in AI, Data and Robotics – advanced human robot interaction (AI Data and Robotics Partnership) (IA)", "Tek aşamalı", "HORIZON-CL4-2023-DIGITAL-EMERGING-01-02", "2026-09-01", "2026-11-04T19:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45634882", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Demand-led innovation in security", "Tek aşamalı", "HORIZON-CL3-2026-01-SSRI-02", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Prevention and mitigation of misuse of synthetic biology for bioterrorism purposes", "Tek aşamalı", "HORIZON-CL3-2026-01-FCT-06", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-06", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Climate security and civil preparedness – new ways to develop pre- and post-crisis climate-change related scenarios for a more resilient Europe", "Tek aşamalı", "HORIZON-CL3-2026-01-DRS-05", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-05", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Development of innovative tools, processes, equipment and technologies through responses to disasters and emergencies for search and rescue in hazardous conditions", "Tek aşamalı", "HORIZON-CL3-2026-01-DRS-03", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Targeted innovative capabilities for the resilience of critical entities to natural and human-induced disasters, including hybrid scenarios", "Tek aşamalı", "HORIZON-CL3-2026-01-INFRA-03", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-INFRA-03", null, "Aynı çağrı TÜBİTAK kaynaklarında ulusal son tarihle de listelenebilir; burada AB/konsorsiyum tarihi gösterilir.", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Crime prevention approaches, online and off-line, tackling the nexus between addictions and crime", "Tek aşamalı", "HORIZON-CL3-2026-01-FCT-04", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-04", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Improving capabilities of law enforcement to counter climate-related challenges", "Tek aşamalı", "HORIZON-CL3-2026-01-FCT-01", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Reliability of age assessment methods in the context of security and border management", "Tek aşamalı", "HORIZON-CL3-2026-01-BM-03", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-BM-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Open topic on supporting disruptive technological innovations for civil security", "Tek aşamalı", "HORIZON-CL3-2026-01-SSRI-01", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Development of ecosystem and next-generation capabilities for a secured European Critical Communication System in civil security", "Tek aşamalı", "HORIZON-CL3-2026-01-SSRI-04", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-04", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Accessible and available travel facilitation", "Tek aşamalı", "HORIZON-CL3-2026-01-BM-02", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-BM-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Missing persons: prevention and investigation", "Tek aşamalı", "HORIZON-CL3-2026-01-FCT-03", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Designing new ways of risk awareness and enhanced disaster preparedness", "Tek aşamalı", "HORIZON-CL3-2026-01-DRS-01", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Open topic on driving innovation uptake of disaster risk solutions", "Tek aşamalı", "HORIZON-CL3-2026-01-DRS-04", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-04", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Enhancing the security of citizens against terrorism and lone-actor violence in confined spaces such as schools", "Tek aşamalı", "HORIZON-CL3-2026-01-FCT-05", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-05", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Advanced border surveillance and situational awareness", "Tek aşamalı", "HORIZON-CL3-2026-01-BM-01", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-BM-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Open topic on preventing and countering the misuse of emerging technologies for criminal purposes, including issues related to lawful access to data", "Tek aşamalı", "HORIZON-CL3-2026-01-FCT-02", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Multi-hazard approach and cumulative / cascading impacts", "Tek aşamalı", "HORIZON-CL3-2026-01-DRS-02", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Security challenges of the green transition in urban und peri urban areas", "Tek aşamalı", "HORIZON-CL3-2026-01-INFRA-02", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-INFRA-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Tools and processes to support stress tests of critical infrastructure", "Tek aşamalı", "HORIZON-CL3-2026-01-INFRA-01", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-INFRA-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Public procurement of innovation for security", "Tek aşamalı", "HORIZON-CL3-2026-01-SSRI-03", "2026-05-06", "2026-11-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "'Innovate to transform' support for SME's sustainability transition (CSA)", "Tek aşamalı", "HORIZON-CL4-2024-RESILIENCE-01-41", "2026-09-08", "2026-11-09T17:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45705096", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "European partnership rescuing biodiversity to safeguard life on Earth", "Çok kesimli", "HORIZON-CL6-2021-BIODIV-02-01", "2026-09-09", "2026-11-10T14:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/43966258", null, "Gösterilen tarih bir sonraki son tarihtir.", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "European Partnership Water Security for the Planet (Water4All)", "Çok kesimli", "HORIZON-CL6-2021-CLIMATE-01-02", "2026-09-08", "2026-11-10T17:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44093037", null, "Gösterilen tarih bir sonraki son tarihtir. Aynı çağrı TÜBİTAK kaynaklarında ulusal son tarihle de listelenebilir; burada AB/konsorsiyum tarihi gösterilir.", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Support for R&I policy making in the EU enlargement countries", "Çok kesimli", "HORIZON-WIDERA-2025-04-ACCESS-01", "2026-09-09", "2026-11-12T19:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48351428", null, "Gösterilen tarih bir sonraki son tarihtir.", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "European Partnership for a climate neutral, sustainable and productive Blue Economy", "Çok kesimli", "HORIZON-CL6-2022-GOVERNANCE-01-02", "2026-09-14", "2026-11-16T17:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44092120", null, "Gösterilen tarih bir sonraki son tarihtir. Aynı çağrı TÜBİTAK kaynaklarında ulusal son tarihle de listelenebilir; burada AB/konsorsiyum tarihi gösterilir.", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Quantum-Testing Infrastructure for Quantum Technologies", "Tek aşamalı", "HORIZON-JU-EUROHPC-2026-QTI-13-01", "2026-08-13", "2026-11-17", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QTI-13-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Neutral-Atom Platform Technologies", "Tek aşamalı", "HORIZON-JU-EUROHPC-2026-NAPT-11-01", "2026-08-13", "2026-11-17", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-NAPT-11-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Quantum Experimental Pilot Lines for Quantum Technologies", "Tek aşamalı", "HORIZON-JU-EUROHPC-2026-QEXP-14-01", "2026-08-13", "2026-11-17", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QEXP-14-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Superconducting Platform Technologies", "Tek aşamalı", "HORIZON-JU-EUROHPC-2026-SPT-10-01", "2026-08-13", "2026-11-17", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-SPT-10-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Trapped-Ion Platform Technologies", "Tek aşamalı", "HORIZON-JU-EUROHPC-2026-TIPT-09-01", "2026-08-13", "2026-11-17", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-TIPT-09-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Next-Generation QKD Systems", "Tek aşamalı", "HORIZON-JU-EUROHPC-2026-NQKD-12-01", "2026-08-13", "2026-11-17", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-NQKD-12-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Implementing co-funded action plans for connected regional innovation valleys", "Tek aşamalı", "HORIZON-EIE-2023-CONNECT-03-01", "2026-09-15", "2026-11-17T01:59", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45659376", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Co-Funded Partnership: Driving Urban Transitions to a sustainable future (DUT)", "Çok kesimli", "HORIZON-CL5-2021-D2-01-16", "2026-09-01", "2026-11-17T15:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44121492", null, "Gösterilen tarih bir sonraki son tarihtir. Aynı çağrı TÜBİTAK kaynaklarında ulusal son tarihle de listelenebilir; burada AB/konsorsiyum tarihi gösterilir.", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Co-creating solutions for soil health in Living Labs", "Tek aşamalı", "HORIZON-MISS-2024-SOIL-01-01", "2026-09-01", "2026-11-19T17:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/46597762", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "MSCA Doctoral Networks 2026", "Tek aşamalı", "HORIZON-MSCA-2026-DN-01-01", "2026-05-28", "2026-11-24", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MSCA-2026-DN-01-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "RAISE Doctoral Networks for AI in Science (RAISE pilot)", "Tek aşamalı", "HORIZON-RAISE-2026-01-03", "2026-05-28", "2026-11-24", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2026-01-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Additional activities for the European Partnership of Agriculture of Data", "Tek aşamalı", "HORIZON-CL6-2026-04-GOVERNANCE-01", "2026-08-25", "2026-11-26", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-04-GOVERNANCE-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Experimental local action for EU missions: knowledge institutions as focal points of transdisciplinary research and innovation activities with European outreach", "Tek aşamalı", "HORIZON-MISS-2024-CROSS-02-01", "2026-09-28", "2026-11-29T01:59", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/46945037", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Resource assessment for deep sedimentary and basement reservoirs", "Tek aşamalı", "HORIZON-CL5-2026-11-D3-06", "2026-08-04", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-06", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Improved system design for innovative PV applications (EUPI-PV Partnership)", "Tek aşamalı", "HORIZON-CL5-2026-11-D3-14", "2026-08-04", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-14", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Demonstration of solid biofuel supply and conversion to high efficiency CHP from fully sustainable regional value chains", "Tek aşamalı", "HORIZON-CL5-2026-11-D3-05", "2026-08-04", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-05", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "The European Prize for Women Innovators", "Tek aşamalı", "HORIZON-EIC-2026-PRIZE-WIP", "2026-09-02", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Women Leadership Category", "Tek aşamalı", "HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP", "2026-09-02", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Data sharing to support the training and development of AI foundation models in the energy sector", "Tek aşamalı", "HORIZON-CL5-2026-11-D3-23", "2026-08-04", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-23", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "De-risking renewable fuel technologies through transnational pre-commercial procurement of renewable fuel industrial value chains", "Tek aşamalı", "HORIZON-CL5-2026-11-D3-04", "2026-08-04", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-04", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Rising Innovators category", "Tek aşamalı", "HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators", "2026-09-02", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Sustainable, inclusive, affordable and beautiful solutions for thermal comfort in buildings", "Tek aşamalı", "HORIZON-NEB-2026-01-REGEN-01", "2026-05-05", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Understanding capital market dynamics for increased investment in New European Bauhaus projects in neighbourhoods", "Tek aşamalı", "HORIZON-NEB-2026-01-BUSINESS-02", "2026-05-05", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Advancing sustainable maintenance and repair measures for existing buildings", "Tek aşamalı", "HORIZON-NEB-2026-01-REGEN-02", "2026-05-05", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Understanding inhabitant’s experiences of neighbourhoods to support their health and well-being", "Tek aşamalı", "HORIZON-NEB-2026-01-PARTICIPATION-03", "2026-05-05", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-PARTICIPATION-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Addressing homelessness through housing-led approaches aligned with the New European Bauhaus", "Tek aşamalı", "HORIZON-NEB-2026-01-PARTICIPATION-01", "2026-05-05", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-PARTICIPATION-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Innovative approaches for the spatial design of neighbourhoods", "Tek aşamalı", "HORIZON-NEB-2026-01-PARTICIPATION-02", "2026-05-05", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-PARTICIPATION-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Structurally addressing homelessness through coordinated social infrastructure and services in neighbourhoods", "Tek aşamalı", "HORIZON-NEB-2026-01-BUSINESS-01", "2026-05-05", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Approaches to reuse vacant, obsolete or underutilised spaces", "Tek aşamalı", "HORIZON-NEB-2026-01-BUSINESS-03", "2026-05-05", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Innovative solutions for the sustainable and beautiful use of vertical space", "Tek aşamalı", "HORIZON-NEB-2026-01-REGEN-03", "2026-05-05", "2026-12-01", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "European Partnership on Innovative SMEs", "Tek aşamalı", "HORIZON-EIE-2021-INNOVSMES-01-01", "2026-10-01", "2026-12-01T04:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44087099", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "European partnership: Forests and Forestry for a Sustainable Future", "Çok kesimli", "HORIZON-CL6-2025-01-CIRCBIO-15", "2026-09-15", "2026-12-02T13:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48213468", null, "Gösterilen tarih bir sonraki son tarihtir. Aynı çağrı TÜBİTAK kaynaklarında ulusal son tarihle de listelenebilir; burada AB/konsorsiyum tarihi gösterilir.", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Open source solutions for edge, cloud and mixed model applications to strengthen production and administrative capacities in agriculture", "Tek aşamalı", "HORIZON-CL6-2023-GOVERNANCE-01-13", "2026-09-29", "2026-12-02T19:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45657640", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Specific Grant Agreement to the FPA to reinforce the operations of the Climate-Neutral and Smart Cities Mission Platform", "Tek aşamalı", "HORIZON-MISS-2025-CIT-SGA", "2026-08-31", "2026-12-03T14:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48400288", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Community-led actions to restore our ocean, seas and waters", "Tek aşamalı", "HORIZON-MISS-2024-OCEAN-02-01", "2026-10-09", "2026-12-11T18:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/46939903", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Cross-KIC EIT Entrepreneurial Education & Skills Business Plan 2026", "Tek aşamalı", "HORIZON-EIT-2025-KIC-IBA-EntrEduSkills", "2026-10-14", "2026-12-14T19:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939712", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Rolling out the ERA Policy Agenda results", "Tek aşamalı", "HORIZON-WIDERA-2025-06-ERA-01", "2026-10-14", "2026-12-14T19:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48351491", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Climate-smart use of wood in the construction sector to support the New European Bauhaus", "Tek aşamalı", "HORIZON-CL6-2024-CLIMATE-01-5", "2026-09-15", "2026-12-15T19:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45656490", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "European Startup and Scaleup Hubs pilot", "Tek aşamalı", "HORIZON-EIE-2027-02-CONNECT-01", "2026-10-06", "2027-01-05", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIE-2027-02-CONNECT-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "ERC Consolidator Grant", "Tek aşamalı", "ERC-2027-COG", "2026-09-24", "2027-01-12", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERC-2027-COG", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Demonstrating place-based experimentation and innovation spaces as enabling environments for scaling EU Missions", "Tek aşamalı", "HORIZON-MISS-2026-07-CROSS-04", "2026-10-06", "2027-01-13", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-07-CROSS-04", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "EITHEALTH Business Plan 2026", "Tek aşamalı", "HORIZON-EIT-2025-KIC-IBA-H", "2026-10-14", "2027-01-13T18:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939726", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Higher Education Initiative Business Plan 2026", "Tek aşamalı", "HORIZON-EIT-2025-KIC-IBA-HEI", "2026-10-20", "2027-01-13T19:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939733", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Cost-effective biodiversity monitoring for EU policies", "Tek aşamalı", "HORIZON-NATURE-2027-02-05", "2026-10-13", "2027-01-14", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-05", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Networking to scale up living labs for nature restoration solutions and to address bottlenecks to implementation", "Tek aşamalı", "HORIZON-NATURE-2027-02-03", "2026-10-13", "2027-01-14", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Understanding the nature and the extent of the effects of PFAS on biodiversity and ecosystem services", "Tek aşamalı", "HORIZON-NATURE-2027-01-01", "2026-10-13", "2027-01-14", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Better understanding, anticipating and addressing the biodiversity benefits and impacts of the clean and digital industries", "Tek aşamalı", "HORIZON-NATURE-2027-01-02", "2026-10-13", "2027-01-14", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Living labs co-creating solutions for the restoration of ecosystems addressing implementation bottlenecks and improving resilience to risks", "Tek aşamalı", "HORIZON-NATURE-2027-02-02", "2026-10-13", "2027-01-14", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-02", null, "Aynı çağrı TÜBİTAK kaynaklarında ulusal son tarihle de listelenebilir; burada AB/konsorsiyum tarihi gösterilir.", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Assessing direct and indirect drivers of biodiversity decline of invertebrates", "Tek aşamalı", "HORIZON-NATURE-2027-02-01", "2026-10-13", "2027-01-14", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Innovative solutions to fight wildlife trafficking and to reduce invasion of invasive alien species", "Tek aşamalı", "HORIZON-NATURE-2027-02-04", "2026-10-13", "2027-01-14", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-04", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Systemic approaches to accelerate transformative change for biodiversity", "Tek aşamalı", "HORIZON-NATURE-2027-01-03", "2026-10-13", "2027-01-14", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Women Tech.EU initiative", "Çok kesimli", "HORIZON-EIC-2025-WOMENTECH", "2026-06-01", "2027-01-14T19:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48106227", null, "Gösterilen tarih bir sonraki son tarihtir.", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Quantum Machine Learning", "Tek aşamalı", "HORIZON-JU-EUROHPC-2026-QML-07-01", "2026-06-02", "2027-01-28", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QML-07-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Advancing promising results from Pillar II collaborative research through the innovation journey", "Tek aşamalı", "HORIZON-BRIDGING-2027-02-05", "2026-10-20", "2027-01-28", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-02-05", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Innovative advanced materials and new production processes – reducing dependencies on Critical and Strategic Raw Materials (IA) (Innovative Advanced Materials for the EU and Processes4Planet partnerships)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-22", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-22", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Circular innovative advanced materials: facilitating the transition from design to markets (RIA) (Innovative Advanced Materials for the EU and Made in Europe partnerships)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-06", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-06", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Pilot access schemes to Technology Infrastructures for European startups, scaleups and innovative SMEs (CSA)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-47", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-47", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Textile circularity through advanced processing and manufacturing technologies and system approaches (IA) (Textiles for the Future partnership)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-08", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-08", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "New approaches for Human/AI collaboration for the workforce of the future (RIA) (Made in Europe and AI, Data and Robotics partnerships)", "İki aşamalı", "HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage", null, "Gösterilen tarih bir sonraki son tarihtir.", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "European network for upscaling venture builders’ roles in research performing organisations (CSA)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-50", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-50", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "‘Proof of market’ to improve valorisation and commercialisation of Horizon generated R&I results (IA)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-49", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-49", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Technologies for innovative processing of raw materials (IA)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-16", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-16", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Unlocking the potential of academic intellectual assets for industry, SMEs and startups (CSA)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-42", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-42", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Fast Track to Research and Innovation for breakthroughs in industrial technologies (Research and Innovation Action)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-61", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-61", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Expert network on Critical raw materials (CSA)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-17", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-17", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Advanced manufacturing for key products (IA) (Made in Europe partnership)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-02", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Fast Track to Innovation for breakthroughs in the Chemical Industry Action Plan  (Research and Innovation Action)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-62", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-62", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Factory processes and automation for de- and re-manufacturing (RIA) (Made in Europe partnership)", "Tek aşamalı", "HORIZON-CL4-2027-01-MAT-PROD-03", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-03", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Automated Scientific Discovery – Food (RAISE pilot)", "Tek aşamalı", "HORIZON-RAISE-2027-01-02", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Efficient energy input from renewable sources and energy management in the process industries (IA) (Processes4Planet and Innovative Advanced Materials for the EU partnerships)", "İki aşamalı", "HORIZON-CL4-2027-02-MAT-PROD-32-two-stage", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-MAT-PROD-32-two-stage", null, "Gösterilen tarih bir sonraki son tarihtir.", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Automated Scientific Discovery - Materials Science (RAISE pilot) (RIA)", "Tek aşamalı", "HORIZON-RAISE-2027-01-01", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Developing a model for a Data Lab for Science linking with EOSC and RAISE (RAISE pilot) (CSA)", "Tek aşamalı", "HORIZON-RAISE-2027-01-04", "2026-10-13", "2027-02-02", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-04", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "A stronger Global Ocean Observing System to enhance Europe’s strategic autonomy, climate resilience and biodiversity conservation", "Tek aşamalı", "HORIZON-NATURE-2027-04-01", "2026-10-06", "2027-02-16", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-04-01", null, "Aynı çağrı TÜBİTAK kaynaklarında ulusal son tarihle de listelenebilir; burada AB/konsorsiyum tarihi gösterilir.", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Bringing innovative climate preparedness and resilience solutions closer to the market", "Tek aşamalı", "HORIZON-BRIDGING-2027-04-03", "2026-10-06", "2027-02-16", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-04-03", null, "Aynı çağrı TÜBİTAK kaynaklarında ulusal son tarihle de listelenebilir; burada AB/konsorsiyum tarihi gösterilir.", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Detection, monitoring, modelling, and attribution capabilities for Solar Radiation Modification (SRM) activities and assessing their impacts on Earth's climate and ecosystems", "Tek aşamalı", "HORIZON-BRIDGING-2027-04-11", "2026-10-06", "2027-02-16", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-04-11", null, "", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Sustainability and resilience of climate projections and related data records for European and global science and policy", "Tek aşamalı", "HORIZON-BRIDGING-2027-04-08", "2026-10-06", "2027-02-16", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-04-08", null, "Aynı çağrı TÜBİTAK kaynaklarında ulusal son tarihle de listelenebilir; burada AB/konsorsiyum tarihi gösterilir.", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Valorising Horizon project results via innovation ecosystems", "Tek aşamalı", "HORIZON-BRIDGING-2027-06-02", "2026-10-20", "2027-02-16", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-06-02", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "EU Co-funded Partnership on raw materials for the green and digital transition (Co-funded partnership Raw Materials for the Green and Digital Transition)", "Çok kesimli", "HORIZON-CL4-INDUSTRY-2025-01-MATERIALS-64", "2026-06-23", "2027-02-16T01:59", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48400564", null, "Gösterilen tarih bir sonraki son tarihtir.", ""],
+  ["eu", "Ufuk Avrupa · Doğrudan çağrı (AB)", "Excellence Hubs", "Tek aşamalı", "HORIZON-WIDERA-2027-04-WIDENING-01", "2026-09-02", "2027-03-04", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2027-04-WIDENING-01", null, "", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "EITURBANMOBILITY Business Plan 2026", "Çok kesimli", "HORIZON-EIT-2025-KIC-IBA-UM", "2026-03-30", "2027-04-28T18:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939761", null, "Gösterilen tarih bir sonraki son tarihtir.", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "2026-2027 MOC Activities", "Çok kesimli", "HORIZON-EIT-2025-MOC-IBA", "2026-07-01", "2027-04-30T18:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/49197485", null, "Gösterilen tarih bir sonraki son tarihtir.", ""],
+  ["eu", "Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Cooperation with EEN", "Tek aşamalı", "HORIZON-EIC-2021-EEN-01-01", "2026-07-08", "2027-06-30T18:00", 0, "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/43849514", null, "", ""],
+
+  // İSTKA — https://www.istka.org.tr/acik-destek-programlari (27.10.2026)
+  ["istka","İSTKA Mali Destek Programları","Yaratıcı Ekonominin Güçlendirilmesi Mali Destek Programı (İSTKA/2026/YEG)","Mali Destek Programı","İSTKA/2026/YEG","","2026-12-04T23:59",0,"https://www.istka.org.tr/acik-destek-programlari",null,"Başlangıç tarihi sayfada belirtilmemiş.",""]
+];
+
+/* Zenginleştirme katmanı: ayrı JSON (cagri-detaylari.json) olarak da üretilir.
+   m = çağrı adında aranan metin. durum: dogrulandi | kismi | celiski */
+let ENRICH = [
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939761", "butce": "Toplam 90.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939761", "sure": "Projects supported under this Call must be completed within the maximum durations linked to each stage of the grant scheme: ; Stage 1 projects (applicants who are not yet incorporated): up to two (2) years. ; Stage 2…", "not": "Tüm kesimler: 2026-04-30 18:00, 2026-10-14 18:00, 2027-04-28 18:00, 2027-10-14 18:00"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48213468", "butce": "Toplam 40.000.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48213468", "sure": "36 months", "not": "Tüm kesimler: 2026-12-02 13:00, 2027-06-02 12:00"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45657640", "butce": "Toplam 250.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45657640", "sure": "12 months (in 4 Sprints: Sprint 1 Training [M1-M2], Sprint 2 Design [M3-M4], Sprint 3 Development & Validation [M5-M10], Sprint 4 Demonstration & Assessment [M11-M12])"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/46945037", "butce": "Toplam 60.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/46945037", "sure": "The project shall commence on the date the funding agreement is signed (no earlier than 1.1.2027) and may last for a minimum of 6 and a maximum of 12 months. It must be completed by 28 February 2028 at the latest."},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/46939903", "butce": "Toplam 1.125.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/46939903", "sure": "duration of 4 to 12 months"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939726", "butce": "Toplam 5.100.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939726"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939712", "butce": "Toplam 2.000.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939712", "sure": "9 months: activities are expected to start by 1 April 2027 and must be fully concluded by 31 December 2027."},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939704", "butce": "Toplam 10.500.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939704", "sure": "18 months", "not": "Tüm kesimler: 2026-10-30 19:00, 2027-03-15 19:00"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48351491", "butce": "Toplam 210.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48351491", "sure": "Implementation within 6 months after signature of a sub-grantee agreement."},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48400564", "butce": "Toplam 41.000.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48400564", "sure": "36 months", "not": "Tüm kesimler: 2026-09-23 00:59, 2027-02-16 01:59"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/43849514", "butce": "Toplam 3.671.480 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/43849514"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45640341", "butce": "Toplam 300.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45640341", "sure": "up to 6 months"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48401785", "butce": "Toplam 400.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48401785", "sure": "1-12 months (flexible)"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45705096", "butce": "Toplam 694.520 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45705096", "sure": "Up to 6 months"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44093037", "butce": "Toplam 34.488.619 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44093037", "sure": "36 months", "not": "Tüm kesimler: 2026-11-10 17:00, 2027-04-06 16:00"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/49197485", "butce": "Toplam 3.200.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/49197485", "sure": "All proposals must have an execution timeframe of four 4 months (November 2026 – February 2027 for Cut-Off 1)", "not": "Tüm kesimler: 2026-09-08 18:00, 2027-04-30 18:00"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/43966258", "butce": "Toplam 40.000.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/43966258", "sure": "The call aims at funding 3 years long research projects", "not": "Tüm kesimler: 2026-11-10 14:00, 2027-04-16 13:00"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48351428", "butce": "Toplam 300.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48351428", "sure": "6 months", "not": "Tüm kesimler: 2026-11-12 19:00, 2027-05-05 18:00, 2027-11-03 19:00, 2028-05-03 18:00"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44092120", "butce": "Toplam 37.723.260 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44092120", "sure": "Each cofunded project is expected to last three years", "not": "Tüm kesimler: 2026-11-16 17:00, 2027-06-14 16:00"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45656490", "butce": "Toplam 200.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45656490", "sure": "1 year project"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45659376", "butce": "Toplam 7.550.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45659376", "sure": "Between 15 to 18 months."},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48400841", "butce": "Toplam 7.000.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48400841", "sure": "1-12 months (flexible)"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44121492", "butce": "Toplam 80.000.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44121492", "not": "Tüm kesimler: 2026-11-17 15:00, 2027-04-15 14:00"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45634882", "butce": "Toplam 3.142.747 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45634882", "sure": "10 months"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/46597762", "butce": "Toplam 891.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/46597762", "sure": "36 MONTHS"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48400288", "butce": "Toplam 8.000.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48400288", "sure": "Twenty-two (22) months from 1st of April 2027 to 31st of January 2029"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48106227", "butce": "Toplam 12.000.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48106227", "sure": "6 months", "not": "Tüm kesimler: 2026-09-16 18:00, 2027-01-14 19:00, 2027-04-01 18:00, 2027-07-08 18:00"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44087099", "butce": "Toplam 4.200.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/44087099"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-22", "butce": "Toplam 224.700.000 €; proje başına en fazla 12.500.000 €; ~62 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-22"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-06", "butce": "Toplam 224.700.000 €; proje başına en fazla 12.500.000 €; ~62 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-06"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-06", "butce": "Toplam 131.500.000 €; proje başına en fazla 40.000.000 €; ~14 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-06"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-14", "butce": "Toplam 131.500.000 €; proje başına en fazla 40.000.000 €; ~14 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-14"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-05", "butce": "Toplam 131.500.000 €; proje başına en fazla 40.000.000 €; ~14 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-05"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-47", "butce": "Toplam 224.700.000 €; proje başına en fazla 12.500.000 €; ~62 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-47"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-08", "butce": "Toplam 224.700.000 €; proje başına en fazla 12.500.000 €; ~62 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-08"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage", "butce": "Toplam 82.500.000 €; proje başına en fazla 9.000.000 €; ~11 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage", "not": "Tüm kesimler: 2027-02-02, 2027-09-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-04-GOVERNANCE-01", "butce": "Toplam 60.000.000 €; proje başına en fazla 60.000.000 €; ~1 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL6-2026-04-GOVERNANCE-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2027-04-WIDENING-01", "butce": "Toplam 100.000.000 €; proje başına en fazla 4.500.000 €; ~30 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-WIDERA-2027-04-WIDENING-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP", "butce": "Toplam 320.000 €; proje başına en fazla 100.000 €; ~6 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-50", "butce": "Toplam 224.700.000 €; proje başına en fazla 12.500.000 €; ~62 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-50"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QTI-13-01", "butce": "Toplam 20.000.000 €; proje başına en fazla 20.000.000 €; ~1 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QTI-13-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERC-2027-COG", "butce": "Toplam 618.500.000 €; ~296 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERC-2027-COG"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-49", "butce": "Toplam 224.700.000 €; proje başına en fazla 12.500.000 €; ~62 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-49"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-16", "butce": "Toplam 224.700.000 €; proje başına en fazla 12.500.000 €; ~62 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-16"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-NAPT-11-01", "butce": "Toplam 20.000.000 €; proje başına en fazla 20.000.000 €; ~1 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-NAPT-11-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MSCA-2026-DN-01-01", "butce": "Toplam 1.884.101.538 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MSCA-2026-DN-01-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP", "butce": "Toplam 100.000 €; proje başına en fazla 50.000 €; ~3 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-DEFENCE-01", "butce": "Toplam 100.000.000 €; proje başına en fazla 30.000.000 €; ~10 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-DEFENCE-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-23", "butce": "Toplam 131.500.000 €; proje başına en fazla 40.000.000 €; ~14 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-23"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-42", "butce": "Toplam 224.700.000 €; proje başına en fazla 12.500.000 €; ~62 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-42"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-61", "butce": "Toplam 33.600.000 €; proje başına en fazla 2.500.000 €; ~14 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-61"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-17", "butce": "Toplam 224.700.000 €; proje başına en fazla 12.500.000 €; ~62 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-17"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02", "butce": "Toplam 224.700.000 €; proje başına en fazla 12.500.000 €; ~62 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-04", "butce": "Toplam 131.500.000 €; proje başına en fazla 40.000.000 €; ~14 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-04"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-62", "butce": "Toplam 33.600.000 €; proje başına en fazla 2.500.000 €; ~14 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-62"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-03", "butce": "Toplam 224.700.000 €; proje başına en fazla 12.500.000 €; ~62 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-02", "butce": "Toplam 30.500.000 €; proje başına en fazla 9.000.000 €; ~5 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-MAT-PROD-32-two-stage", "butce": "Toplam 82.500.000 €; proje başına en fazla 9.000.000 €; ~11 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-MAT-PROD-32-two-stage", "not": "Tüm kesimler: 2027-02-02, 2027-09-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-01", "butce": "Toplam 30.500.000 €; proje başına en fazla 9.000.000 €; ~5 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2026-01-03", "butce": "Toplam 90.000.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2026-01-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-ACCELERATOR-01", "butce": "Belirtilmemiş / bulunamadı", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-ACCELERATOR-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIE-2027-02-CONNECT-01", "butce": "Toplam 40.000.000 €; proje başına en fazla 20.000.000 €; ~2 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIE-2027-02-CONNECT-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QEXP-14-01", "butce": "Toplam 15.000.000 €; proje başına en fazla 15.000.000 €; ~1 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QEXP-14-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-SPT-10-01", "butce": "Toplam 20.000.000 €; proje başına en fazla 20.000.000 €; ~1 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-SPT-10-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-TIPT-09-01", "butce": "Toplam 20.000.000 €; proje başına en fazla 20.000.000 €; ~1 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-TIPT-09-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-04", "butce": "Toplam 30.500.000 €; proje başına en fazla 9.000.000 €; ~5 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-RAISE-2027-01-04"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-02", "butce": "Toplam 288.000.000 €; proje başına en fazla 4.000.000 €; ~24 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03", "butce": "Toplam 288.000.000 €; proje başına en fazla 4.000.000 €; ~24 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-01", "butce": "Toplam 288.000.000 €; proje başına en fazla 4.000.000 €; ~24 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators", "butce": "Toplam 320.000 €; proje başına en fazla 100.000 €; ~6 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-04-01", "butce": "Toplam 50.000.000 €; proje başına en fazla 50.000.000 €; ~1 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-04-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-07-CROSS-04", "butce": "Toplam 3.620.000 €; proje başına en fazla 1.500.000 €; ~3 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-MISS-2026-07-CROSS-04"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-05", "butce": "Toplam 108.000.000 €; proje başına en fazla 13.000.000 €; ~13 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-05"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-NQKD-12-01", "butce": "Toplam 24.000.000 €; proje başına en fazla 24.000.000 €; ~1 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-NQKD-12-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-03", "butce": "Toplam 108.000.000 €; proje başına en fazla 13.000.000 €; ~13 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-04-03", "butce": "Toplam 35.000.000 €; proje başına en fazla 20.000.000 €; ~3 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-04-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-01", "butce": "Toplam 41.449.485 €; proje başına en fazla 6.000.000 €; ~8 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-04-11", "butce": "Toplam 35.000.000 €; proje başına en fazla 20.000.000 €; ~3 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-04-11"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-02", "butce": "Toplam 41.449.485 €; proje başına en fazla 6.000.000 €; ~8 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-02", "butce": "Toplam 108.000.000 €; proje başına en fazla 13.000.000 €; ~13 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-01", "butce": "Toplam 108.000.000 €; proje başına en fazla 13.000.000 €; ~13 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-04", "butce": "Toplam 108.000.000 €; proje başına en fazla 13.000.000 €; ~13 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-04"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-04-08", "butce": "Toplam 35.000.000 €; proje başına en fazla 20.000.000 €; ~3 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-04-08"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-03", "butce": "Toplam 41.449.485 €; proje başına en fazla 6.000.000 €; ~8 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QML-07-01", "butce": "Toplam 6.000.000 €; proje başına en fazla 3.000.000 €; ~2 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QML-07-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939733", "butce": "Toplam 40.000.000 €", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48939733", "sure": "18 months"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-02-05", "butce": "Toplam 32.500.000 €; proje başına en fazla 2.500.000 €; ~13 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-02-05"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-02", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-06", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-06"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-05", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-05"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-03", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-INFRA-03", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-INFRA-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-04", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-04"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-01", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-BM-03", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-BM-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-01", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-04", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-04"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-06-02", "butce": "Toplam 20.000.000 €; proje başına en fazla 4.000.000 €; ~5 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-06-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-BM-02", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-BM-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-03", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-01", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-04", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-04"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-05", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-05"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-BM-01", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-BM-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-02", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-FCT-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-02", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-DRS-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-INFRA-02", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-INFRA-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-INFRA-01", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-INFRA-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-03", "butce": "Toplam 131.000.000 €; proje başına en fazla 6.000.000 €; ~34 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-01", "butce": "Toplam 101.100.000 €; proje başına en fazla 6.300.000 €; ~22 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-02", "butce": "Toplam 101.100.000 €; proje başına en fazla 6.300.000 €; ~22 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-02", "butce": "Toplam 101.100.000 €; proje başına en fazla 6.300.000 €; ~22 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-PARTICIPATION-03", "butce": "Toplam 101.100.000 €; proje başına en fazla 6.300.000 €; ~22 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-PARTICIPATION-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-PARTICIPATION-01", "butce": "Toplam 101.100.000 €; proje başına en fazla 6.300.000 €; ~22 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-PARTICIPATION-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-PARTICIPATION-02", "butce": "Toplam 101.100.000 €; proje başına en fazla 6.300.000 €; ~22 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-PARTICIPATION-02"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-01", "butce": "Toplam 101.100.000 €; proje başına en fazla 6.300.000 €; ~22 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-01"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-03", "butce": "Toplam 101.100.000 €; proje başına en fazla 6.300.000 €; ~22 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-03"},
+ {"u": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-03", "butce": "Toplam 101.100.000 €; proje başına en fazla 6.300.000 €; ~22 proje", "durum": "dogrulandi", "kaynak": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-03"},
+ {"m":"İSTKA/2026/YEG","butce":"Toplam 300.000.000 TL; proje başına 5.000.000 – 20.000.000 TL","natl":"2026-12-04T23:59","not":"Azami destek oranı %75. Başvuru rehberi ve ekler (Ek A–E) program sayfasında.","durum":"kismi","kaynak":"https://istka.org.tr/Archive/Content/f77c5ed3f36892a6e109b6c26e22e6a9f767d35d.pdf"},
+ {"m":"2209-A","sure":"En çok 12 ay (2209-B için de en çok 12 ay)","butce":"2209-A: proje başına en fazla 12.000 TL. 2209-B: çağrı metninde tutar belirtilmemiş.","natl":"2026-11-11T17:30","esign":"2026-11-23","kimler":"Türkiye'de lisans / ön lisans programına kayıtlı öğrenciler; bir akademik danışman gerekir. Açık öğretim ve hazırlık sınıfı öğrencileri başvuramaz.","not":"11.11.2026: başvuru ve akademik danışman onayı. 23.11.2026: kuruluş yetkilisi e-imza süreci. Kongre, yayın, patent, konaklama ve gündelik giderleri bütçeye dahil edilemez.","durum":"dogrulandi","kaynak":"https://www.tubitak.gov.tr/tr/burslar/lisans/burs-programlari/2209-a/icerik-destek-kapsami"},
+ {"m":"2247-A","sure":"36 ay (2247-A ve 2247-D)","butce":"Çağrı metninde TL tutarı yok; kalemler: araştırma desteği, proje teşvik ikramiyesi, burs desteği (en fazla 5 bursiyer), kurum hissesi. Tutarlar program sayfasında.","kimler":"2247-A: yurt içinde çalışan, ilgili TÜBİTAK projelerini yürütmüş araştırmacılar. 2247-D: doktora derecesinin üzerinden 7 yıl geçmemiş, 40 yaşını doldurmamış araştırmacılar (ek bilimsel puan / ERC / ödül koşulları var).","not":"Süre, toplam sürenin en fazla %25'i kadar uzatılabilir (2247-D metni).","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/duyuru/2247-ulusal-lider-arastirmacilar-programi-ve-2247-d-ulusal-genc-liderler-programi-2026-yili-cagrilari-acildi"},
+ {"m":"2247-B","sure":"24 ay","butce":"Belirtilmemiş / bulunamadı","durum":"kismi","kaynak":"http://www.tubitak.gov.tr/tr/burslar/doktora-sonrasi/arastirma-burs-programlari/icerik-2247-b-avrupa-arastirma-konseyi-erc-projeleri-guclendirme-destegi-programi"},
+ {"m":"2213-A","sure":"6 yıl / 2 yıl (kategoriye göre; çağrı metnine bakınız)","butce":"Belirtilmemiş / bulunamadı","not":"Bilimsel değerlendirmeler periyodik yapılır.","durum":"kismi","kaynak":"http://www.tubitak.gov.tr/2213a"},
+ {"m":"2204-A","butce":"Ödül / destek tutarı sayfada belirtilmemiş","kimler":"Lise öğrencileri (genel olarak ortaokul ve lise öğrencileri hedeflenir).","not":"Çağrı duyurusu 25.09.2026'da yayımlandı; başvurular TYBS üzerinden alınır. Bitiş tarihi BİDEB listesinden alınmıştır.","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/duyuru/2204-lise-ogrencileri-arastirma-projeleri-yarismasi-ve-2204-b-ortaokul-ogrencileri-arastirma-projeleri-yarismasi-2027-yili-cagrilari-yayinlandi"},
+ {"m":"2204-B","butce":"Ödül / destek tutarı sayfada belirtilmemiş","kimler":"Ortaokul öğrencileri.","not":"Çağrı duyurusu 25.09.2026'da yayımlandı; başvurular TYBS üzerinden alınır. Bitiş tarihi BİDEB listesinden alınmıştır.","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/duyuru/2204-lise-ogrencileri-arastirma-projeleri-yarismasi-ve-2204-b-ortaokul-ogrencileri-arastirma-projeleri-yarismasi-2027-yili-cagrilari-yayinlandi"},
+ {"m":"1004 Platformları","sure":"Belirtilmemiş","butce":"Belirtilmemiş","acilis":"2024-08-07","not":"Çağrı 07.08.2024'te açıldı ve süresiz açık kalacak (duyuru 12.08.2024). 1004 Mükemmeliyet Merkezi platformlarına katkı sağlayacak projeler hedeflenir.","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/duyuru/ardeb-1001-1004-platformlari-ile-birligi-cagrisi-acildi"},
+ {"m":"3005-A","sure":"24 ay","butce":"1.200.000 TL (3005-A)","durum":"dogrulandi","kaynak":"https://tubitak.gov.tr/en/node/19210"},
+ {"m":"2223-B","butce":"150.000 TL","durum":"dogrulandi","kaynak":"http://www.tubitak.gov.tr/tr/destekler/bilimsel-etkinlik/etkinlik-duzenleme-destekleri/icerik-2223-b-yurt-ici-bilimsel-etkinlik-duzenleme-destegi"},
+ {"m":"2224-A","butce":"Ülkeye göre farklı üst limitler (program sayfasına bakınız)","durum":"kismi","kaynak":"http://www.tubitak.gov.tr/tr/destekler/bilimsel-etkinlik/etkinliklere-katilma-destekleri/icerik-2224-a-yurt-disi-bilimsel-etkinliklere-katilimi-destekleme-programi"},
+ {"m":"2210-","butce":"Burs tutarları program sayfasındaki tabloda; çağrı metninde tutar yok","durum":"kismi","kaynak":"http://www.tubitak.gov.tr/bideb/2210"},
+ {"m":"2211-","butce":"Çağrı metninde tutar yok; burs tutarları program sayfasında","durum":"kismi","kaynak":"https://www.tubitak.gov.tr/tr/burslar/lisansustu/egitim-burs-programlari/icerik-2211-yurt-ici-doktora-burs-programlari"},
+ {"m":"2205-Lisans","butce":"Çağrı metninde tutar yok","durum":"kismi","kaynak":"http://www.tubitak.gov.tr/tr/burslar/lisans/burs-programlari/icerik-2205-lisans-burs-programi"},
+ {"m":"2515 - COST","butce":"Kaynaklar çelişiyor: 2.400.000 TL ve 3.000.000 TL olarak geçiyor","durum":"celiski","kaynak":"https://www.tubitak.gov.tr/tr/kurumsal/uluslararasi/cok-tarafli-programlar/cost/icerik-2515-cost-aksiyon-uyeleri-ar-ge-destek-programi","not":"Güncel tutar için program sayfasını doğrulayınız."},
+ {"m":"IRASME","durum":"celiski","not":"PBS'de sürekli açık görünüyor; resmi sayfada ilgili turun 07.10.2026'da kapandığı yazıyor. Başvurudan önce doğrulayınız.","kaynak":"https://tubitak.gov.tr/sites/default/files/2025-06/IRASME_Ulusal_Surecler_Dokumani.pdf"},
+ {"m":"Milli Teknoloji Kulüpler","not":"Başvuru pencereleri: güz dönemi 15 Eylül – 3 Kasım, bahar dönemi 2 Şubat – 16 Mart.","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/destekler/bilim-toplum/ulusal-destek-programlari/milli-teknoloji-kulupler-birligi"},
+ {"m":"SBEP 2026","intl":"2026-11-16T15:00 (CET)","natl":"2026-11-23T23:59","esign":"2026-11-26","butce":"Duyuruda belirtilmemiş","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/duyuru/ufuk-avrupa-programi-surdurulebilir-mavi-ekonomi-ortakligi-sbep-2026-yili-cok-uluslu-ortak-cagrisi-basvuruya-acildi"},
+ {"m":"Eureka Globalstars","intl":"2027-01-20","butce":"Duyuruda belirtilmemiş","not":"Ulusal süreç için duyuruya bakınız.","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/duyuru/eureka-globalstars-japonya-2026-cagrisi-acildi"},
+ {"m":"1007 ","butce":"Duyuruda belirtilmemiş","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/duyuru/1007-programi-balistik-kiyafet-gelistirilmesi-projesi-cagrisi-acildi"},
+ {"m":"EMBO","butce":"Duyuruda belirtilmemiş","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/duyuru/embo-doktora-sonrasi-arastirma-burslari-2027-yili-1-donem-basvurulari-basladi"},
+ {"m":"Innowwide","butce":"Duyuruda belirtilmemiş","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/duyuru/yenilikci-kobiler-icin-avrupa-ortakligi-innowwide-5-cagrisi-acildi"},
+ {"m":"4001-","butce":"Resmi sayfada tutar bulunamadı","durum":"kismi","kaynak":"https://tubitak.gov.tr/4001"},
+ {"m":"1002-B","butce":"Güncel tutar / süre bulunamadı (kaynakta yalnızca 2022 tarihli bilgi var)","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/destekler/akademik/ulusal-destek-programlari/1002-b-acil-destek-modulu"}
+];
+function enrichFor(r) { return ENRICH.find(e => e.u ? (r.src === "eu" && r.bilgi === e.u) : (r.src !== "eu" && r.cagri.includes(e.m))) || null; }
+
+/* ---------------- Mantık ---------------- */
+const NOW = new Date();
+const SRC_ORDER = ["ardeb", "uidb", "bt", "bideb", "duyuru", "istka", "tuseb", "eu"];
+
+function parseEnd(s)   { if (!s) return null; return s.length === 10 ? new Date(s + "T23:59:59") : new Date(s + ":00"); }
+function parseStart(s) { if (!s) return null; return new Date(s.length === 10 ? s + "T00:00:00" : s + ":00"); }
+function dayStart(d)   { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function dayDiff(a, b) { return Math.round((dayStart(b) - dayStart(a)) / 864e5); }
+function p2(n)         { return String(n).padStart(2, "0"); }
+function fmt(s) {
+  if (!s) return "";
+  const d = s.slice(8, 10) + "." + s.slice(5, 7) + "." + s.slice(0, 4);
+  return s.length > 10 ? d + " " + s.slice(11, 16) : d;
+}
+function esc(t) {
+  return String(t == null ? "" : t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function applyUrl(r) {
+  const s = SOURCES[r.src];
+  if (s.noApply) return "";
+  if (s.apply) return s.apply;
+  return s.base + "/pb/programCagriList.htm?programId=" + encodeURIComponent(r.pid);
+}
+
+const toRow = a => {
+  if (!SOURCES[a[0]]) { SOURCES[a[0]] = { label: a[0], full: a[0], base: "#", noApply: true }; SRC_ORDER.push(a[0]); }
+  return toRow0(a);
+};
+const toRow0 = a => ({
+  src: a[0], program: a[1], cagri: a[2], kategori: a[3], kod: a[4],
+  startRaw: a[5], endRaw: a[6], start: parseStart(a[5]), end: parseEnd(a[6]),
+  second: !!a[7], bilgi: a[8], pid: a[9], note: a[10] || "", announced: a[11] || ""
+});
+let ALL = DATA.map(toRow);
+function isNew(r) {
+  return r.src === "duyuru" && r.announced && dayDiff(parseStart(r.announced), NOW) <= NEW_DAYS;
+}
+let EXPIRED = 0, LIVE = [];
+function recompute() {
+  EXPIRED = ALL.filter(r => r.end && r.end < NOW).length;
+  LIVE = ALL.filter(r => !(r.end && r.end < NOW));
+}
+recompute();
+
+let state = { src: "all", q: "", sub: "all" };
+const SUBS = [["all", "Tümü", null], ["dogrudan", "Doğrudan çağrılar", "Doğrudan"], ["kademeli", "Kademeli çağrılar", "Kademeli"]];
+
+function matches(r) {
+  if (state.src === "all" && SOURCES[r.src].hideInAll && !state.q) return false;
+  if (state.src !== "all" && r.src !== state.src) return false;
+  if (state.src === "eu" && state.sub !== "all") {
+    const s = SUBS.find(x => x[0] === state.sub);
+    if (s && !r.program.includes(s[2])) return false;
+  }
+  if (!state.q) return true;
+  const hay = (r.cagri + " " + r.program + " " + r.kod + " " + r.kategori).toLocaleLowerCase("tr");
+  return hay.includes(state.q.toLocaleLowerCase("tr"));
+}
+
+function badgeFor(r) {
+  if (!r.end) return { cls: "cont", text: "Sürekli açık" };
+  const d = dayDiff(NOW, r.end);
+  if (d <= 0) return { cls: "urgent", text: "Bugün son gün" };
+  if (d === 1) return { cls: "urgent", text: "Yarın son gün" };
+  if (d <= 7)  return { cls: "urgent", text: d + " gün kaldı" };
+  if (d <= 30) return { cls: "soon",   text: d + " gün kaldı" };
+  return { cls: "ok", text: d + " gün kaldı" };
+}
+
+const NA = '<span style="color:var(--muted)">Belirtilmemiş / bulunamadı</span>';
+const VLAB = { dogrulandi: "Resmi sayfadan doğrulandı", kismi: "Kısmen doğrulandı — eksikler resmi sayfada", celiski: "Kaynaklar çelişiyor — başvuru öncesi doğrulayın" };
+function detailsHTML(r) {
+  const e = enrichFor(r); if (!e) return "";
+  const row = (k, v) => "<dt>" + k + "</dt><dd>" + (v ? esc(v) : NA) + "</dd>";
+  const nat = e.natl ? fmt(e.natl) + (e.esign ? "" : "") : (r.src === "duyuru" || !e.intl ? "" : "");
+  let g = row("Destek süresi", e.sure) + row("Bütçe / destek tutarı", e.butce);
+  if (e.acilis) g += row("Açılış", fmt(e.acilis));
+  if (e.intl) g += row("Uluslararası son tarih", /[A-Z]/.test(e.intl) ? fmt(e.intl.slice(0,16)) + " " + e.intl.slice(16).trim() : fmt(e.intl));
+  if (e.natl) g += row("Ulusal son tarih", fmt(e.natl));
+  if (e.esign) g += row("e-imza son tarihi", fmt(e.esign));
+  if (e.kimler) g += row("Kimler başvurabilir", e.kimler);
+  if (e.not) g += row("Not", e.not);
+  return '<details class="det"><summary>Detaylar</summary><dl class="dgrid">' + g + "</dl>" +
+    '<span class="vflag ' + e.durum + '">' + esc(VLAB[e.durum]) + "</span>" +
+    (e.kaynak ? ' <a href="' + esc(e.kaynak) + '" target="_blank" rel="noopener" style="font-size:.8rem">Kaynak</a>' : "") + "</details>";
+}
+
+function itemHTML(r) {
+  const b = badgeFor(r);
+  const s = SOURCES[r.src];
+  const urgent = r.end && dayDiff(NOW, r.end) <= 7;
+  let when = "";
+  if (r.end) {
+    const midnight = r.endRaw.length > 10 && r.endRaw.endsWith("T00:00");
+    const startTxt = r.startRaw ? fmt(r.startRaw) : "";
+    when += '<div class="range">' + (startTxt ? esc(startTxt) + " – " : "Son tarih: ") +
+      "<b" + (midnight ? ' title="Kaynakta bitiş saati 00:00 olarak girilmiş; son gün bir önceki gün olabilir."' : "") + ">" +
+      esc(fmt(r.endRaw)) + (midnight ? " ⓘ" : "") + "</b></div>";
+    if (r.start && r.start > NOW) when += '<span class="opens">Başvurular ' + esc(fmt(r.startRaw)) + " tarihinde açılıyor</span>";
+  }
+  when += '<span class="badge ' + b.cls + '">' + esc(b.text) + "</span>";
+
+  const tags = (isNew(r) ? '<span class="tag new">Yeni</span>' : "") +
+    '<span class="tag">' + esc(s.label) + "</span>" +
+    (r.second ? '<span class="tag plain">2. Aşama</span>' : "") +
+    (r.kod ? '<span class="tag plain">' + esc(r.kod) + "</span>" : "");
+  const prog = r.program + (r.kategori && r.kategori !== r.program ? " · " + r.kategori : "");
+
+  return '<article class="item' + (urgent ? " is-urgent" : "") + '">' +
+    '<div class="main"><div class="tags">' + tags + "</div>" +
+    "<h3>" + esc(r.cagri) + "</h3>" +
+    '<p class="prog">' + esc(prog) + "</p>" +
+    (r.note ? '<p class="note">' + esc(r.note) + "</p>" : "") +
+    (r.announced ? '<p class="note">Duyuru tarihi: ' + esc(fmt(r.announced)) + "</p>" : "") +
+    "</div>" +
+    '<div class="when">' + when + "</div>" +
+    '<div class="links">' +
+    (SOURCES[r.src].noApply
+      ? (r.bilgi ? '<a class="apply" href="' + esc(r.bilgi) + '" target="_blank" rel="noopener">' + (SOURCES[r.src].linkLabel || "Duyuruyu oku ve başvur") + '</a>' : "")
+      : '<a class="apply" href="' + esc(applyUrl(r)) + '" target="_blank" rel="noopener">Başvuru sayfası</a>' +
+        (r.bilgi ? '<a href="' + esc(r.bilgi) + '" target="_blank" rel="noopener">Bilgi notu / çağrı metni</a>' : "")) +
+    "</div>" + detailsHTML(r) + "</article>";
+}
+
+function newRowHTML(r) {
+  const b = badgeFor(r);
+  const when = r.end ? "Son başvuru: <b>" + esc(fmt(r.endRaw)) + "</b>" : "Sürekli açık";
+  return '<a class="newrow" href="' + esc(r.bilgi) + '" target="_blank" rel="noopener">' +
+    '<span class="newdate">' + esc(fmt(r.announced)) + "</span>" +
+    '<span class="newtitle">' + esc(r.cagri) + "</span>" +
+    '<span class="newmeta">' + when + ' <span class="badge ' + b.cls + '">' + esc(b.text) + "</span></span></a>";
+}
+
+function render() {
+  const rows = LIVE.filter(matches);
+  const dated = rows.filter(r => r.end).sort((a, b) => a.end - b.end);
+  const cont = rows.filter(r => !r.end);
+  const fresh = rows.filter(isNew).sort((a, b) => b.announced.localeCompare(a.announced));
+
+  let html = "";
+  if (fresh.length) {
+    html += '<h2>Yeni açılan çağrılar <span class="n">son ' + NEW_DAYS + " günde duyurulan " + fresh.length + " çağrı</span></h2>" +
+      '<p class="sub">TÜBİTAK duyurularında yayımlanan, başvuru sistemlerinin (PBS) listelerinde yer almayan çağrılar. Aynı çağrılar aşağıda bitiş tarihine göre de sıralanır.</p>' +
+      '<div class="newbox">' + fresh.map(newRowHTML).join("") + "</div>";
+  }
+  if (dated.length) {
+    html += "<h2>Son başvuru tarihi yaklaşanlar <span class=\"n\">" + dated.length + " çağrı</span></h2>" +
+      '<p class="sub">Bitiş tarihine göre sıralıdır; süresi dolanlar otomatik olarak listeden kalkar.</p>' +
+      dated.map(itemHTML).join("");
+  }
+  if (cont.length) {
+    html += "<h2>Sürekli açık programlar <span class=\"n\">" + cont.length + " program</span></h2>" +
+      '<p class="sub">Belirli bir son başvuru tarihi olmayan, yıl boyunca başvuruya açık programlar.</p>';
+    SRC_ORDER.forEach(k => {
+      const g = cont.filter(r => r.src === k);
+      if (g.length) html += '<h3 class="group">' + esc(SOURCES[k].full) + "</h3>" + g.map(itemHTML).join("");
+    });
+  }
+  if (!html) html = '<div class="empty">Aramanıza uyan açık çağrı bulunamadı.</div>';
+
+  document.getElementById("list").innerHTML = html;
+  document.getElementById("stats").textContent =
+    rows.length + " çağrı listeleniyor" + (state.src === "all" && !state.q ? " (Ufuk Avrupa çağrıları ayrı filtrede)" : "") + " · " + dated.length + " tarihli, " + cont.length + " sürekli açık";
+}
+
+function renderSubChips() {
+  const el = document.getElementById("subchips");
+  if (state.src !== "eu") { el.innerHTML = ""; return; }
+  const eu = LIVE.filter(r => r.src === "eu");
+  el.innerHTML = SUBS.map(([k, l, m]) => {
+    const n = m ? eu.filter(r => r.program.includes(m)).length : eu.length;
+    return '<button type="button" class="chip" data-s="' + k + '" aria-pressed="' + (state.sub === k) + '">' + esc(l) + " (" + n + ")</button>";
+  }).join("");
+}
+
+function renderChips() {
+  const el = document.getElementById("chips");
+  const items = [["all", "Tümü"]].concat(SRC_ORDER.filter(k => LIVE.some(r => r.src === k)).map(k => [k, SOURCES[k].label]));
+  el.innerHTML = items.map(([k, l]) => {
+    const n = k === "all" ? LIVE.filter(r => !SOURCES[r.src].hideInAll).length : LIVE.filter(r => r.src === k).length;
+    return '<button type="button" class="chip" data-k="' + k + '" aria-pressed="' + (state.src === k) + '">' + esc(l) + " (" + n + ")</button>";
+  }).join("");
+}
+
+document.getElementById("chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  state.src = b.dataset.k; state.sub = "all"; renderChips(); renderSubChips(); render();
+});
+document.getElementById("subchips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  state.sub = b.dataset.s; renderSubChips(); render();
+});
+document.getElementById("q").addEventListener("input", e => { state.q = e.target.value.trim(); render(); });
+
+document.getElementById("dl").addEventListener("click", () => {
+  const rows = LIVE.filter(matches).sort((a, b) => (a.end ? a.end : 8.64e15) - (b.end ? b.end : 8.64e15));
+  const q = v => '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"';
+  const head = ["Kaynak", "Program", "Çağrı", "Kategori", "Çağrı Kodu", "Başlangıç", "Bitiş", "Durum", "Duyuru Tarihi", "Not", "Bilgi Notu / Duyuru", "Başvuru Linki", "Destek Süresi", "Bütçe", "Ulusal Son Tarih", "Uluslararası Son Tarih", "Doğrulama"];
+  const lines = [head.map(q).join(";")].concat(rows.map(r => [
+    SOURCES[r.src].label, r.program, r.cagri, r.kategori, r.kod, fmt(r.startRaw), fmt(r.endRaw),
+    r.end ? "Tarihli" : "Sürekli açık", fmt(r.announced), r.note, r.bilgi, applyUrl(r),
+    (enrichFor(r)||{}).sure, (enrichFor(r)||{}).butce, fmt((enrichFor(r)||{}).natl), fmt(((enrichFor(r)||{}).intl||"").slice(0,16)), (enrichFor(r)||{}).durum
+  ].map(q).join(";")));
+  const blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "acik-cagrilar-" + NOW.getFullYear() + "-" + p2(NOW.getMonth() + 1) + "-" + p2(NOW.getDate()) + ".csv";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+
+function renderFoot() {
+  document.getElementById("foot").innerHTML =
+  "Demo: veriler " + esc(DATA_DATE) + " tarihinde TÜBİTAK başvuru sistemlerinden ve duyuru sayfasından, ayrıntılar (süre, bütçe vb.) ise çağrı sayfalarından alınmıştır." +
+  " Ufuk Avrupa çağrıları AB portalından alınmıştır; saatler API'den Brüksel saatinden İstanbul saatine çevrilmiştir; yalnızca tarih görünenlerde saat için çağrı sayfasına bakınız." + (EXPIRED ? " Süresi dolan " + EXPIRED + " çağrı otomatik gizlendi." : "") +
+  " Resmi ve güncel bilgi için ilgili çağrının kaynak sayfasına bakınız: " +
+  SRC_ORDER.map(k => '<a href="' + esc(SOURCES[k].base) + '" target="_blank" rel="noopener">' + esc(SOURCES[k].label) + "</a>").join(", ") + ".";
+}
+renderFoot();
+renderChips();
+render();
+
+/* Canlı veri: günlük betiğin ürettiği cagrilar.json aynı klasörde varsa onu kullanır;
+   yoksa (ya da okunamazsa) sayfaya gömülü demo verisiyle çalışmaya devam eder. */
+(typeof fetch === "function" ? fetch("cagrilar.json", { cache: "no-store" }) : Promise.reject())
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(j => {
+    if (!Array.isArray(j.rows) || !j.rows.length) return;
+    ALL = j.rows.map(toRow);
+    ENRICH = Array.isArray(j.enrich) ? j.enrich : [];
+    DATA_DATE = (j.generated || "").slice(8, 10) + "." + (j.generated || "").slice(5, 7) + "." + (j.generated || "").slice(0, 4);
+    recompute(); renderChips(); renderSubChips(); render(); renderFoot();
+  })
+  .catch(() => {});
+</script>
+</body>
+</html>

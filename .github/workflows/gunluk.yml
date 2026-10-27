@@ -1,0 +1,62 @@
+name: Açık çağrılar (günlük)
+
+on:
+  schedule:
+    - cron: "0 5 * * *"        # her gün 08:00 (İstanbul)
+  workflow_dispatch: {}         # elle çalıştırma
+  push:
+    branches: [main]
+    paths: ["manuel.json", "cagri-detaylari.json", "site/**", "gunluk_cagrilar.py", "fetch_eu_calls.py"]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: cagrilar
+  cancel-in-progress: false
+
+jobs:
+  derle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Çağrıları derle
+        run: python3 gunluk_cagrilar.py
+        env:                      # E-posta şimdilik pasif: secret tanımlanmadıkça gönderilmez
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+
+      - name: Önceki gün durumunu kaydet (yeni çağrı tespiti için)
+        run: |
+          git config user.name "cagri-bot"
+          git config user.email "cagri-bot@users.noreply.github.com"
+          git add durum.json
+          git diff --cached --quiet || (git commit -m "Günlük durum güncellemesi" && git push)
+
+      - name: Site klasörünü hazırla
+        run: |
+          mkdir -p _site
+          cp -r site/* _site/
+          cp cikti/cagrilar.json cikti/cagrilar.csv _site/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: _site }
+
+  yayinla:
+    needs: derle
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.dep.outputs.page_url }}
+    steps:
+      - id: dep
+        uses: actions/deploy-pages@v4
