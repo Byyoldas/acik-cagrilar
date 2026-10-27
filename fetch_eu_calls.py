@@ -90,12 +90,16 @@ def main(out_path="eu_calls.json"):
         model = first(m, "deadlineModel").lower()
         kat = "İki aşamalı" if "two" in model else ("Çok kesimli" if len(dls) > 1 or "multiple" in model else "Tek aşamalı")
         title = first(m, "title"); code = first(m, "identifier")
+        url = x["url"]
+        if casc and first(m, "callccm2Id"):   # API'nin verdiği adres boş sayfa açar; portalın kendi bağlantısı çağrı numarasını kullanır
+            url = ("https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/"
+                   "competitive-calls-cs/" + first(m, "callccm2Id"))
         start = first(m, "startDate")[:10]
         rows.append(["eu",
                      "Ufuk Avrupa · " + ("Kademeli fonlama (üçüncü taraf çağrısı)" if casc else "Doğrudan çağrı (AB)"),
-                     title, kat, code, start, nxt, 0, x["url"], None,
+                     title, kat, code, start, nxt, 0, url, None,
                      "Gösterilen tarih bir sonraki son tarihtir." if len(dls) > 1 else "", ""])
-        e = {"m": title, "kaynak": x["url"], "durum": "dogrulandi"}
+        e = {"m": title, "kaynak": url, "durum": "dogrulandi"}
         b = budget_text(m)
         e["butce"] = b or "Belirtilmemiş / bulunamadı"
         if first(m, "duration"): e["sure"] = first(m, "duration")
