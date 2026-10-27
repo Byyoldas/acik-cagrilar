@@ -16,7 +16,7 @@ SURE_CUMLE = re.compile(r"proje süre|destek süre|süre üst|süre sınır|azam
 SURE_SAYI = re.compile(r"(\d{1,2})\s*(ay|yıl|months?|years?)(?![\p{L}])" if False else r"(\d{1,2})\s*(ay|yıl|months?|years?)(?:dır|dir|lık|lik|ı|a)?(?![a-zçğıöşüA-ZÇĞİÖŞÜ])", re.I)
 GURULTU = re.compile(r"seyahat|kilometre|yolluk|yol,? konaklama|konaklama|yemek|kongre|konferans|toplantı|gündelik|harcırah|katılım ücreti|ödeme yapılmaktadır|brüt", re.I)
 GUCLU = re.compile(r"proje bütçesi|toplam bütçe|bütçe üst|destek üst limit|bütçe sınır|destek tutar|burs miktar|toplam destek|call budget|total budget|indicative budget|bütçeye sahip", re.I)
-VER = 5
+VER = 6
 
 def indir(url):
     req = urllib.request.Request(url, headers=UA)
@@ -83,7 +83,7 @@ def cikar_uidb(t):
 def cikar_ikili(t):
     """İkili işbirliği: Türk tarafı (TÜBİTAK) ve ortak ülke tarafı üst limitleri."""
     d = re.sub(r"\s+", " ", t.replace("\xa0", " "))
-    tl = re.search(r"(?:Turkish (?:partners|team)[^.]{0,100}?can receive|TÜBİTAK funds?)\s+up to\s+([\d.]{5,})\s*(Turkish Lira[s]?|TL|₺)(?:[^.]{0,12}?per (project|year))?", d, re.I) \
+    tl = re.search(r"(?:Turkish\s*(?:partners|team)[^.]{0,140}?can\s*re\s*ceive|TÜBİTAK funds?)\s+up to\s+([\d.]{5,})\s*(Turkish\s*Li\s*ra\s*s?|TL|₺)(?:[^.]{0,12}?per (project|year))?", d, re.I) \
         or re.search(r"(?:bütçe|destek) üst limiti[^.\d]{0,120}?([\d.]{5,})\s*(TL|₺)", d, re.I) \
         or re.search(r"(?:bütçe|destek) üst limiti\s*:?\s*([\d.]{5,})\s*(TL|₺)", d, re.I)
     out = []
