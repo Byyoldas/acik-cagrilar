@@ -104,10 +104,10 @@ def main(out_path="eu_calls.json"):
         m = x["metadata"]
         key = first(m, "ccm2Id") or x["reference"]
         if key in seen: continue
-        seen.add(key)
         dls = sorted(parse_dl(s, now) for s in m.get("deadlineDate", []) if s)
         future = [d for d in dls if d[1] > now]
         if not future: continue                  # tüm kesimleri geçmiş -> listeleme
+        seen.add(key)
         nxt = future[0][0]
         casc = first(m, "type") == "8"
         model = first(m, "deadlineModel").lower()
