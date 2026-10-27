@@ -4,8 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Açık Çağrılar</title>
+<script>
+/* Tema: kayıtlı tercih yoksa AÇIK tema (sistem tercihi izlenmez). */
+(function () {
+  var th = "light";
+  try { th = localStorage.getItem("ac-theme") === "dark" ? "dark" : "light"; } catch (e) {}
+  document.documentElement.setAttribute("data-theme", th);
+})();
+</script>
 <style>
   :root {
+    color-scheme: light;
     --bg: #f6f7f9; --card: #ffffff; --text: #1b2430; --muted: #5f6b7a; --line: #e3e7ed;
     --accent: #00338D; --accent-soft: #e6ebf5; --on-accent: #ffffff; --brand2: #A30050;
     --urgent-bg: #f8e4ed; --urgent-fg: #A30050;
@@ -14,16 +23,15 @@
     --cont-bg: #e9eef6; --cont-fg: #33507a;
     --shadow: 0 1px 2px rgba(20,30,50,.05);
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #12161c; --card: #1a2029; --text: #e8ecf1; --muted: #9aa6b5; --line: #2a3340;
-      --accent: #8fb0f0; --accent-soft: #1b2740; --on-accent: #0b1a3d; --brand2: #ff8cbc;
-      --urgent-bg: #3d1a2b; --urgent-fg: #ff8cbc;
-      --soon-bg: #3b2f14; --soon-fg: #f5c46a;
-      --ok-bg: #173223; --ok-fg: #7fd3a0;
-      --cont-bg: #1f2a3a; --cont-fg: #9db8e0;
-      --shadow: none;
-    }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #12161c; --card: #1a2029; --text: #e8ecf1; --muted: #9aa6b5; --line: #2a3340;
+    --accent: #8fb0f0; --accent-soft: #1b2740; --on-accent: #0b1a3d; --brand2: #ff8cbc;
+    --urgent-bg: #3d1a2b; --urgent-fg: #ff8cbc;
+    --soon-bg: #3b2f14; --soon-fg: #f5c46a;
+    --ok-bg: #173223; --ok-fg: #7fd3a0;
+    --cont-bg: #1f2a3a; --cont-fg: #9db8e0;
+    --shadow: none;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
@@ -31,6 +39,13 @@
   .wrap { max-width: 980px; margin: 0 auto; padding: 32px 16px 56px; }
   h1 { margin: 0 0 4px; font-size: 1.9rem; letter-spacing: -.01em; }
   .lead { margin: 0 0 20px; color: var(--muted); }
+  .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .tools { display: flex; gap: 8px; flex-shrink: 0; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--card); }
+  .seg button { border: 0; background: transparent; color: var(--text); font: inherit; font-size: .8rem; font-weight: 600;
+    padding: 5px 11px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+  .seg button:focus-visible, .chip:focus-visible, .dl:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 8px; }
   .search { flex: 1 1 240px; min-width: 0; padding: 10px 12px; border: 1px solid var(--line);
@@ -123,8 +138,20 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>Açık Çağrılar</h1>
-  <p class="lead">TÜBİTAK başvuru sistemlerinde şu anda açık olan çağrı ve programlar.</p>
+  <div class="top">
+    <h1 id="h1">Açık Çağrılar</h1>
+    <div class="tools">
+      <div class="seg" id="langseg" role="group" aria-label="Dil / Language">
+        <button type="button" data-lang="tr" aria-pressed="true">TR</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <div class="seg" id="themeseg" role="group" aria-label="Tema / Theme">
+        <button type="button" data-theme-btn="light" aria-pressed="true" id="thl">☀ Açık</button>
+        <button type="button" data-theme-btn="dark" aria-pressed="false" id="thd">☾ Koyu</button>
+      </div>
+    </div>
+  </div>
+  <p class="lead" id="lead">TÜBİTAK başvuru sistemlerinde şu anda açık olan çağrı ve programlar.</p>
 
   <div class="controls">
     <input class="search" id="q" type="search" placeholder="Çağrı, program veya kod ara…" aria-label="Ara">
@@ -511,6 +538,144 @@ let ENRICH = [
 ];
 function enrichFor(r) { return ENRICH.find(e => e.u ? (r.src === "eu" && r.bilgi === e.u) : (r.src !== "eu" && r.cagri.includes(e.m))) || null; }
 
+/* ---------------- Dil (TR/EN) ---------------- */
+let LANG = "tr";
+try { LANG = localStorage.getItem("ac-lang") === "en" ? "en" : "tr"; } catch (e) {}
+try { const ql = new URLSearchParams(location.search).get("lang"); if (ql === "en" || ql === "tr") LANG = ql; } catch (e) {}
+
+const I18N = {
+  tr: {
+    title: "Açık Çağrılar",
+    lead: "TÜBİTAK başvuru sistemlerinde şu anda açık olan çağrı ve programlar.",
+    ph: "Çağrı, program veya kod ara…", aria_q: "Ara", dl: "Excel için indir (CSV)",
+    aria_chips: "Kaynak filtresi", aria_sub: "Ufuk Avrupa çağrı türü",
+    th_light: "☀ Açık", th_dark: "☾ Koyu",
+    all: "Tümü", direct: "Doğrudan çağrılar", cascade: "Kademeli çağrılar",
+    h_new: "Yeni açılan çağrılar", new_n: "son {d} günde duyurulan {n} çağrı",
+    new_sub: "TÜBİTAK duyurularında yayımlanan, başvuru sistemlerinin (PBS) listelerinde yer almayan çağrılar. Aynı çağrılar aşağıda bitiş tarihine göre de sıralanır.",
+    h_soon: "Son başvuru tarihi yaklaşanlar", soon_n: "{n} çağrı",
+    soon_sub: "Bitiş tarihine göre sıralıdır; süresi dolanlar otomatik olarak listeden kalkar.",
+    h_cont: "Sürekli açık programlar", cont_n: "{n} program",
+    cont_sub: "Belirli bir son başvuru tarihi olmayan, yıl boyunca başvuruya açık programlar.",
+    empty: "Aramanıza uyan açık çağrı bulunamadı.",
+    stats: "{n} çağrı listeleniyor", stats_eu: " (Ufuk Avrupa çağrıları ayrı filtrede)", stats_tail: " · {a} tarihli, {b} sürekli açık",
+    cont: "Sürekli açık", today: "Bugün son gün", tomorrow: "Yarın son gün", days: "{n} gün kaldı",
+    last: "Son tarih: ", last_app: "Son başvuru: ", opens: "Başvurular {d} tarihinde açılıyor",
+    midnight: "Kaynakta bitiş saati 00:00 olarak girilmiş; son gün bir önceki gün olabilir.",
+    tag_new: "Yeni", tag_2: "2. Aşama", announced: "Duyuru tarihi: ",
+    apply: "Başvuru sayfası", info: "Bilgi notu / çağrı metni", link_default: "Duyuruyu oku ve başvur",
+    link_portal: "Portalda aç", link_program: "Programı incele ve başvur", link_call: "Çağrıyı incele ve başvur",
+    details: "Detaylar", source: "Kaynak", na: "Belirtilmemiş / bulunamadı",
+    d_sure: "Destek süresi", d_butce: "Bütçe / destek tutarı", d_acilis: "Açılış", d_intl: "Uluslararası son tarih",
+    d_natl: "Ulusal son tarih", d_esign: "e-imza son tarihi", d_kimler: "Kimler başvurabilir", d_not: "Not",
+    v_dogrulandi: "Resmi sayfadan doğrulandı", v_kismi: "Kısmen doğrulandı — eksikler resmi sayfada", v_celiski: "Kaynaklar çelişiyor — başvuru öncesi doğrulayın",
+    csv: ["Kaynak","Program","Çağrı","Kategori","Çağrı Kodu","Başlangıç","Bitiş","Durum","Duyuru Tarihi","Not","Bilgi Notu / Duyuru","Başvuru Linki","Destek Süresi","Bütçe","Ulusal Son Tarih","Uluslararası Son Tarih","Doğrulama"],
+    csv_dated: "Tarihli", csv_cont: "Sürekli açık",
+    f_demo: "Demo: veriler {d} tarihinde TÜBİTAK başvuru sistemlerinden ve duyuru sayfasından, ayrıntılar (süre, bütçe vb.) ise çağrı sayfalarından alınmıştır.",
+    f_eu: " Ufuk Avrupa çağrıları AB portalından alınmıştır; saatler API'den Brüksel saatinden İstanbul saatine çevrilmiştir; yalnızca tarih görünenlerde saat için çağrı sayfasına bakınız.",
+    f_exp: " Süresi dolan {n} çağrı otomatik gizlendi.", f_src: " Resmi ve güncel bilgi için ilgili çağrının kaynak sayfasına bakınız: "
+  },
+  en: {
+    title: "Open Calls",
+    lead: "Calls and programmes currently open on the TÜBİTAK application systems and partner portals.",
+    ph: "Search call, programme or code…", aria_q: "Search", dl: "Download for Excel (CSV)",
+    aria_chips: "Source filter", aria_sub: "Horizon Europe call type",
+    th_light: "☀ Light", th_dark: "☾ Dark",
+    all: "All", direct: "Direct calls", cascade: "Cascade calls",
+    h_new: "Newly opened calls", new_n: "{n} calls announced in the last {d} days",
+    new_sub: "Calls published in TÜBİTAK announcements that do not appear in the application-system (PBS) lists. The same calls are also listed below by deadline.",
+    h_soon: "Upcoming deadlines", soon_n: "{n} calls",
+    soon_sub: "Sorted by deadline; expired calls are removed automatically.",
+    h_cont: "Continuously open programmes", cont_n: "{n} programmes",
+    cont_sub: "Programmes with no fixed deadline, open for applications all year round.",
+    empty: "No open calls match your search.",
+    stats: "{n} calls listed", stats_eu: " (Horizon Europe calls are under their own filter)", stats_tail: " · {a} with deadline, {b} continuously open",
+    cont: "Continuously open", today: "Last day today", tomorrow: "Last day tomorrow", days: "{n} days left",
+    last: "Deadline: ", last_app: "Deadline: ", opens: "Applications open on {d}",
+    midnight: "The source lists the closing time as 00:00; the actual last day may be the previous day.",
+    tag_new: "New", tag_2: "Stage 2", announced: "Announced: ",
+    apply: "Application page", info: "Info note / call text", link_default: "Read the announcement and apply",
+    link_portal: "Open in portal", link_program: "View programme and apply", link_call: "View call and apply",
+    details: "Details", source: "Source", na: "Not specified / not found",
+    d_sure: "Duration", d_butce: "Budget / funding amount", d_acilis: "Opening", d_intl: "International deadline",
+    d_natl: "National deadline", d_esign: "e-signature deadline", d_kimler: "Who can apply", d_not: "Note",
+    v_dogrulandi: "Verified on the official page", v_kismi: "Partially verified — gaps are on the official page", v_celiski: "Sources conflict — verify before applying",
+    csv: ["Source","Programme","Call","Category","Call code","Start","End","Status","Announcement date","Note","Info note / announcement","Application link","Duration","Budget","National deadline","International deadline","Verification"],
+    csv_dated: "With deadline", csv_cont: "Continuously open",
+    f_demo: "Data as of {d}: taken from the TÜBİTAK application systems and the announcements page; details (duration, budget etc.) from the call pages.",
+    f_eu: " Horizon Europe calls come from the EU Funding & Tenders Portal; times are converted from Brussels time to Istanbul time; where only a date is shown, check the call page for the time.",
+    f_exp: " {n} expired calls were hidden automatically.", f_src: " For official and up-to-date information see the source page of each call: "
+  }
+};
+function t(k, v) {
+  let s = (I18N[LANG][k] != null ? I18N[LANG][k] : I18N.tr[k]);
+  if (s == null) return k;
+  if (v) for (const x in v) s = s.split("{" + x + "}").join(v[x]);
+  return s;
+}
+/* Veri içindeki tekrarlayan kalıplar (çağrı başlıkları gibi serbest metinler kaynak dilinde kalır). */
+const PH = [
+  ["Ufuk Avrupa · Doğrudan çağrı (AB)", "Horizon Europe · Direct call (EU)"],
+  ["Ufuk Avrupa · Kademeli fonlama (üçüncü taraf çağrısı)", "Horizon Europe · Cascade funding (third-party call)"],
+  ["Ufuk Avrupa (AB Funding & Tenders Portalı)", "Horizon Europe (EU Funding & Tenders Portal)"],
+  ["TÜBİTAK Duyuruları (başvuru sistemi listelerinde yer almayan çağrılar)", "TÜBİTAK Announcements (calls not listed in the application systems)"],
+  ["Araştırma Destek Programları", "Research Support Programmes"],
+  ["Uluslararası İşbirliği", "International Cooperation"],
+  ["Bilim ve Toplum", "Science and Society"],
+  ["Bilim İnsanı Destek Programları", "Scientist Support Programmes"],
+  ["İstanbul Kalkınma Ajansı", "Istanbul Development Agency"],
+  ["Türkiye Sağlık Enstitüleri Başkanlığı", "Turkish Health Institutes (TÜSEB)"],
+  ["Ufuk Avrupa", "Horizon Europe"],
+  ["Tek aşamalı", "Single-stage"], ["İki aşamalı", "Two-stage"], ["Çok kesimli", "Multiple cut-offs"],
+  ["Gösterilen tarih bir sonraki son tarihtir.", "The date shown is the next deadline."],
+  ["Aynı çağrı TÜBİTAK kaynaklarında ulusal son tarihle de listelenebilir; burada AB/konsorsiyum tarihi gösterilir.", "The same call may also be listed in TÜBİTAK sources with a national deadline; the EU/consortium date is shown here."],
+  ["Tarih duyuru metninden otomatik çıkarıldı; doğrulayınız.", "Date was extracted automatically from the announcement text; please verify."],
+  ["Duyuruda belirtilmemiş", "Not stated in the announcement"],
+  ["Resmi sayfada tutar bulunamadı", "No amount found on the official page"],
+  ["Ödül / destek tutarı sayfada belirtilmemiş", "Award / funding amount not stated on the page"],
+  ["Belirtilmemiş / bulunamadı", "Not specified / not found"],
+  ["Belirtilmemiş", "Not specified"],
+  ["Güncel tutar için program sayfasını doğrulayınız.", "Please check the programme page for the current amount."],
+  ["Bilimsel değerlendirmeler periyodik yapılır.", "Scientific evaluations are carried out periodically."],
+]; 
+const PH_RE = [[/(\d) ay(?![\p{L}])/gu, "$1 months"], [/(\d) yıl(?![\p{L}])/gu, "$1 years"]];
+function tx(s) {
+  if (LANG === "tr" || !s) return s;
+  let o = String(s);
+  for (const [a, b] of PH) if (o.indexOf(a) >= 0) o = o.split(a).join(b);
+  for (const [re, b] of PH_RE) o = o.replace(re, b);
+  return o;
+}
+function srcFull(k) { return tx(SOURCES[k].full); }
+function applyLang() {
+  document.documentElement.lang = LANG;
+  document.title = t("title");
+  document.getElementById("h1").textContent = t("title");
+  document.getElementById("lead").textContent = t("lead");
+  const q = document.getElementById("q"); q.placeholder = t("ph"); q.setAttribute("aria-label", t("aria_q"));
+  document.getElementById("dl").textContent = t("dl");
+  document.getElementById("chips").setAttribute("aria-label", t("aria_chips"));
+  document.getElementById("subchips").setAttribute("aria-label", t("aria_sub"));
+  document.getElementById("thl").textContent = t("th_light");
+  document.getElementById("thd").textContent = t("th_dark");
+  document.querySelectorAll("#langseg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === LANG)));
+}
+function applyTheme(th) {
+  document.documentElement.setAttribute("data-theme", th);
+  document.querySelectorAll("#themeseg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.themeBtn === th)));
+}
+function fullRender() { applyLang(); renderChips(); renderSubChips(); render(); renderFoot(); }
+document.getElementById("langseg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  LANG = b.dataset.lang; try { localStorage.setItem("ac-lang", LANG); } catch (x) {}
+  fullRender();
+});
+document.getElementById("themeseg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  try { localStorage.setItem("ac-theme", b.dataset.themeBtn); } catch (x) {}
+  applyTheme(b.dataset.themeBtn);
+});
+
 /* ---------------- Mantık ---------------- */
 const NOW = new Date();
 const SRC_ORDER = ["ardeb", "uidb", "bt", "bideb", "duyuru", "istka", "tuseb", "eu"];
@@ -556,7 +721,7 @@ function recompute() {
 recompute();
 
 let state = { src: "all", q: "", sub: "all" };
-const SUBS = [["all", "Tümü", null], ["dogrudan", "Doğrudan çağrılar", "Doğrudan"], ["kademeli", "Kademeli çağrılar", "Kademeli"]];
+const SUBS = [["all", "all", null], ["dogrudan", "direct", "Doğrudan"], ["kademeli", "cascade", "Kademeli"]];
 
 function matches(r) {
   if (state.src === "all" && SOURCES[r.src].hideInAll && !state.q) return false;
@@ -571,32 +736,33 @@ function matches(r) {
 }
 
 function badgeFor(r) {
-  if (!r.end) return { cls: "cont", text: "Sürekli açık" };
+  if (!r.end) return { cls: "cont", text: t("cont") };
   const d = dayDiff(NOW, r.end);
-  if (d <= 0) return { cls: "urgent", text: "Bugün son gün" };
-  if (d === 1) return { cls: "urgent", text: "Yarın son gün" };
-  if (d <= 7)  return { cls: "urgent", text: d + " gün kaldı" };
-  if (d <= 30) return { cls: "soon",   text: d + " gün kaldı" };
-  return { cls: "ok", text: d + " gün kaldı" };
+  if (d <= 0) return { cls: "urgent", text: t("today") };
+  if (d === 1) return { cls: "urgent", text: t("tomorrow") };
+  if (d <= 7)  return { cls: "urgent", text: t("days", { n: d }) };
+  if (d <= 30) return { cls: "soon",   text: t("days", { n: d }) };
+  return { cls: "ok", text: t("days", { n: d }) };
 }
 
-const NA = '<span style="color:var(--muted)">Belirtilmemiş / bulunamadı</span>';
-const VLAB = { dogrulandi: "Resmi sayfadan doğrulandı", kismi: "Kısmen doğrulandı — eksikler resmi sayfada", celiski: "Kaynaklar çelişiyor — başvuru öncesi doğrulayın" };
+const NA = () => '<span style="color:var(--muted)">' + esc(t("na")) + "</span>";
 function detailsHTML(r) {
   const e = enrichFor(r); if (!e) return "";
-  const row = (k, v) => "<dt>" + k + "</dt><dd>" + (v ? esc(v) : NA) + "</dd>";
-  const nat = e.natl ? fmt(e.natl) + (e.esign ? "" : "") : (r.src === "duyuru" || !e.intl ? "" : "");
-  let g = row("Destek süresi", e.sure) + row("Bütçe / destek tutarı", e.butce);
-  if (e.acilis) g += row("Açılış", fmt(e.acilis));
-  if (e.intl) g += row("Uluslararası son tarih", /[A-Z]/.test(e.intl) ? fmt(e.intl.slice(0,16)) + " " + e.intl.slice(16).trim() : fmt(e.intl));
-  if (e.natl) g += row("Ulusal son tarih", fmt(e.natl));
-  if (e.esign) g += row("e-imza son tarihi", fmt(e.esign));
-  if (e.kimler) g += row("Kimler başvurabilir", e.kimler);
-  if (e.not) g += row("Not", e.not);
-  return '<details class="det"><summary>Detaylar</summary><dl class="dgrid">' + g + "</dl>" +
-    '<span class="vflag ' + e.durum + '">' + esc(VLAB[e.durum]) + "</span>" +
-    (e.kaynak ? ' <a href="' + esc(e.kaynak) + '" target="_blank" rel="noopener" style="font-size:.8rem">Kaynak</a>' : "") + "</details>";
+  const row = (k, v) => "<dt>" + esc(t(k)) + "</dt><dd>" + (v ? esc(tx(v)) : NA()) + "</dd>";
+  let g = row("d_sure", e.sure) + row("d_butce", e.butce);
+  if (e.acilis) g += row("d_acilis", fmt(e.acilis));
+  if (e.intl) g += row("d_intl", /[A-Z]/.test(e.intl) ? fmt(e.intl.slice(0,16)) + " " + e.intl.slice(16).trim() : fmt(e.intl));
+  if (e.natl) g += row("d_natl", fmt(e.natl));
+  if (e.esign) g += row("d_esign", fmt(e.esign));
+  if (e.kimler) g += row("d_kimler", e.kimler);
+  if (e.not) g += row("d_not", e.not);
+  return '<details class="det"><summary>' + esc(t("details")) + '</summary><dl class="dgrid">' + g + "</dl>" +
+    '<span class="vflag ' + e.durum + '">' + esc(t("v_" + e.durum)) + "</span>" +
+    (e.kaynak ? ' <a href="' + esc(e.kaynak) + '" target="_blank" rel="noopener" style="font-size:.8rem">' + esc(t("source")) + "</a>" : "") + "</details>";
 }
+
+const LINKL = { "Portalda aç": "link_portal", "Programı incele ve başvur": "link_program", "Çağrıyı incele ve başvur": "link_call" };
+function linkLabel(r) { const l = SOURCES[r.src].linkLabel; return t(l && LINKL[l] ? LINKL[l] : "link_default"); }
 
 function itemHTML(r) {
   const b = badgeFor(r);
@@ -606,38 +772,38 @@ function itemHTML(r) {
   if (r.end) {
     const midnight = r.endRaw.length > 10 && r.endRaw.endsWith("T00:00");
     const startTxt = r.startRaw ? fmt(r.startRaw) : "";
-    when += '<div class="range">' + (startTxt ? esc(startTxt) + " – " : "Son tarih: ") +
-      "<b" + (midnight ? ' title="Kaynakta bitiş saati 00:00 olarak girilmiş; son gün bir önceki gün olabilir."' : "") + ">" +
+    when += '<div class="range">' + (startTxt ? esc(startTxt) + " – " : esc(t("last"))) +
+      "<b" + (midnight ? ' title="' + esc(t("midnight")) + '"' : "") + ">" +
       esc(fmt(r.endRaw)) + (midnight ? " ⓘ" : "") + "</b></div>";
-    if (r.start && r.start > NOW) when += '<span class="opens">Başvurular ' + esc(fmt(r.startRaw)) + " tarihinde açılıyor</span>";
+    if (r.start && r.start > NOW) when += '<span class="opens">' + esc(t("opens", { d: fmt(r.startRaw) })) + "</span>";
   }
   when += '<span class="badge ' + b.cls + '">' + esc(b.text) + "</span>";
 
-  const tags = (isNew(r) ? '<span class="tag new">Yeni</span>' : "") +
+  const tags = (isNew(r) ? '<span class="tag new">' + esc(t("tag_new")) + "</span>" : "") +
     '<span class="tag">' + esc(s.label) + "</span>" +
-    (r.second ? '<span class="tag plain">2. Aşama</span>' : "") +
+    (r.second ? '<span class="tag plain">' + esc(t("tag_2")) + '</span>' : "") +
     (r.kod ? '<span class="tag plain">' + esc(r.kod) + "</span>" : "");
-  const prog = r.program + (r.kategori && r.kategori !== r.program ? " · " + r.kategori : "");
+  const prog = tx(r.program) + (r.kategori && r.kategori !== r.program ? " · " + tx(r.kategori) : "");
 
   return '<article class="item' + (urgent ? " is-urgent" : "") + '">' +
     '<div class="main"><div class="tags">' + tags + "</div>" +
     "<h3>" + esc(r.cagri) + "</h3>" +
     '<p class="prog">' + esc(prog) + "</p>" +
-    (r.note ? '<p class="note">' + esc(r.note) + "</p>" : "") +
-    (r.announced ? '<p class="note">Duyuru tarihi: ' + esc(fmt(r.announced)) + "</p>" : "") +
+    (r.note ? '<p class="note">' + esc(tx(r.note)) + "</p>" : "") +
+    (r.announced ? '<p class="note">' + esc(t("announced")) + esc(fmt(r.announced)) + "</p>" : "") +
     "</div>" +
     '<div class="when">' + when + "</div>" +
     '<div class="links">' +
     (SOURCES[r.src].noApply
-      ? (r.bilgi ? '<a class="apply" href="' + esc(r.bilgi) + '" target="_blank" rel="noopener">' + (SOURCES[r.src].linkLabel || "Duyuruyu oku ve başvur") + '</a>' : "")
-      : '<a class="apply" href="' + esc(applyUrl(r)) + '" target="_blank" rel="noopener">Başvuru sayfası</a>' +
-        (r.bilgi ? '<a href="' + esc(r.bilgi) + '" target="_blank" rel="noopener">Bilgi notu / çağrı metni</a>' : "")) +
+      ? (r.bilgi ? '<a class="apply" href="' + esc(r.bilgi) + '" target="_blank" rel="noopener">' + esc(linkLabel(r)) + '</a>' : "")
+      : '<a class="apply" href="' + esc(applyUrl(r)) + '" target="_blank" rel="noopener">' + esc(t("apply")) + '</a>' +
+        (r.bilgi ? '<a href="' + esc(r.bilgi) + '" target="_blank" rel="noopener">' + esc(t("info")) + '</a>' : "")) +
     "</div>" + detailsHTML(r) + "</article>";
 }
 
 function newRowHTML(r) {
   const b = badgeFor(r);
-  const when = r.end ? "Son başvuru: <b>" + esc(fmt(r.endRaw)) + "</b>" : "Sürekli açık";
+  const when = r.end ? esc(t("last_app")) + "<b>" + esc(fmt(r.endRaw)) + "</b>" : esc(t("cont"));
   return '<a class="newrow" href="' + esc(r.bilgi) + '" target="_blank" rel="noopener">' +
     '<span class="newdate">' + esc(fmt(r.announced)) + "</span>" +
     '<span class="newtitle">' + esc(r.cagri) + "</span>" +
@@ -652,28 +818,28 @@ function render() {
 
   let html = "";
   if (fresh.length) {
-    html += '<h2>Yeni açılan çağrılar <span class="n">son ' + NEW_DAYS + " günde duyurulan " + fresh.length + " çağrı</span></h2>" +
-      '<p class="sub">TÜBİTAK duyurularında yayımlanan, başvuru sistemlerinin (PBS) listelerinde yer almayan çağrılar. Aynı çağrılar aşağıda bitiş tarihine göre de sıralanır.</p>' +
+    html += "<h2>" + esc(t("h_new")) + ' <span class="n">' + esc(t("new_n", { d: NEW_DAYS, n: fresh.length })) + "</span></h2>" +
+      '<p class="sub">' + esc(t("new_sub")) + "</p>" +
       '<div class="newbox">' + fresh.map(newRowHTML).join("") + "</div>";
   }
   if (dated.length) {
-    html += "<h2>Son başvuru tarihi yaklaşanlar <span class=\"n\">" + dated.length + " çağrı</span></h2>" +
-      '<p class="sub">Bitiş tarihine göre sıralıdır; süresi dolanlar otomatik olarak listeden kalkar.</p>' +
+    html += "<h2>" + esc(t("h_soon")) + ' <span class="n">' + esc(t("soon_n", { n: dated.length })) + "</span></h2>" +
+      '<p class="sub">' + esc(t("soon_sub")) + "</p>" +
       dated.map(itemHTML).join("");
   }
   if (cont.length) {
-    html += "<h2>Sürekli açık programlar <span class=\"n\">" + cont.length + " program</span></h2>" +
-      '<p class="sub">Belirli bir son başvuru tarihi olmayan, yıl boyunca başvuruya açık programlar.</p>';
+    html += "<h2>" + esc(t("h_cont")) + ' <span class="n">' + esc(t("cont_n", { n: cont.length })) + "</span></h2>" +
+      '<p class="sub">' + esc(t("cont_sub")) + "</p>";
     SRC_ORDER.forEach(k => {
       const g = cont.filter(r => r.src === k);
-      if (g.length) html += '<h3 class="group">' + esc(SOURCES[k].full) + "</h3>" + g.map(itemHTML).join("");
+      if (g.length) html += '<h3 class="group">' + esc(srcFull(k)) + "</h3>" + g.map(itemHTML).join("");
     });
   }
-  if (!html) html = '<div class="empty">Aramanıza uyan açık çağrı bulunamadı.</div>';
+  if (!html) html = '<div class="empty">' + esc(t("empty")) + "</div>";
 
   document.getElementById("list").innerHTML = html;
   document.getElementById("stats").textContent =
-    rows.length + " çağrı listeleniyor" + (state.src === "all" && !state.q ? " (Ufuk Avrupa çağrıları ayrı filtrede)" : "") + " · " + dated.length + " tarihli, " + cont.length + " sürekli açık";
+    t("stats", { n: rows.length }) + (state.src === "all" && !state.q ? t("stats_eu") : "") + t("stats_tail", { a: dated.length, b: cont.length });
 }
 
 function renderSubChips() {
@@ -682,13 +848,13 @@ function renderSubChips() {
   const eu = LIVE.filter(r => r.src === "eu");
   el.innerHTML = SUBS.map(([k, l, m]) => {
     const n = m ? eu.filter(r => r.program.includes(m)).length : eu.length;
-    return '<button type="button" class="chip" data-s="' + k + '" aria-pressed="' + (state.sub === k) + '">' + esc(l) + " (" + n + ")</button>";
+    return '<button type="button" class="chip" data-s="' + k + '" aria-pressed="' + (state.sub === k) + '">' + esc(t(l)) + " (" + n + ")</button>";
   }).join("");
 }
 
 function renderChips() {
   const el = document.getElementById("chips");
-  const items = [["all", "Tümü"]].concat(SRC_ORDER.filter(k => LIVE.some(r => r.src === k)).map(k => [k, SOURCES[k].label]));
+  const items = [["all", t("all")]].concat(SRC_ORDER.filter(k => LIVE.some(r => r.src === k)).map(k => [k, (LANG === "en" && SOURCES[k].label === "Duyuru") ? "Announcements" : tx(SOURCES[k].label)]));
   el.innerHTML = items.map(([k, l]) => {
     const n = k === "all" ? LIVE.filter(r => !SOURCES[r.src].hideInAll).length : LIVE.filter(r => r.src === k).length;
     return '<button type="button" class="chip" data-k="' + k + '" aria-pressed="' + (state.src === k) + '">' + esc(l) + " (" + n + ")</button>";
@@ -708,11 +874,11 @@ document.getElementById("q").addEventListener("input", e => { state.q = e.target
 document.getElementById("dl").addEventListener("click", () => {
   const rows = LIVE.filter(matches).sort((a, b) => (a.end ? a.end : 8.64e15) - (b.end ? b.end : 8.64e15));
   const q = v => '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"';
-  const head = ["Kaynak", "Program", "Çağrı", "Kategori", "Çağrı Kodu", "Başlangıç", "Bitiş", "Durum", "Duyuru Tarihi", "Not", "Bilgi Notu / Duyuru", "Başvuru Linki", "Destek Süresi", "Bütçe", "Ulusal Son Tarih", "Uluslararası Son Tarih", "Doğrulama"];
+  const head = t("csv");
   const lines = [head.map(q).join(";")].concat(rows.map(r => [
-    SOURCES[r.src].label, r.program, r.cagri, r.kategori, r.kod, fmt(r.startRaw), fmt(r.endRaw),
-    r.end ? "Tarihli" : "Sürekli açık", fmt(r.announced), r.note, r.bilgi, applyUrl(r),
-    (enrichFor(r)||{}).sure, (enrichFor(r)||{}).butce, fmt((enrichFor(r)||{}).natl), fmt(((enrichFor(r)||{}).intl||"").slice(0,16)), (enrichFor(r)||{}).durum
+    SOURCES[r.src].label, tx(r.program), r.cagri, tx(r.kategori), r.kod, fmt(r.startRaw), fmt(r.endRaw),
+    r.end ? t("csv_dated") : t("csv_cont"), fmt(r.announced), tx(r.note), r.bilgi, applyUrl(r),
+    tx((enrichFor(r)||{}).sure), tx((enrichFor(r)||{}).butce), fmt((enrichFor(r)||{}).natl), fmt(((enrichFor(r)||{}).intl||"").slice(0,16)), (enrichFor(r)||{}).durum
   ].map(q).join(";")));
   const blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
   const a = document.createElement("a");
@@ -724,14 +890,12 @@ document.getElementById("dl").addEventListener("click", () => {
 
 function renderFoot() {
   document.getElementById("foot").innerHTML =
-  "Demo: veriler " + esc(DATA_DATE) + " tarihinde TÜBİTAK başvuru sistemlerinden ve duyuru sayfasından, ayrıntılar (süre, bütçe vb.) ise çağrı sayfalarından alınmıştır." +
-  " Ufuk Avrupa çağrıları AB portalından alınmıştır; saatler API'den Brüksel saatinden İstanbul saatine çevrilmiştir; yalnızca tarih görünenlerde saat için çağrı sayfasına bakınız." + (EXPIRED ? " Süresi dolan " + EXPIRED + " çağrı otomatik gizlendi." : "") +
-  " Resmi ve güncel bilgi için ilgili çağrının kaynak sayfasına bakınız: " +
+  esc(t("f_demo", { d: DATA_DATE })) + esc(t("f_eu")) + (EXPIRED ? esc(t("f_exp", { n: EXPIRED })) : "") +
+  esc(t("f_src")) +
   SRC_ORDER.map(k => '<a href="' + esc(SOURCES[k].base) + '" target="_blank" rel="noopener">' + esc(SOURCES[k].label) + "</a>").join(", ") + ".";
 }
-renderFoot();
-renderChips();
-render();
+applyTheme(document.documentElement.getAttribute("data-theme") || "light");
+fullRender();
 
 /* Canlı veri: günlük betiğin ürettiği cagrilar.json aynı klasörde varsa onu kullanır;
    yoksa (ya da okunamazsa) sayfaya gömülü demo verisiyle çalışmaya devam eder. */
@@ -742,7 +906,7 @@ render();
     ALL = j.rows.map(toRow);
     ENRICH = Array.isArray(j.enrich) ? j.enrich : [];
     DATA_DATE = (j.generated || "").slice(8, 10) + "." + (j.generated || "").slice(5, 7) + "." + (j.generated || "").slice(0, 4);
-    recompute(); renderChips(); renderSubChips(); render(); renderFoot();
+    recompute(); fullRender();
   })
   .catch(() => {});
 </script>
