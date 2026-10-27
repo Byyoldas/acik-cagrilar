@@ -14,17 +14,21 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 API = "https://api.tech.ec.europa.eu/search-api/prod/rest/search?apiKey=SEDIA&text=***&pageSize=100&pageNumber=%d"
-QUERY = {"bool": {"must": [
-    {"terms": {"type": ["1", "2", "8"]}},            # 1=konu, 8=kademeli fonlama (cascade)
-    {"terms": {"status": ["31094502"]}},             # 31094502 = Open
-    {"terms": {"frameworkProgramme": ["43108390"]}}  # Horizon Europe
-]}}
+# (kaynak kodu, F&T frameworkProgramme kimliği, görünen ad)
+PROGRAMMES = [("eu", "43108390", "Ufuk Avrupa"),          # Horizon Europe
+              ("erasmus", "43353764", "Erasmus+")]        # Erasmus+ 2021-2027 (merkezi/EACEA çağrıları)
+def make_query(prog_id):
+    return {"bool": {"must": [
+        {"terms": {"type": ["1", "2", "8"]}},            # 1=konu, 8=kademeli fonlama (cascade)
+        {"terms": {"status": ["31094502"]}},             # 31094502 = Open
+        {"terms": {"frameworkProgramme": [prog_id]}}
+    ]}}
 BRU, IST = ZoneInfo("Europe/Brussels"), ZoneInfo("Europe/Istanbul")
 
-def post(page):
+def post(page, query):
     b = uuid.uuid4().hex
     parts = []
-    for name, val in (("query", QUERY), ("languages", ["en"])):
+    for name, val in (("query", query), ("languages", ["en"])):
         parts.append('--%s\r\nContent-Disposition: form-data; name="%s"; filename="%s.json"\r\n'
                      'Content-Type: application/json\r\n\r\n%s\r\n' % (b, name, name, json.dumps(val)))
     body = ("".join(parts) + "--%s--\r\n" % b).encode()
@@ -70,14 +74,20 @@ def budget_text(m):
 
 def main(out_path="eu_calls.json"):
     now = datetime.now(IST)
-    results, page = [], 1
-    while True:
-        j = post(page)
-        results += j.get("results", [])
-        if page * 100 >= j.get("totalResults", 0): break
-        page += 1
+    results = []
+    for src, pid, pname in PROGRAMMES:
+        page = 1
+        try:
+            while True:
+                j = post(page, make_query(pid))
+                results += [(src, pname, x) for x in j.get("results", [])]
+                if page * 100 >= j.get("totalResults", 0): break
+                page += 1
+        except Exception as ex:
+            print("UYARI: %s alınamadı: %s" % (pname, ex), file=sys.stderr)
+            if src == "eu": raise
     seen, rows, enrich = set(), [], []
-    for x in results:
+    for src, pname, x in results:
         m = x["metadata"]
         key = first(m, "ccm2Id") or x["reference"]
         if key in seen: continue
@@ -95,8 +105,8 @@ def main(out_path="eu_calls.json"):
             url = ("https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/"
                    "competitive-calls-cs/" + first(m, "callccm2Id"))
         start = first(m, "startDate")[:10]
-        rows.append(["eu",
-                     "Ufuk Avrupa · " + ("Kademeli fonlama (üçüncü taraf çağrısı)" if casc else "Doğrudan çağrı (AB)"),
+        rows.append([src,
+                     pname + " · " + ("Kademeli fonlama (üçüncü taraf çağrısı)" if casc else "Doğrudan çağrı (AB)"),
                      title, kat, code, start, nxt, 0, url, None,
                      "Gösterilen tarih bir sonraki son tarihtir." if len(dls) > 1 else "", ""])
         e = {"m": title, "kaynak": url, "durum": "dogrulandi"}

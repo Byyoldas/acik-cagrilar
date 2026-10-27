@@ -184,6 +184,7 @@ const SOURCES = {
   bideb:  { label: "BİDEB",          full: "Bilim İnsanı Destek Programları", base: "https://ebideb.tubitak.gov.tr/basvuruacikprogramlar.htm", apply: "https://tybs.tubitak.gov.tr/" },
   istka:  { label: "İSTKA",          full: "İstanbul Kalkınma Ajansı",     base: "https://www.istka.org.tr/acik-destek-programlari", noApply: true, linkLabel: "Programı incele ve başvur" },
   eu:     { label: "Ufuk Avrupa",   full: "Ufuk Avrupa (AB Funding & Tenders Portalı)", base: "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/calls-for-proposals?status=31094502&frameworkProgramme=43108390", noApply: true, linkLabel: "Portalda aç", hideInAll: true },
+  erasmus: { label: "Erasmus+", full: "Erasmus+ (Merkezi çağrılar ve Ulusal Ajans çağrıları)", base: "https://erasmus-plus.ec.europa.eu/funding-tenders/opportunities/funding/calls", noApply: true, linkLabel: "Portalda aç" },
   tuseb:  { label: "TÜSEB",          full: "Türkiye Sağlık Enstitüleri Başkanlığı", base: "https://proje-destek.tuseb.gov.tr/", noApply: true, linkLabel: "Çağrıyı incele ve başvur" },
   duyuru: { label: "Duyuru",         full: "TÜBİTAK Duyuruları (başvuru sistemi listelerinde yer almayan çağrılar)", base: "https://tubitak.gov.tr/tr/duyuru", noApply: true }
 };
@@ -537,7 +538,7 @@ let ENRICH = [
  {"m":"4001-","butce":"Resmi sayfada tutar bulunamadı","durum":"kismi","kaynak":"https://tubitak.gov.tr/4001"},
  {"m":"1002-B","butce":"Güncel tutar / süre bulunamadı (kaynakta yalnızca 2022 tarihli bilgi var)","durum":"kismi","kaynak":"https://tubitak.gov.tr/tr/destekler/akademik/ulusal-destek-programlari/1002-b-acil-destek-modulu"}
 ];
-function enrichFor(r) { return ENRICH.find(e => e.u ? (r.src === "eu" && r.bilgi === e.u) : (r.src !== "eu" && r.cagri.includes(e.m))) || null; }
+function enrichFor(r) { return ENRICH.find(e => e.u ? ((r.src === "eu" || r.src === "erasmus") && r.bilgi === e.u) : (r.src !== "eu" && r.src !== "erasmus" && r.cagri.includes(e.m))) || null; }
 
 /* ---------------- Dil (TR/EN) ---------------- */
 let LANG = "tr";
@@ -627,6 +628,9 @@ const PH = [
   ["İstanbul Kalkınma Ajansı", "Istanbul Development Agency"],
   ["Türkiye Sağlık Enstitüleri Başkanlığı", "Turkish Health Institutes (TÜSEB)"],
   ["Ufuk Avrupa", "Horizon Europe"],
+  ["Erasmus+ (Merkezi çağrılar ve Ulusal Ajans çağrıları)", "Erasmus+ (centralised and National Agency calls)"],
+  ["Erasmus+ · Doğrudan çağrı (AB)", "Erasmus+ · Direct call (EU)"],
+  ["Erasmus+ · Kademeli fonlama (üçüncü taraf çağrısı)", "Erasmus+ · Cascade funding (third-party call)"],
   ["Tek aşamalı", "Single-stage"], ["İki aşamalı", "Two-stage"], ["Çok kesimli", "Multiple cut-offs"],
   ["Gösterilen tarih bir sonraki son tarihtir.", "The date shown is the next deadline."],
   ["Aynı çağrı TÜBİTAK kaynaklarında ulusal son tarihle de listelenebilir; burada AB/konsorsiyum tarihi gösterilir.", "The same call may also be listed in TÜBİTAK sources with a national deadline; the EU/consortium date is shown here."],
@@ -679,7 +683,7 @@ document.getElementById("themeseg").addEventListener("click", e => {
 
 /* ---------------- Mantık ---------------- */
 const NOW = new Date();
-const SRC_ORDER = ["ardeb", "uidb", "bt", "bideb", "duyuru", "istka", "tuseb", "eu"];
+const SRC_ORDER = ["ardeb", "uidb", "bt", "bideb", "duyuru", "istka", "tuseb", "erasmus", "eu"];
 
 function parseEnd(s)   { if (!s) return null; return s.length === 10 ? new Date(s + "T23:59:59") : new Date(s + ":00"); }
 function parseStart(s) { if (!s) return null; return new Date(s.length === 10 ? s + "T00:00:00" : s + ":00"); }

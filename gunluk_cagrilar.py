@@ -220,7 +220,7 @@ def main():
     eu_enrich = []
     try:
         tmp = OUT / "_eu.json"; eu.main(str(tmp)); d = json.loads(tmp.read_text("utf-8")); tmp.unlink()
-        for r in d["rows"]: kayitlar["eu:" + r[8]] = r
+        for r in d["rows"]: kayitlar[r[0] + ":" + r[8]] = r
         for e in d["enrich"]:
             eu_enrich.append({"u": e["kaynak"], "butce": e["butce"], "durum": "dogrulandi", "kaynak": e["kaynak"],
                               **({"sure": e["sure"]} if e.get("sure") else {}), **({"not": e["not"]} if e.get("not") else {})})
