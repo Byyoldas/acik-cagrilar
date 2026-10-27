@@ -914,6 +914,19 @@ fullRender();
     recompute(); fullRender();
   })
   .catch(() => {});
+
+/* iframe içinde gömülüyse yüksekliği üst sayfaya bildir (WordPress vb. otomatik yükseklik için) */
+(function () {
+  if (window.parent === window) return;
+  var last = 0;
+  function send() {
+    var h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+    if (h && h !== last) { last = h; try { window.parent.postMessage({ type: "acik-cagrilar-height", height: h }, "*"); } catch (e) {} }
+  }
+  if (window.ResizeObserver) new ResizeObserver(send).observe(document.body);
+  window.addEventListener("load", send); window.addEventListener("resize", send);
+  setInterval(send, 1500);
+})();
 </script>
 </body>
 </html>
