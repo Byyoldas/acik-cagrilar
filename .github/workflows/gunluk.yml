@@ -35,6 +35,7 @@ jobs:
           MAIL_TO: ${{ secrets.MAIL_TO }}
 
       - name: Önceki gün durumunu kaydet (yeni çağrı tespiti için)
+        continue-on-error: true   # yazma izni yoksa yayını engellemesin
         run: |
           git config user.name "cagri-bot"
           git config user.email "cagri-bot@users.noreply.github.com"
