@@ -255,7 +255,12 @@ def main():
     durum_dosya.write_text(json.dumps({anahtar(r): r[6] for r in rows}, ensure_ascii=False), "utf-8")
 
     enrich = json.loads((HERE / "cagri-detaylari.json").read_text("utf-8")) if (HERE / "cagri-detaylari.json").exists() else []
-    cikti = {"generated": now.isoformat(timespec="minutes"), "rows": rows, "enrich": eu_enrich + enrich}
+    try:
+        import butce_cikar
+        oto = butce_cikar.calistir(rows, enrich, log=lambda m: print(m, file=sys.stderr))
+    except Exception as e:
+        oto = []; hatalar.append(f"butce: {e}")
+    cikti = {"generated": now.isoformat(timespec="minutes"), "rows": rows, "enrich": eu_enrich + enrich + oto}
     (OUT / "cagrilar.json").write_text(json.dumps(cikti, ensure_ascii=False, indent=1), "utf-8")
     (OUT / "yeni.json").write_text(json.dumps({"yeni": yeni, "degisen": [{"row": r, "eski_bitis": o} for r, o in degisen],
                                                "kontrol_gerekli": kontrol, "hatalar": hatalar}, ensure_ascii=False, indent=1), "utf-8")

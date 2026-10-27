@@ -105,6 +105,7 @@
   .vflag { display: inline-block; margin-top: 8px; font-size: .75rem; padding: 2px 8px; border-radius: 6px; }
   .vflag.dogrulandi { background: var(--ok-bg); color: var(--ok-fg); }
   .vflag.kismi { background: var(--cont-bg); color: var(--cont-fg); }
+  .vflag.otomatik { background: var(--soon-bg); color: var(--soon-fg); }
   .vflag.celiski { background: var(--urgent-bg); color: var(--urgent-fg); }
   @media (max-width: 640px) { .dgrid { grid-template-columns: 1fr; } }
   .tag.new { background: var(--brand2); color: var(--on-accent); }
@@ -568,7 +569,7 @@ const I18N = {
     details: "Detaylar", source: "Kaynak", na: "Belirtilmemiş / bulunamadı",
     d_sure: "Destek süresi", d_butce: "Bütçe / destek tutarı", d_acilis: "Açılış", d_intl: "Uluslararası son tarih",
     d_natl: "Ulusal son tarih", d_esign: "e-imza son tarihi", d_kimler: "Kimler başvurabilir", d_not: "Not",
-    v_dogrulandi: "Resmi sayfadan doğrulandı", v_kismi: "Kısmen doğrulandı — eksikler resmi sayfada", v_celiski: "Kaynaklar çelişiyor — başvuru öncesi doğrulayın",
+    v_dogrulandi: "Resmi sayfadan doğrulandı", v_kismi: "Kısmen doğrulandı — eksikler resmi sayfada", v_celiski: "Kaynaklar çelişiyor — başvuru öncesi doğrulayın", v_otomatik: "Otomatik çıkarıldı — resmi sayfadan doğrulayın",
     csv: ["Kaynak","Program","Çağrı","Kategori","Çağrı Kodu","Başlangıç","Bitiş","Durum","Duyuru Tarihi","Not","Bilgi Notu / Duyuru","Başvuru Linki","Destek Süresi","Bütçe","Ulusal Son Tarih","Uluslararası Son Tarih","Doğrulama"],
     csv_dated: "Tarihli", csv_cont: "Sürekli açık",
     f_demo: "Demo: veriler {d} tarihinde TÜBİTAK başvuru sistemlerinden ve duyuru sayfasından, ayrıntılar (süre, bütçe vb.) ise çağrı sayfalarından alınmıştır.",
@@ -599,7 +600,7 @@ const I18N = {
     details: "Details", source: "Source", na: "Not specified / not found",
     d_sure: "Duration", d_butce: "Budget / funding amount", d_acilis: "Opening", d_intl: "International deadline",
     d_natl: "National deadline", d_esign: "e-signature deadline", d_kimler: "Who can apply", d_not: "Note",
-    v_dogrulandi: "Verified on the official page", v_kismi: "Partially verified — gaps are on the official page", v_celiski: "Sources conflict — verify before applying",
+    v_dogrulandi: "Verified on the official page", v_kismi: "Partially verified — gaps are on the official page", v_celiski: "Sources conflict — verify before applying", v_otomatik: "Extracted automatically — verify on the official page",
     csv: ["Source","Programme","Call","Category","Call code","Start","End","Status","Announcement date","Note","Info note / announcement","Application link","Duration","Budget","National deadline","International deadline","Verification"],
     csv_dated: "With deadline", csv_cont: "Continuously open",
     f_demo: "Data as of {d}: taken from the TÜBİTAK application systems and the announcements page; details (duration, budget etc.) from the call pages.",
