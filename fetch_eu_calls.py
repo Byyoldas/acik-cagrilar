@@ -86,6 +86,18 @@ def main(out_path="eu_calls.json"):
         except Exception as ex:
             print("UYARI: %s alınamadı: %s" % (pname, ex), file=sys.stderr)
             if src == "eu": raise
+    try:                                   # teşhis: Erasmus+ programme kimliğini doğrula (teshis.json)
+        probe = post(1, {"bool": {"must": [{"terms": {"type": ["1", "2", "8"]}}, {"terms": {"status": ["31094502"]}}]}})
+        import collections
+        fp = collections.Counter()
+        for x in probe.get("results", []):
+            fp[str(x["metadata"].get("frameworkProgramme")) + "|" + str(x["metadata"].get("programmeDivision", ""))[:60]] += 1
+        from pathlib import Path
+        Path(__file__).with_name("teshis.json").write_text(json.dumps({"per_programme": {src: sum(1 for r in results if r[0] == src) for src, _, _ in PROGRAMMES},
+            "probe_total": probe.get("totalResults"), "probe_frameworks": fp.most_common(30),
+            "probe_erasmus_sample": [ (x["metadata"].get("frameworkProgramme"), x["metadata"].get("identifier")) for x in probe.get("results", []) if "ERASMUS" in json.dumps(x["metadata"]).upper()][:10]}, ensure_ascii=False, indent=1), "utf-8")
+    except Exception as ex:
+        print("teşhis hatası:", ex, file=sys.stderr)
     seen, rows, enrich = set(), [], []
     for src, pname, x in results:
         m = x["metadata"]
