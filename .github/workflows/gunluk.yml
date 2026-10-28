@@ -2,7 +2,7 @@ name: Açık çağrılar (günlük)
 
 on:
   schedule:
-    - cron: "0 5 * * *"        # her gün 08:00 (İstanbul)
+    - cron: "17 4 * * *"        # her gün ~07:17 İstanbul (yoğun olmayan dakika; GitHub gecikmesiyle 08:00 civarı)
   workflow_dispatch: {}         # elle çalıştırma
   push:
     branches: [main]
