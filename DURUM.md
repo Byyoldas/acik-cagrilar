@@ -4,7 +4,7 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 29.10.2026
 
-- Son çalışma: **14:18** (İstanbul) · o gün 5 çalışma
+- Son çalışma: **14:23** (İstanbul) · o gün 6 çalışma
 - Açık çağrı: **193** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 2 · Ufuk Avrupa 129 · İSTKA 1 · UIDB 24
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [Development of ecosystem and next-generation capabilities for a secured European Critical Communication System in civil security](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-04) (son tarih: 2026-11-05)
@@ -28,5 +28,4 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
   - **Duyuru** — [Türkiye’nin İlk Yatırım Tabanlı Girişimcilik Destek Programı olan BiGG Yatırım Programı’nın 2026-2 Çağrısı Açıldı](https://tubitak.gov.tr/tr/duyuru/turkiyenin-ilk-yatirim-tabanli-girisimcilik-destek-programi-olan-bigg-yatirim-programinin-2026-2-cagrisi-acildi) (son tarih: 2026-11-20)
   - **Duyuru** — [Ufuk Avrupa Programı FOREST Ortaklığı 2026 Ortak Çağrısı Başvurulara Açıldı](https://tubitak.gov.tr/tr/duyuru/ufuk-avrupa-programi-forest-ortakligi-2026-ortak-cagrisi-basvurulara-acildi) (son tarih: 2026-12-02 13:00)
 - Son tarihi değişenler: yok
-- Elle kontrol bekleyen duyuru adayı: 9
 - Uyarılar: yok

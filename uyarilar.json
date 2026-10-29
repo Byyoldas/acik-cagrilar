@@ -1,62 +1,7 @@
 {
- "zaman": "2026-10-29T14:18+03:00",
+ "zaman": "2026-10-29T14:23+03:00",
  "hatalar": [],
- "kontrol_gerekli": [
-  {
-   "title": "2224-Bilimsel Etkinliklere Katılımı Destekleme Programları 2026 Yılı 3. Dönem Çağrıları Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/2224-bilimsel-etkinliklere-katilimi-destekleme-programlari-2026-yili-3-donem-cagrilari-acildi",
-   "date": "2026-10-09",
-   "neden": "çıkarılan tarih makul değil (2026-02-02); elle kontrol edin"
-  },
-  {
-   "title": "2211-Yurt İçi Doktora Burs Programları 2026 Yılı 2. Dönem Çağrıları Başvuruya Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/2211-yurt-ici-doktora-burs-programlari-2026-yili-2-donem-cagrilari-basvuruya-acildi",
-   "date": "2026-10-07",
-   "neden": "çıkarılan tarih makul değil (2026-03-02); elle kontrol edin"
-  },
-  {
-   "title": "2210-Yurt İçi Yüksek Lisans Burs Programları 2026 Yılı 2. Dönem Çağrıları Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/2210-yurt-ici-yuksek-lisans-burs-programlari-2026-yili-2-donem-cagrilari-acildi",
-   "date": "2026-10-07",
-   "neden": "çıkarılan tarih makul değil (2026-03-02); elle kontrol edin"
-  },
-  {
-   "title": "2205-Lisans Burs Programı 2026 Yılı 2. Dönem Çağrısı Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/2205-lisans-burs-programi-2026-yili-2-donem-cagrisi-acildi",
-   "date": "2026-10-07",
-   "neden": "çıkarılan tarih makul değil (2026-03-02); elle kontrol edin"
-  },
-  {
-   "title": "2223-Yurt İçi Bilimsel Etkinlikleri Destekleme Programları 2026 Yılı 3. Dönem Çağrıları Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/2223-yurt-ici-bilimsel-etkinlikleri-destekleme-programlari-2026-yili-3-donem-cagrilari-acildi",
-   "date": "2026-10-07",
-   "neden": "çıkarılan tarih makul değil (2026-02-02); elle kontrol edin"
-  },
-  {
-   "title": "TÜBİTAK Bilim ve Toplum Destek Programları Proje Teşvik Ödülleri Başvuruları Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/tubitak-bilim-ve-toplum-destek-programlari-proje-tesvik-odulleri-basvurulari-acildi",
-   "date": "2026-09-22",
-   "neden": "çıkarılan tarih makul değil (2026-09-29T17:30); elle kontrol edin"
-  },
-  {
-   "title": "1832-Sanayide Yeşil Dönüşüm 2026-2 Çağrısı Başvuruya Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/1832-sanayide-yesil-donusum-2026-2-cagrisi-basvuruya-acildi",
-   "date": "2026-09-17",
-   "neden": "çıkarılan tarih makul değil (2026-10-12T23:59); elle kontrol edin"
-  },
-  {
-   "title": "Türkiye’nin İlk Yatırım Tabanlı Girişimcilik Destek Programı olan BiGG Yatırım Programı’nın 2026-2 Çağrısı Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/turkiyenin-ilk-yatirim-tabanli-girisimcilik-destek-programi-olan-bigg-yatirim-programinin-2026-2-cagrisi-acildi",
-   "date": "2026-09-11",
-   "neden": "çıkarılan tarih makul değil (2026-09-30); elle kontrol edin"
-  },
-  {
-   "title": "2224-C Uluslararası Anlaşmalar Çerçevesinde Yurt Dışındaki Bilimsel Etkinliklere Katılımı Destekleme Programı 2026 Yılı 1. Dönem Çağrısı Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/2224-c-uluslararasi-anlasmalar-cercevesinde-yurt-disindaki-bilimsel-etkinliklere-katilimi-destekleme-programi-2026-yili-1-donem-cagrisi-acildi",
-   "date": "2026-09-10",
-   "neden": "çıkarılan tarih makul değil (2026-09-22T17:30); elle kontrol edin"
-  }
- ],
+ "kontrol_gerekli": [],
  "kaynak_sayilari": {
   "ardeb": 12,
   "bideb": 4,
