@@ -169,11 +169,10 @@
 
 <script>
 /* ---------------------------------------------------------------
-   DEMO VERİSİ — 26.10.2026 tarihinde TÜBİTAK sayfalarından alınmıştır.
-   Canlı sürümde bu dizi, günlük çalışan betik tarafından üretilen
-   JSON dosyasından yüklenecektir. Süresi dolan çağrılar, tarayıcıdaki
-   güncel saate göre otomatik gizlenir.
-   Satır: [kaynak, program, çağrı, kategori, kod, başlangıç, bitiş, 2.aşama, bilgi notu, programId, not]
+   Yedek veri: 26.10.2026 tarihli anlık görüntü. Sayfa normalde günlük betiğin
+   ürettiği cagrilar.json dosyasını yükler; bu dizi yalnızca o dosya okunamazsa
+   kullanılır. Süresi dolan çağrılar tarayıcıdaki güncel saate göre gizlenir.
+   Satır: [kaynak, program, çağrı, kategori, kod, başlangıç, bitiş, 2.aşama, bilgi notu, programId, not, duyuru tarihi]
    --------------------------------------------------------------- */
 let DATA_DATE = "26.10.2026";
 
@@ -573,7 +572,7 @@ const I18N = {
     v_dogrulandi: "Resmi sayfadan doğrulandı", v_kismi: "Kısmen doğrulandı — eksikler resmi sayfada", v_celiski: "Kaynaklar çelişiyor — başvuru öncesi doğrulayın", v_otomatik: "Otomatik çıkarıldı — resmi sayfadan doğrulayın",
     csv: ["Kaynak","Program","Çağrı","Kategori","Çağrı Kodu","Başlangıç","Bitiş","Durum","Duyuru Tarihi","Not","Bilgi Notu / Duyuru","Başvuru Linki","Destek Süresi","Bütçe","Ulusal Son Tarih","Uluslararası Son Tarih","Doğrulama"],
     csv_dated: "Tarihli", csv_cont: "Sürekli açık",
-    f_demo: "Veriler {d} tarihinde TÜBİTAK başvuru sistemlerinden ve duyuru sayfasından, ayrıntılar (süre, bütçe vb.) ise çağrı sayfalarından alınmıştır.",
+    f_data: "Veriler {d} tarihinde TÜBİTAK başvuru sistemlerinden ve duyuru sayfasından, ayrıntılar (süre, bütçe vb.) ise çağrı sayfalarından alınmıştır.",
     f_eu: " Ufuk Avrupa ve Erasmus+ çağrıları AB portalından alınmıştır; saatler API'den Brüksel saatinden İstanbul saatine çevrilmiştir; yalnızca tarih görünenlerde saat için çağrı sayfasına bakınız.",
     f_exp: " Süresi dolan {n} çağrı otomatik gizlendi.", f_src: " Resmi ve güncel bilgi için ilgili çağrının kaynak sayfasına bakınız: "
   },
@@ -604,7 +603,7 @@ const I18N = {
     v_dogrulandi: "Verified on the official page", v_kismi: "Partially verified — gaps are on the official page", v_celiski: "Sources conflict — verify before applying", v_otomatik: "Extracted automatically — verify on the official page",
     csv: ["Source","Programme","Call","Category","Call code","Start","End","Status","Announcement date","Note","Info note / announcement","Application link","Duration","Budget","National deadline","International deadline","Verification"],
     csv_dated: "With deadline", csv_cont: "Continuously open",
-    f_demo: "Data as of {d}: taken from the TÜBİTAK application systems and the announcements page; details (duration, budget etc.) from the call pages.",
+    f_data: "Data as of {d}: taken from the TÜBİTAK application systems and the announcements page; details (duration, budget etc.) from the call pages.",
     f_eu: " Horizon Europe and Erasmus+ calls come from the EU Funding & Tenders Portal; times are converted from Brussels time to Istanbul time; where only a date is shown, check the call page for the time.",
     f_exp: " {n} expired calls were hidden automatically.", f_src: " For official and up-to-date information see the source page of each call: "
   }
@@ -900,7 +899,7 @@ document.getElementById("dl").addEventListener("click", () => {
 
 function renderFoot() {
   document.getElementById("foot").innerHTML =
-  esc(t("f_demo", { d: DATA_DATE })) + esc(t("f_eu")) + (EXPIRED ? esc(t("f_exp", { n: EXPIRED })) : "") +
+  esc(t("f_data", { d: DATA_DATE })) + esc(t("f_eu")) + (EXPIRED ? esc(t("f_exp", { n: EXPIRED })) : "") +
   esc(t("f_src")) +
   SRC_ORDER.map(k => '<a href="' + esc(SOURCES[k].base) + '" target="_blank" rel="noopener">' + esc(SOURCES[k].label) + "</a>").join(", ") + ".";
 }
@@ -908,7 +907,7 @@ applyTheme(document.documentElement.getAttribute("data-theme") || "light");
 fullRender();
 
 /* Canlı veri: günlük betiğin ürettiği cagrilar.json aynı klasörde varsa onu kullanır;
-   yoksa (ya da okunamazsa) sayfaya gömülü demo verisiyle çalışmaya devam eder. */
+   yoksa (ya da okunamazsa) sayfaya gömülü yedek veriyle çalışmaya devam eder. */
 (typeof fetch === "function" ? fetch("cagrilar.json", { cache: "no-store" }) : Promise.reject())
   .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
   .then(j => {

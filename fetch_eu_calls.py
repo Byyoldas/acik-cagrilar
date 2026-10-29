@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """F&T Portal (Ufuk Avrupa) açık çağrılarını resmi Search API'den çeker.
 Çıktı: eu_calls.json  ->  {"generated": ..., "rows": [...], "enrich": [...]}
-rows  : acik-cagrilar-demo.html içindeki DATA satır biçimi
+rows  : site/index.html içindeki DATA satır biçimi
 enrich: ENRICH katmanı biçimi (bütçe, süre, tüm kesim tarihleri)
 
 Kaynak: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/support/apis
