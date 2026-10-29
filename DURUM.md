@@ -4,14 +4,24 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 29.10.2026
 
-- Son çalışma: **14:03** (İstanbul) · o gün 2 çalışma
-- Açık çağrı: **187** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 10 · Erasmus+ 2 · Ufuk Avrupa 128 · İSTKA 1 · UIDB 24
+- Son çalışma: **14:07** (İstanbul) · o gün 3 çalışma
+- Açık çağrı: **193** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 2 · Ufuk Avrupa 129 · İSTKA 1 · UIDB 24
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [Development of ecosystem and next-generation capabilities for a secured European Critical Communication System in civil security](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-04) (son tarih: 2026-11-05)
   - **Ufuk Avrupa** — [Structurally addressing homelessness through coordinated social infrastructure and services in neighbourhoods](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-01) (son tarih: 2026-12-01)
   - **Ufuk Avrupa** — [Valorising Horizon project results via innovation ecosystems](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-06-02) (son tarih: 2027-02-16)
   - **Ufuk Avrupa** — [EITHEALTH Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15563) (son tarih: 2026-11-02 18:00)
   - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15803) (son tarih: 2026-12-10 19:00)
+  - **Duyuru** — [Bütünleşik Algılama ve Haberleşme Kış Okulu 2026 Yılı Başvuruları](https://tubitak.gov.tr/tr/duyuru/butunlesik-algilama-ve-haberlesme-kis-okulu-2026-yili-basvurulari-basladi) (son tarih: 2026-11-12)
+  - **Duyuru** — [1707 Sipariş Ar-Ge 2026 Yılı 3. Çağrısı](https://tubitak.gov.tr/tr/duyuru/1707-siparis-ar-ge-2026-yili-3-cagrisi-acildi) (son tarih: 2026-11-13 23:59)
+  - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15681) (son tarih: 2026-11-17 01:59)
+  - **Ufuk Avrupa** — [Addressing homelessness through housing-led approaches aligned with the New European Bauhaus](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-PARTICIPATION-01) (son tarih: 2026-12-01)
+  - **Ufuk Avrupa** — [Innovative approaches for the spatial design of neighbourhoods](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-PARTICIPATION-02) (son tarih: 2026-12-01)
+  - **Duyuru** — [2508 TÜBİTAK – Slovenya Araştırma ve Yenilik Ajansı (ARIS) İkili İş Birliği Programı 2026 Yılı Çağrısı](https://tubitak.gov.tr/tr/duyuru/2508-tubitak-slovenya-arastirma-ve-yenilik-ajansi-aris-ikili-birligi-programi-2026-yili-cagrisi-acildi) (son tarih: 2026-12-21 23:59)
+  - **Ufuk Avrupa** — [EITHEALTH Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16641) (son tarih: 2027-01-13 18:00)
+  - **Ufuk Avrupa** — [Advancing promising results from Pillar II collaborative research through the innovation journey](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-02-05) (son tarih: 2027-01-28)
+  - **Duyuru** — [Eureka Network Türkiye-İspanya 2026 Yılı Çağrısı](https://tubitak.gov.tr/tr/duyuru/eureka-network-turkiye-ispanya-2026-yili-cagrisi-acildi) (son tarih: 2027-03-03)
+  - **Duyuru** — [TÜBİTAK Ulusal Gökyüzü Gözlem Etkinliklerini Destekleme Çağrısı](https://tubitak.gov.tr/tr/duyuru/tubitak-ulusal-gokyuzu-gozlem-etkinliklerini-destekleme-cagrisi-basvurulari-acildi) (son tarih: sürekli açık)
 - Son tarihi değişenler: yok
-- Elle kontrol bekleyen duyuru adayı: 18
+- Elle kontrol bekleyen duyuru adayı: 13
 - Uyarılar: yok
