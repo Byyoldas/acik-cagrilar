@@ -139,7 +139,7 @@
   "Başlangıç tarihi sayfada belirtilmemiş.",
   ""
  ],
-  [
+ [
   "duyuru",
   "ÖzÜ",
   "Tohumlama Araştırma Fonu",
@@ -152,5 +152,75 @@
   null,
   "",
   "2026-10-01"
+ ],
+ [
+  "duyuru",
+  "2508 – TÜBİTAK-ARIS (Slovenya) İkili İşbirliği",
+  "2508 TÜBİTAK – Slovenya Araştırma ve Yenilik Ajansı (ARIS) İkili İş Birliği Programı 2026 Yılı Çağrısı",
+  "İkili işbirliği",
+  "2508",
+  "2026-10-27",
+  "2026-12-21T23:59",
+  0,
+  "https://tubitak.gov.tr/tr/duyuru/2508-tubitak-slovenya-arastirma-ve-yenilik-ajansi-aris-ikili-birligi-programi-2026-yili-cagrisi-acildi",
+  null,
+  "Tarih duyuru metninden alındı; e-imza süreci 28.12.2026 23:59'a kadar tamamlanmalı.",
+  "2026-10-27"
+ ],
+ [
+  "duyuru",
+  "TÜBİTAK Bilimsel Etkinlik",
+  "Bütünleşik Algılama ve Haberleşme Kış Okulu 2026 Yılı Başvuruları",
+  "Kış Okulu",
+  "",
+  "2026-10-27",
+  "2026-11-12",
+  0,
+  "https://tubitak.gov.tr/tr/duyuru/butunlesik-algilama-ve-haberlesme-kis-okulu-2026-yili-basvurulari-basladi",
+  null,
+  "Son başvuru tarihi duyuru metninden alındı (saat belirtilmemiş).",
+  "2026-10-27"
+ ],
+ [
+  "duyuru",
+  "EUREKA – Türkiye-İspanya İkili Çağrısı",
+  "Eureka Network Türkiye-İspanya 2026 Yılı Çağrısı",
+  "İkili işbirliği",
+  "",
+  "2026-10-21",
+  "2027-03-03",
+  0,
+  "https://tubitak.gov.tr/tr/duyuru/eureka-network-turkiye-ispanya-2026-yili-cagrisi-acildi",
+  null,
+  "Tarih uluslararası çağrı kapanış tarihidir; ulusal başvuru tarihleri TÜBİTAK tarafından e-posta ile bildirilecek.",
+  "2026-10-26"
+ ],
+ [
+  "duyuru",
+  "1707 – Sipariş Ar-Ge",
+  "1707 Sipariş Ar-Ge 2026 Yılı 3. Çağrısı",
+  "Sipariş Ar-Ge",
+  "1707",
+  "2026-09-01",
+  "2026-11-13T23:59",
+  0,
+  "https://tubitak.gov.tr/tr/duyuru/1707-siparis-ar-ge-2026-yili-3-cagrisi-acildi",
+  null,
+  "Başvurular PRODİS üzerinden alınır.",
+  "2026-09-02"
+ ],
+ [
+  "duyuru",
+  "Bilim ve Toplum",
+  "TÜBİTAK Ulusal Gökyüzü Gözlem Etkinliklerini Destekleme Çağrısı",
+  "Etkinlik destek çağrısı",
+  "",
+  "",
+  "",
+  0,
+  "https://tubitak.gov.tr/tr/duyuru/tubitak-ulusal-gokyuzu-gozlem-etkinliklerini-destekleme-cagrisi-basvurulari-acildi",
+  null,
+  "Son başvuru tarihi duyuruda belirtilmemiş; başvuru öncesi çağrı sayfasını kontrol edin.",
+  "2026-08-14"
  ]
 ]

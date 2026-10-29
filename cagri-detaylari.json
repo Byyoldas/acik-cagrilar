@@ -178,5 +178,45 @@
   "not": "Azami destek oranı %75. Başvuru rehberi ve ekler (Ek A–E) program sayfasında.",
   "durum": "kismi",
   "kaynak": "https://istka.org.tr/Archive/Content/f77c5ed3f36892a6e109b6c26e22e6a9f767d35d.pdf"
+ },
+ {
+  "m": "2508 TÜBİTAK – Slovenya",
+  "butce": "Duyuruda tutar belirtilmemiş; seyahat, bursiyer ve temsil-tanıtma giderleri desteklenebilir.",
+  "natl": "2026-12-21T23:59",
+  "esign": "2026-12-28",
+  "durum": "kismi",
+  "kaynak": "https://tubitak.gov.tr/tr/duyuru/2508-tubitak-slovenya-arastirma-ve-yenilik-ajansi-aris-ikili-birligi-programi-2026-yili-cagrisi-acildi"
+ },
+ {
+  "m": "Kış Okulu 2026",
+  "butce": "Tutar yok; seçilen katılımcılara ücretsiz konaklama ve yurt içi (otobüs/tren) ulaşım desteği.",
+  "natl": "2026-11-12",
+  "kimler": "Doktora sonrası araştırmacılara yüz yüze katılım için öncelik verilir; çevrimiçi (Zoom) katılım da mümkündür.",
+  "durum": "kismi",
+  "kaynak": "https://tubitak.gov.tr/tr/duyuru/butunlesik-algilama-ve-haberlesme-kis-okulu-2026-yili-basvurulari-basladi"
+ },
+ {
+  "m": "Türkiye-İspanya 2026",
+  "butce": "Duyuruda belirtilmemiş",
+  "acilis": "2026-10-21",
+  "intl": "2027-03-03",
+  "not": "Ulusal başvuru tarihleri e-posta ile bildirilecek.",
+  "durum": "kismi",
+  "kaynak": "https://tubitak.gov.tr/tr/duyuru/eureka-network-turkiye-ispanya-2026-yili-cagrisi-acildi"
+ },
+ {
+  "m": "1707 Sipariş Ar-Ge 2026 Yılı 3.",
+  "butce": "Duyuruda tutar yok; TÜBİTAK ve sipariş veren kurum eş finansmanı (ayrıntı çağrı dokümanında).",
+  "acilis": "2026-09-01",
+  "natl": "2026-11-13T23:59",
+  "durum": "kismi",
+  "kaynak": "https://tubitak.gov.tr/tr/duyuru/1707-siparis-ar-ge-2026-yili-3-cagrisi-acildi"
+ },
+ {
+  "m": "Ulusal Gökyüzü Gözlem",
+  "butce": "Destek üst limiti 500.000 TL (KDV dâhil); ayrıca bazı destekler bu limitin dışında sağlanabilir.",
+  "not": "Duyuruda son başvuru tarihi belirtilmemiş.",
+  "durum": "kismi",
+  "kaynak": "https://tubitak.gov.tr/tr/duyuru/tubitak-ulusal-gokyuzu-gozlem-etkinliklerini-destekleme-cagrisi-basvurulari-acildi"
  }
 ]
