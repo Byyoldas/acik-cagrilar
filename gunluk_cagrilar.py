@@ -23,6 +23,7 @@ OUT = HERE / "cikti"
 UA = {"User-Agent": "Mozilla/5.0 (compatible; acik-cagrilar-derleyici/1.0)"}
 BIDEB_CLOSE_TIME = os.environ.get("BIDEB_CLOSE_TIME", "")   # örn. "17:30"; boşsa yalnızca tarih
 
+SRC_ADI = {"ardeb": "ARDEB", "uidb": "UIDB", "bt": "Bilim ve Toplum", "bideb": "BİDEB", "istka": "İSTKA", "tuseb": "TÜSEB", "duyuru": "Duyuru", "eu": "Ufuk Avrupa", "erasmus": "Erasmus+"}
 PBS = {
     "ardeb": "https://ardeb-pbs.tubitak.gov.tr",
     "uidb": "https://uidb-pbs.tubitak.gov.tr",
@@ -286,6 +287,43 @@ def main():
     son_dosya.write_text(json.dumps(son, ensure_ascii=False), "utf-8")
     (HERE / "uyarilar.json").write_text(json.dumps({"zaman": now.isoformat(timespec="minutes"), "hatalar": hatalar,
         "kaynak_sayilari": {k: sum(1 for r in rows if r[0] == k) for k in sorted({r[0] for r in rows})}}, ensure_ascii=False, indent=1), "utf-8")
+    # Günlük durum günlüğü: aynı güne ait çalışmalar tek kayıtta birleşir -> DURUM.md
+    try:
+        gj_dosya = HERE / "durum-gunlugu.json"
+        gj = json.loads(gj_dosya.read_text("utf-8")) if gj_dosya.exists() else {}
+        gun = now.strftime("%Y-%m-%d")
+        g = gj.get(gun, {"yeni": [], "degisen": [], "calisma": 0})
+        satir = lambda r: f"[{r[2]}]({r[8]})" if r[8] else r[2]
+        for r in yeni:
+            t = f"**{SRC_ADI.get(r[0], r[0])}** — {satir(r)} (son tarih: {(r[6] or 'sürekli açık').replace('T', ' ')})"
+            if t not in g["yeni"]: g["yeni"].append(t)
+        for r, o in degisen:
+            t = f"**{SRC_ADI.get(r[0], r[0])}** — {satir(r)}: {(o or '—').replace('T', ' ')} → {(r[6] or '—').replace('T', ' ')}"
+            if t not in g["degisen"]: g["degisen"].append(t)
+        g.update({"saat": now.strftime("%H:%M"), "toplam": len(rows), "calisma": g.get("calisma", 0) + 1,
+                  "kaynaklar": {k: sum(1 for r in rows if r[0] == k) for k in sorted({r[0] for r in rows})},
+                  "kontrol": len(kontrol), "hatalar": hatalar})
+        gj[gun] = g
+        for eski in sorted(gj)[:-180]: del gj[eski]          # son 180 gün
+        gj_dosya.write_text(json.dumps(gj, ensure_ascii=False, indent=1), "utf-8")
+        md = ["# Günlük Durum Güncellemeleri", "",
+              "Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.", ""]
+        for gun_k in sorted(gj, reverse=True):
+            x = gj[gun_k]
+            md += [f"## {gun_k[8:10]}.{gun_k[5:7]}.{gun_k[:4]}", "",
+                   f"- Son çalışma: **{x['saat']}** (İstanbul) · o gün {x['calisma']} çalışma",
+                   f"- Açık çağrı: **{x['toplam']}** — " + " · ".join(f"{SRC_ADI.get(k, k)} {v}" for k, v in x["kaynaklar"].items())]
+            md.append("- Yeni çağrılar: " + ("" if x["yeni"] else "yok"))
+            md += [f"  - {t}" for t in x["yeni"]]
+            md.append("- Son tarihi değişenler: " + ("" if x["degisen"] else "yok"))
+            md += [f"  - {t}" for t in x["degisen"]]
+            if x.get("kontrol"): md.append(f"- Elle kontrol bekleyen duyuru adayı: {x['kontrol']}")
+            md.append("- Uyarılar: " + ("yok" if not x["hatalar"] else ""))
+            md += [f"  - {h}" for h in x["hatalar"]]
+            md.append("")
+        (HERE / "DURUM.md").write_text("\n".join(md), "utf-8")
+    except Exception as e:
+        print("durum günlüğü yazılamadı:", e, file=sys.stderr)
     print(f"{len(rows)} açık çağrı | yeni: {len(yeni)} | tarihi değişen: {len(degisen)} | kontrol gerekli: {len(kontrol)} | hata: {len(hatalar)}")
     for h in hatalar: print("HATA:", h, file=sys.stderr)
     if onceki is None: print("İlk çalıştırma: temel durum kaydedildi, e-posta gönderilmedi.")
