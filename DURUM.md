@@ -4,8 +4,8 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 29.10.2026
 
-- Son çalışma: **14:35** (İstanbul) · o gün 9 çalışma
-- Açık çağrı: **193** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 2 · Ufuk Avrupa 129 · İSTKA 1 · UIDB 24
+- Son çalışma: **14:39** (İstanbul) · o gün 10 çalışma
+- Açık çağrı: **195** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 2 · Ufuk Avrupa 131 · İSTKA 1 · UIDB 24
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [Development of ecosystem and next-generation capabilities for a secured European Critical Communication System in civil security](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-04) (son tarih: 2026-11-05)
   - **Ufuk Avrupa** — [Structurally addressing homelessness through coordinated social infrastructure and services in neighbourhoods](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-01) (son tarih: 2026-12-01)
