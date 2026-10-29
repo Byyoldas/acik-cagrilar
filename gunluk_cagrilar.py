@@ -34,10 +34,16 @@ ISTKA_URL = "https://www.istka.org.tr/acik-destek-programlari"
 YENI_KELIMELER = re.compile(r"açıldı|başvuruya açıl|başvurular(ı)? başladı|çağrısı yayımlandı|çağrı(sı)? yayında", re.I)
 ELE_KELIMELER = re.compile(r"sonuç|ertelen|iptal|uzatıl|duyurusu$", re.I)
 
-def get(url):
-    req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return r.read().decode("utf-8", "replace")
+def get(url, deneme=3):
+    import time
+    for i in range(deneme):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return r.read().decode("utf-8", "replace")
+        except Exception:
+            if i == deneme - 1: raise
+            time.sleep(5 * (i + 1))
 
 # ---------------------------------------------------------------- PBS
 class PbsParser(HTMLParser):
@@ -209,12 +215,19 @@ def main():
     def ekle(lst, kaynak):
         for k in lst: kayitlar[k["key"]] = k["row"]
     manuel_kodlar = set()
-    for src in PBS:
-        try: ekle(fetch_pbs(src), src)
-        except Exception as e: hatalar.append(f"{src}: {e}")
-    for ad, fn in (("bideb", fetch_bideb), ("istka", fetch_istka)):
-        try: ekle(fn(), ad)
-        except Exception as e: hatalar.append(f"{ad}: {e}")
+    # Kaynak alınamazsa son başarılı sonuç kullanılır (sayfa bir anda boşalmasın)
+    son_dosya = HERE / "son-iyi.json"
+    son = json.loads(son_dosya.read_text("utf-8")) if son_dosya.exists() else {}
+    basarili = {}
+    def al(ad, fn):
+        try:
+            lst = fn(); ekle(lst, ad); basarili[ad] = lst
+            if not lst and son.get(ad): raise ValueError("kaynak boş döndü")
+        except Exception as e:
+            hatalar.append(f"{ad}: {e} -> önceki başarılı sonuç kullanıldı ({len(son.get(ad, []))} kayıt)")
+            for k in son.get(ad, []): kayitlar[k["key"]] = k["row"]
+    for src in PBS: al(src, lambda src=src: fetch_pbs(src))
+    for ad, fn in (("bideb", fetch_bideb), ("istka", fetch_istka)): al(ad, fn)
 
     # EU (Ufuk Avrupa): hazır betiği kullan
     eu_enrich = []
@@ -268,6 +281,11 @@ def main():
         w = csv.writer(f, delimiter=";"); w.writerow(["Kaynak", "Program", "Çağrı", "Kategori", "Kod", "Başlangıç", "Bitiş", "Not", "Bağlantı"])
         for r in rows: w.writerow([r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[10], r[8]])
 
+    for ad, lst in basarili.items():
+        if lst: son[ad] = lst
+    son_dosya.write_text(json.dumps(son, ensure_ascii=False), "utf-8")
+    (HERE / "uyarilar.json").write_text(json.dumps({"zaman": now.isoformat(timespec="minutes"), "hatalar": hatalar,
+        "kaynak_sayilari": {k: sum(1 for r in rows if r[0] == k) for k in sorted({r[0] for r in rows})}}, ensure_ascii=False, indent=1), "utf-8")
     print(f"{len(rows)} açık çağrı | yeni: {len(yeni)} | tarihi değişen: {len(degisen)} | kontrol gerekli: {len(kontrol)} | hata: {len(hatalar)}")
     for h in hatalar: print("HATA:", h, file=sys.stderr)
     if onceki is None: print("İlk çalıştırma: temel durum kaydedildi, e-posta gönderilmedi.")
