@@ -553,8 +553,8 @@ const I18N = {
     aria_chips: "Kaynak filtresi", aria_sub: "Ufuk Avrupa çağrı türü",
     th_light: "☀ Açık", th_dark: "☾ Koyu",
     all: "Tümü", direct: "Doğrudan çağrılar", cascade: "Kademeli çağrılar",
-    h_new: "Yeni açılan çağrılar", new_n: "son {d} günde duyurulan {n} çağrı",
-    new_sub: "TÜBİTAK duyurularında yayımlanan, başvuru sistemlerinin (PBS) listelerinde yer almayan çağrılar. Aynı çağrılar aşağıda bitiş tarihine göre de sıralanır.",
+    h_new: "Yeni açılan çağrılar", new_n: "son {d} günde açılan/duyurulan {n} çağrı",
+    new_sub: "Son günlerde açılan ya da duyurulan çağrılar (Ufuk Avrupa çağrıları hariç, onlar kendi filtresinde). Aynı çağrılar aşağıda bitiş tarihine göre de sıralanır.",
     h_soon: "Son başvuru tarihi yaklaşanlar", soon_n: "{n} çağrı",
     soon_sub: "Bitiş tarihine göre sıralıdır; süresi dolanlar otomatik olarak listeden kalkar.",
     h_cont: "Sürekli açık programlar", cont_n: "{n} program",
@@ -584,8 +584,8 @@ const I18N = {
     aria_chips: "Source filter", aria_sub: "Horizon Europe call type",
     th_light: "☀ Light", th_dark: "☾ Dark",
     all: "All", direct: "Direct calls", cascade: "Cascade calls",
-    h_new: "Newly opened calls", new_n: "{n} calls announced in the last {d} days",
-    new_sub: "Calls published in TÜBİTAK announcements that do not appear in the application-system (PBS) lists. The same calls are also listed below by deadline.",
+    h_new: "Newly opened calls", new_n: "{n} calls opened/announced in the last {d} days",
+    new_sub: "Calls opened or announced recently (Horizon Europe calls excluded; they have their own filter). The same calls are also listed below by deadline.",
     h_soon: "Upcoming deadlines", soon_n: "{n} calls",
     soon_sub: "Sorted by deadline; expired calls are removed automatically.",
     h_cont: "Continuously open programmes", cont_n: "{n} programmes",
@@ -715,8 +715,13 @@ const toRow0 = a => ({
   second: !!a[7], bilgi: a[8], pid: a[9], note: a[10] || "", announced: a[11] || ""
 });
 let ALL = DATA.map(toRow);
+/* "Yeni açılan": duyuru tarihi ya da başlangıç (açılış) tarihi son NEW_DAYS gün içinde olan çağrılar; Ufuk Avrupa hariç. */
+function openedOn(r) { return r.announced || (r.src !== "eu" ? (r.startRaw || "").slice(0, 10) : ""); }
 function isNew(r) {
-  return r.src === "duyuru" && r.announced && dayDiff(parseStart(r.announced), NOW) <= NEW_DAYS;
+  if (r.src === "eu") return false;
+  const o = openedOn(r); if (!o) return false;
+  const d = dayDiff(parseStart(o), NOW);
+  return d >= 0 && d <= NEW_DAYS;
 }
 let EXPIRED = 0, LIVE = [];
 function recompute() {
@@ -809,8 +814,8 @@ function itemHTML(r) {
 function newRowHTML(r) {
   const b = badgeFor(r);
   const when = r.end ? esc(t("last_app")) + "<b>" + esc(fmt(r.endRaw)) + "</b>" : esc(t("cont"));
-  return '<a class="newrow" href="' + esc(r.bilgi) + '" target="_blank" rel="noopener">' +
-    '<span class="newdate">' + esc(fmt(r.announced)) + "</span>" +
+  return '<a class="newrow" href="' + esc(r.bilgi || applyUrl(r) || "#") + '" target="_blank" rel="noopener">' +
+    '<span class="newdate">' + esc(fmt(openedOn(r))) + "</span>" +
     '<span class="newtitle">' + esc(r.cagri) + "</span>" +
     '<span class="newmeta">' + when + ' <span class="badge ' + b.cls + '">' + esc(b.text) + "</span></span></a>";
 }
@@ -819,7 +824,7 @@ function render() {
   const rows = LIVE.filter(matches);
   const dated = rows.filter(r => r.end).sort((a, b) => a.end - b.end);
   const cont = rows.filter(r => !r.end);
-  const fresh = rows.filter(isNew).sort((a, b) => b.announced.localeCompare(a.announced));
+  const fresh = rows.filter(isNew).sort((a, b) => openedOn(b).localeCompare(openedOn(a)));
 
   let html = "";
   if (fresh.length) {
