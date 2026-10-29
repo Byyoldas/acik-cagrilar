@@ -1,6 +1,6 @@
 """ARDEB / UIDB / Bilim-Toplum / BİDEB çağrılarının bilgi sayfası ve PDF'lerinden
 bütçe ve destek süresi bilgisini otomatik çıkarır (en iyi çaba; 'otomatik' etiketiyle gösterilir).
-Önbellek: butce-onbellek.json (URL başına, 7 günde bir yenilenir)."""
+Önbellek: butce-onbellek.json (URL başına, her çalışmada (12 saatten eskiyse) yenilenir)."""
 import io, json, re, urllib.request
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -9,7 +9,7 @@ HERE = Path(__file__).parent
 CACHE = HERE / "butce-onbellek.json"
 KAYNAKLAR = ("ardeb", "uidb", "bt", "bideb")
 UA = {"User-Agent": "Mozilla/5.0 (compatible; AcikCagrilarBot/1.0)"}
-YENILE = timedelta(days=7)
+YENILE = timedelta(hours=12)   # her günlük çalışmada yenilenir
 PARA = re.compile(r"(\d[\d.,]*\s*(?:milyon|bin)?\s*(?:TL|₺|TRY|Euro|EUR|€|USD|\$|Avro))|((?:TL|₺|€)\s*\d[\d.,]*)", re.I)
 KONU = re.compile(r"bütçe|destek tutar|destek limit|azami|en fazla|üst limit|toplam|proje başına|burs miktar|aylık|ödenek|budget|funding|up to|maximum", re.I)
 SURE_CUMLE = re.compile(r"proje süre|destek süre|süre üst|süre sınır|azami süre|duration|project length", re.I)
