@@ -694,6 +694,8 @@ function fmt(s) {
   const d = s.slice(8, 10) + "." + s.slice(5, 7) + "." + s.slice(0, 4);
   return s.length > 10 ? d + " " + s.slice(11, 16) : d;
 }
+/* Bağlantılar yalnızca http(s) olabilir (javascript: vb. engellenir) */
+function url(u) { return /^https?:\/\//i.test(String(u || "")) ? esc(u) : "#"; }
 function esc(t) {
   return String(t == null ? "" : t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
@@ -766,8 +768,8 @@ function detailsHTML(r) {
   if (e.kimler) g += row("d_kimler", e.kimler);
   if (e.not) g += row("d_not", e.not);
   return '<details class="det"><summary>' + esc(t("details")) + '</summary><dl class="dgrid">' + g + "</dl>" +
-    '<span class="vflag ' + e.durum + '">' + esc(t("v_" + e.durum)) + "</span>" +
-    (e.kaynak ? ' <a href="' + esc(e.kaynak) + '" target="_blank" rel="noopener" style="font-size:.8rem">' + esc(t("source")) + "</a>" : "") + "</details>";
+    '<span class="vflag ' + (/^[a-z]+$/.test(e.durum || "") ? e.durum : "kismi") + '">' + esc(I18N.tr["v_" + e.durum] ? t("v_" + e.durum) : t("v_kismi")) + "</span>" +
+    (e.kaynak ? ' <a href="' + url(e.kaynak) + '" target="_blank" rel="noopener" style="font-size:.8rem">' + esc(t("source")) + "</a>" : "") + "</details>";
 }
 
 const LINKL = { "Portalda aç": "link_portal", "Programı incele ve başvur": "link_program", "Çağrıyı incele ve başvur": "link_call" };
@@ -804,16 +806,16 @@ function itemHTML(r) {
     '<div class="when">' + when + "</div>" +
     '<div class="links">' +
     (SOURCES[r.src].noApply
-      ? (r.bilgi ? '<a class="apply" href="' + esc(r.bilgi) + '" target="_blank" rel="noopener">' + esc(linkLabel(r)) + '</a>' : "")
-      : '<a class="apply" href="' + esc(applyUrl(r)) + '" target="_blank" rel="noopener">' + esc(t("apply")) + '</a>' +
-        (r.bilgi ? '<a href="' + esc(r.bilgi) + '" target="_blank" rel="noopener">' + esc(t("info")) + '</a>' : "")) +
+      ? (r.bilgi ? '<a class="apply" href="' + url(r.bilgi) + '" target="_blank" rel="noopener">' + esc(linkLabel(r)) + '</a>' : "")
+      : '<a class="apply" href="' + url(applyUrl(r)) + '" target="_blank" rel="noopener">' + esc(t("apply")) + '</a>' +
+        (r.bilgi ? '<a href="' + url(r.bilgi) + '" target="_blank" rel="noopener">' + esc(t("info")) + '</a>' : "")) +
     "</div>" + detailsHTML(r) + "</article>";
 }
 
 function newRowHTML(r) {
   const b = badgeFor(r);
   const when = r.end ? esc(t("last_app")) + "<b>" + esc(fmt(r.endRaw)) + "</b>" : esc(t("cont"));
-  return '<a class="newrow" href="' + esc(r.bilgi || applyUrl(r) || "#") + '" target="_blank" rel="noopener">' +
+  return '<a class="newrow" href="' + url(r.bilgi || applyUrl(r)) + '" target="_blank" rel="noopener">' +
     '<span class="newdate">' + esc(fmt(openedOn(r))) + "</span>" +
     '<span class="newtitle">' + esc(r.cagri) + "</span>" +
     '<span class="newmeta">' + when + ' <span class="badge ' + b.cls + '">' + esc(b.text) + "</span></span></a>";
@@ -882,7 +884,8 @@ document.getElementById("q").addEventListener("input", e => { state.q = e.target
 
 document.getElementById("dl").addEventListener("click", () => {
   const rows = LIVE.filter(matches).sort((a, b) => (a.end ? a.end : 8.64e15) - (b.end ? b.end : 8.64e15));
-  const q = v => '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"';
+  const q = v => { let x = String(v == null ? "" : v); if (/^[=+@]/.test(x)) x = "'" + x;   /* Excel formül enjeksiyonuna karşı */
+    return '"' + x.replace(/"/g, '""') + '"'; };
   const head = t("csv");
   const lines = [head.map(q).join(";")].concat(rows.map(r => [
     SOURCES[r.src].label, tx(r.program), r.cagri, tx(r.kategori), r.kod, fmt(r.startRaw), fmt(r.endRaw),
@@ -901,7 +904,7 @@ function renderFoot() {
   document.getElementById("foot").innerHTML =
   esc(t("f_data", { d: DATA_DATE })) + esc(t("f_eu")) + (EXPIRED ? esc(t("f_exp", { n: EXPIRED })) : "") +
   esc(t("f_src")) +
-  SRC_ORDER.map(k => '<a href="' + esc(SOURCES[k].base) + '" target="_blank" rel="noopener">' + esc(SOURCES[k].label) + "</a>").join(", ") + ".";
+  SRC_ORDER.map(k => '<a href="' + url(SOURCES[k].base) + '" target="_blank" rel="noopener">' + esc(SOURCES[k].label) + "</a>").join(", ") + ".";
 }
 applyTheme(document.documentElement.getAttribute("data-theme") || "light");
 fullRender();

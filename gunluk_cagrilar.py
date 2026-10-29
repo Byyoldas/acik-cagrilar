@@ -8,7 +8,7 @@ E-posta   : SMTP_HOST, SMTP_USER, SMTP_PASS, MAIL_FROM, MAIL_TO ortam değişken
 Çalıştırma: python3 gunluk_cagrilar.py [--sessiz-mail] [--duyuru-sayfa 3]
 """
 import argparse, csv, json, os, re, smtplib, ssl, sys, urllib.request
-from datetime import datetime
+from datetime import datetime, timedelta
 from email.message import EmailMessage
 from html.parser import HTMLParser
 from pathlib import Path
@@ -206,7 +206,7 @@ def pdf_tarih(html, base):
 
 def now_iso(): return datetime.now(IST).strftime("%Y-%m-%d")
 def max_iso():
-    d = datetime.now(IST); return d.replace(year=d.year + 1).strftime("%Y-%m-%d")   # en fazla ~1 yıl ilerisi
+    d = datetime.now(IST) + timedelta(days=366); return d.strftime("%Y-%m-%d")   # en fazla ~1 yıl ilerisi
 
 def fetch_duyuru(pages):
     items, seen = [], set()
@@ -272,7 +272,10 @@ def fetch_istka():
 def bitis(row):
     e = row[6]
     if not e: return None
-    d = datetime.strptime(e[:16] if "T" in e else e + "T23:59", "%Y-%m-%dT%H:%M")
+    try:
+        d = datetime.strptime(e[:16] if "T" in e else e + "T23:59", "%Y-%m-%dT%H:%M")
+    except ValueError:
+        print(f"UYARI: geçersiz bitiş tarihi '{e}': {row[2][:60]}", file=sys.stderr); return None
     return d.replace(tzinfo=IST)
 
 def main():
@@ -300,7 +303,7 @@ def main():
     for src in PBS: al(src, lambda src=src: fetch_pbs(src))
     for ad, fn in (("bideb", fetch_bideb), ("istka", fetch_istka)): al(ad, fn)
 
-    # EU (Ufuk Avrupa): hazır betiği kullan
+    # F&T Portal (Ufuk Avrupa + Erasmus+): hazır betiği kullan; alınamazsa son başarılı sonuç
     eu_enrich = []
     try:
         tmp = OUT / "_eu.json"; eu.main(str(tmp)); d = json.loads(tmp.read_text("utf-8")); tmp.unlink()
@@ -308,13 +311,18 @@ def main():
         for e in d["enrich"]:
             eu_enrich.append({"u": e["kaynak"], "butce": e["butce"], "durum": "dogrulandi", "kaynak": e["kaynak"],
                               **({"sure": e["sure"]} if e.get("sure") else {}), **({"not": e["not"]} if e.get("not") else {})})
-    except Exception as e: hatalar.append(f"eu: {e}")
+        if d["rows"]: son["_eu"] = {"rows": d["rows"], "enrich": eu_enrich}
+    except Exception as e:
+        eski = son.get("_eu") or {"rows": [], "enrich": []}
+        hatalar.append(f"eu: {e} -> önceki başarılı sonuç kullanıldı ({len(eski['rows'])} kayıt)")
+        for r in eski["rows"]: kayitlar[r[0] + ":" + r[8]] = r
+        eu_enrich = eski["enrich"]
 
     # Elle girilen / denetlenen satırlar (duyuru, İSTKA vb.)
     manuel = json.loads((HERE / "manuel.json").read_text("utf-8")) if (HERE / "manuel.json").exists() else []
     manuel_kodlar = {r[4] for r in manuel if r[4]}
     for k in [k for k, r in kayitlar.items() if r[0] == "istka" and r[4] in manuel_kodlar]: del kayitlar[k]
-    for r in manuel: kayitlar["manuel:" + (r[8] or r[2])] = r
+    for r in manuel: kayitlar["manuel:" + (r[8] or "") + "|" + r[2]] = r
     # Otomatik duyuru adayları (manuel listede olmayanlar)
     kontrol = []
     try:
@@ -397,7 +405,9 @@ def main():
     print(f"{len(rows)} açık çağrı | yeni: {len(yeni)} | tarihi değişen: {len(degisen)} | kontrol gerekli: {len(kontrol)} | hata: {len(hatalar)}")
     for h in hatalar: print("HATA:", h, file=sys.stderr)
     if onceki is None: print("İlk çalıştırma: temel durum kaydedildi, e-posta gönderilmedi.")
-    elif (yeni or degisen) and not args.sessiz_mail: mail_gonder(yeni, degisen)
+    elif (yeni or degisen) and not args.sessiz_mail:
+        try: mail_gonder(yeni, degisen)
+        except Exception as e: print("UYARI: e-posta gönderilemedi (yayın etkilenmedi):", e, file=sys.stderr)
     return 1 if hatalar and not rows else 0
 
 def mail_gonder(yeni, degisen):

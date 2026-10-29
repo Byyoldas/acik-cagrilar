@@ -42,7 +42,7 @@ jobs:
         run: |
           git config user.name "cagri-bot"
           git config user.email "cagri-bot@users.noreply.github.com"
-          git add durum.json butce-onbellek.json teshis.json son-iyi.json uyarilar.json durum-gunlugu.json DURUM.md
+          for f in durum.json butce-onbellek.json son-iyi.json uyarilar.json durum-gunlugu.json DURUM.md; do [ -f "$f" ] && git add "$f"; done
           git diff --cached --quiet || (git commit -m "Günlük durum güncellemesi" && git pull --rebase origin main && git push)
 
       - name: Site klasörünü hazırla

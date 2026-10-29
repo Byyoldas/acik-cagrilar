@@ -9,7 +9,7 @@ Not: API'deki deadlineDate saatleri Brüksel yerel saati kabul edilip İstanbul 
      (API '+0000' etiketi taşıyor ama değerler 17:00 gibi yerel saatler). İlk çalıştırmada
      bir çağrıyı portaldaki saatle karşılaştırarak doğrulayın. 00:00 ise yalnızca tarih kabul edilir.
 """
-import json, sys, uuid, urllib.request
+import json, sys, time, uuid, urllib.request
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -34,8 +34,14 @@ def post(page, query):
     body = ("".join(parts) + "--%s--\r\n" % b).encode()
     req = urllib.request.Request(API % page, data=body, method="POST",
                                  headers={"Content-Type": "multipart/form-data; boundary=" + b})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.load(r)
+    last = None
+    for i in range(3):                       # geçici hatalara karşı 3 deneme
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.load(r)
+        except Exception as e:
+            last = e; time.sleep(5 * (i + 1))
+    raise last
 
 def first(m, k, default=""):
     v = m.get(k)
@@ -86,19 +92,6 @@ def main(out_path="eu_calls.json"):
         except Exception as ex:
             print("UYARI: %s alınamadı: %s" % (pname, ex), file=sys.stderr)
             if src == "eu": raise
-    try:                                   # teşhis: Erasmus+ programme kimliğini doğrula (teshis.json)
-        probe = post(1, {"bool": {"must": [{"terms": {"type": ["1", "2", "8"]}}, {"terms": {"status": ["31094502"]}}]}})
-        import collections
-        fp = collections.Counter()
-        for x in probe.get("results", []):
-            fp[str(x["metadata"].get("frameworkProgramme")) + "|" + str(x["metadata"].get("programmeDivision", ""))[:60]] += 1
-        from pathlib import Path
-        Path(__file__).with_name("teshis.json").write_text(json.dumps({"per_programme": {src: sum(1 for r in results if r[0] == src) for src, _, _ in PROGRAMMES},
-            "erasmus_raw": [{k: x["metadata"].get(k) for k in ("identifier", "title", "deadlineDate", "startDate", "status", "type")} for src, _, x in results if src == "erasmus"],
-            "probe_total": probe.get("totalResults"), "probe_frameworks": fp.most_common(30),
-            "probe_erasmus_sample": [ (x["metadata"].get("frameworkProgramme"), x["metadata"].get("identifier")) for x in probe.get("results", []) if "ERASMUS" in json.dumps(x["metadata"]).upper()][:10]}, ensure_ascii=False, indent=1), "utf-8")
-    except Exception as ex:
-        print("teşhis hatası:", ex, file=sys.stderr)
     seen, rows, enrich = set(), [], []
     for src, pname, x in results:
         m = x["metadata"]
