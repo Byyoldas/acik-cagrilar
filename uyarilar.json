@@ -1,5 +1,5 @@
 {
- "zaman": "2026-10-29T14:07+03:00",
+ "zaman": "2026-10-29T14:15+03:00",
  "hatalar": [],
  "kontrol_gerekli": [
   {
@@ -33,46 +33,16 @@
    "neden": "çıkarılan tarih makul değil (2026-10-27); elle kontrol edin"
   },
   {
-   "title": "TÜBİTAK Bilim Söyleşileri 2026 Yılı Başvuruları Başladı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/tubitak-bilim-soylesileri-2026-yili-basvurulari-basladi",
-   "date": "2026-10-07",
-   "neden": "son başvuru tarihi metinden çıkarılamadı"
-  },
-  {
-   "title": "Ufuk Avrupa Programı FOREST Ortaklığı 2026 Ortak Çağrısı Başvurulara Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/ufuk-avrupa-programi-forest-ortakligi-2026-ortak-cagrisi-basvurulara-acildi",
-   "date": "2026-09-25",
-   "neden": "son başvuru tarihi metinden çıkarılamadı"
-  },
-  {
    "title": "TÜBİTAK Bilim ve Toplum Destek Programları Proje Teşvik Ödülleri Başvuruları Açıldı",
    "url": "https://tubitak.gov.tr/tr/duyuru/tubitak-bilim-ve-toplum-destek-programlari-proje-tesvik-odulleri-basvurulari-acildi",
    "date": "2026-09-22",
-   "neden": "son başvuru tarihi metinden çıkarılamadı"
+   "neden": "çıkarılan tarih makul değil (2026-09-29T17:30); elle kontrol edin"
   },
   {
    "title": "1832-Sanayide Yeşil Dönüşüm 2026-2 Çağrısı Başvuruya Açıldı",
    "url": "https://tubitak.gov.tr/tr/duyuru/1832-sanayide-yesil-donusum-2026-2-cagrisi-basvuruya-acildi",
    "date": "2026-09-17",
-   "neden": "son başvuru tarihi metinden çıkarılamadı"
-  },
-  {
-   "title": "Türkiye’nin İlk Yatırım Tabanlı Girişimcilik Destek Programı olan BiGG Yatırım Programı’nın 2026-2 Çağrısı Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/turkiyenin-ilk-yatirim-tabanli-girisimcilik-destek-programi-olan-bigg-yatirim-programinin-2026-2-cagrisi-acildi",
-   "date": "2026-09-11",
-   "neden": "çıkarılan tarih makul değil (2028-07-31); elle kontrol edin"
-  },
-  {
-   "title": "Ufuk Avrupa Programı Gezegen için Su Güvenliği Ortaklığı (Water4All) 2026 Çok Uluslu Ortak Çağrısı Başvuruya Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/ufuk-avrupa-programi-gezegen-icin-su-guvenligi-ortakligi-water4all-2026-cok-uluslu-ortak-cagrisi-basvuruya-acildi",
-   "date": "2026-09-10",
-   "neden": "son başvuru tarihi metinden çıkarılamadı"
-  },
-  {
-   "title": "Ufuk Avrupa Programı Kentsel Geçişleri Sürdürülebilir Bir Geleceğe Yönlendirme Ortaklığı (DUT) 2026 Çağrısı Açıldı",
-   "url": "https://tubitak.gov.tr/tr/duyuru/ufuk-avrupa-programi-kentsel-gecisleri-surdurulebilir-bir-gelecege-yonlendirme-ortakligi-dut-2026-cagrisi-acildi",
-   "date": "2026-09-10",
-   "neden": "son başvuru tarihi metinden çıkarılamadı"
+   "neden": "çıkarılan tarih makul değil (2026-10-12T23:59); elle kontrol edin"
   },
   {
    "title": "2224-C Uluslararası Anlaşmalar Çerçevesinde Yurt Dışındaki Bilimsel Etkinliklere Katılımı Destekleme Programı 2026 Yılı 1. Dönem Çağrısı Açıldı",
@@ -85,7 +55,7 @@
   "ardeb": 12,
   "bideb": 4,
   "bt": 6,
-  "duyuru": 15,
+  "duyuru": 20,
   "erasmus": 2,
   "eu": 129,
   "istka": 1,

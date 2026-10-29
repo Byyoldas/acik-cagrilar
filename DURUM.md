@@ -4,8 +4,8 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 29.10.2026
 
-- Son çalışma: **14:07** (İstanbul) · o gün 3 çalışma
-- Açık çağrı: **193** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 2 · Ufuk Avrupa 129 · İSTKA 1 · UIDB 24
+- Son çalışma: **14:15** (İstanbul) · o gün 4 çalışma
+- Açık çağrı: **198** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 20 · Erasmus+ 2 · Ufuk Avrupa 129 · İSTKA 1 · UIDB 24
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [Development of ecosystem and next-generation capabilities for a secured European Critical Communication System in civil security](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2026-01-SSRI-04) (son tarih: 2026-11-05)
   - **Ufuk Avrupa** — [Structurally addressing homelessness through coordinated social infrastructure and services in neighbourhoods](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-01) (son tarih: 2026-12-01)
@@ -22,6 +22,11 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
   - **Ufuk Avrupa** — [Advancing promising results from Pillar II collaborative research through the innovation journey](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-02-05) (son tarih: 2027-01-28)
   - **Duyuru** — [Eureka Network Türkiye-İspanya 2026 Yılı Çağrısı](https://tubitak.gov.tr/tr/duyuru/eureka-network-turkiye-ispanya-2026-yili-cagrisi-acildi) (son tarih: 2027-03-03)
   - **Duyuru** — [TÜBİTAK Ulusal Gökyüzü Gözlem Etkinliklerini Destekleme Çağrısı](https://tubitak.gov.tr/tr/duyuru/tubitak-ulusal-gokyuzu-gozlem-etkinliklerini-destekleme-cagrisi-basvurulari-acildi) (son tarih: sürekli açık)
+  - **Duyuru** — [TÜBİTAK Bilim Söyleşileri 2026 Yılı Başvuruları Başladı](https://tubitak.gov.tr/tr/duyuru/tubitak-bilim-soylesileri-2026-yili-basvurulari-basladi) (son tarih: 2026-11-05 17:30)
+  - **Duyuru** — [Ufuk Avrupa Programı Gezegen için Su Güvenliği Ortaklığı (Water4All) 2026 Çok Uluslu Ortak Çağrısı Başvuruya Açıldı](https://tubitak.gov.tr/tr/duyuru/ufuk-avrupa-programi-gezegen-icin-su-guvenligi-ortakligi-water4all-2026-cok-uluslu-ortak-cagrisi-basvuruya-acildi) (son tarih: 2026-11-10 15:00)
+  - **Duyuru** — [Ufuk Avrupa Programı Kentsel Geçişleri Sürdürülebilir Bir Geleceğe Yönlendirme Ortaklığı (DUT) 2026 Çağrısı Açıldı](https://tubitak.gov.tr/tr/duyuru/ufuk-avrupa-programi-kentsel-gecisleri-surdurulebilir-bir-gelecege-yonlendirme-ortakligi-dut-2026-cagrisi-acildi) (son tarih: 2026-11-17 13:00)
+  - **Duyuru** — [Türkiye’nin İlk Yatırım Tabanlı Girişimcilik Destek Programı olan BiGG Yatırım Programı’nın 2026-2 Çağrısı Açıldı](https://tubitak.gov.tr/tr/duyuru/turkiyenin-ilk-yatirim-tabanli-girisimcilik-destek-programi-olan-bigg-yatirim-programinin-2026-2-cagrisi-acildi) (son tarih: 2026-11-20)
+  - **Duyuru** — [Ufuk Avrupa Programı FOREST Ortaklığı 2026 Ortak Çağrısı Başvurulara Açıldı](https://tubitak.gov.tr/tr/duyuru/ufuk-avrupa-programi-forest-ortakligi-2026-ortak-cagrisi-basvurulara-acildi) (son tarih: 2026-12-02 13:00)
 - Son tarihi değişenler: yok
-- Elle kontrol bekleyen duyuru adayı: 13
+- Elle kontrol bekleyen duyuru adayı: 8
 - Uyarılar: yok
