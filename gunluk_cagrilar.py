@@ -161,7 +161,8 @@ def tarihler(text):
     flat = re.sub(r"\s+", " ", text)
     out = []
     for m in ANAHTAR.finditer(flat):
-        out += _iso_tarihler(flat[m.start(): m.end() + 140])
+        t = _iso_tarihler(flat[m.start(): m.end() + 140])
+        if t: out.append(t[0])                                     # ifadeden sonra gelen ilk tarih
     for m in GERI.finditer(flat):
         t = _iso_tarihler(flat[max(0, m.start() - 70): m.end() + 25])
         if t: out.append(t[-1])                                    # aralıkta ("01 Eylül – 13 Kasım") bitiş tarihi
@@ -172,8 +173,11 @@ def tarihler(text):
 
 def tarih_sec(adaylar):
     """Bir sonraki (bugünden sonraki en yakın) tarihi seç; hiçbiri makul değilse ilkini döndür (elle kontrol için)."""
-    uygun = sorted(t for t in adaylar if now_iso() <= t[:10] <= max_iso())
-    return uygun[0] if uygun else (adaylar[0] if adaylar else "")
+    if not adaylar: return ""
+    gecmis = [t for t in adaylar if t[:10] < now_iso()]
+    if gecmis: return min(gecmis)       # son başvuru ifadesine bağlı bir tarih geçmişteyse çağrı kapanmış sayılır -> elle kontrol
+    uygun = sorted(t for t in adaylar if t[:10] <= max_iso())
+    return uygun[0] if uygun else adaylar[0]
 
 def tarih_cikar(text):
     return tarih_sec(tarihler(text))
@@ -212,11 +216,24 @@ def fetch_duyuru(pages):
             if it["url"] not in seen: seen.add(it["url"]); items.append(it)
     return items
 
+GENEL = {"programlari", "programi", "cagrisi", "cagrilari", "basvurulari", "basvurulara", "basvuruya", "basladi", "ortakligi", "yilinda",
+         "arastirma", "gelistirilmesi", "uluslararasi", "ogrencileri", "universite", "destekleme", "etkinlikleri", "projeleri", "yatirim", "girisimcilik"}
+def _fold(t): return t.translate(str.maketrans("çğıöşüÇĞİÖŞÜâîû", "cgiosuCGIOSUaiu")).lower()
+def zaten_listede(title, bilinen):
+    """Başlıktaki kısaltma (WATER4ALL, DUT, FOREST…) ya da ayırt edici uzun sözcük, başvuru sistemi satırlarında geçiyorsa True."""
+    havuz = _fold(" ".join(bilinen))
+    for w in re.findall(r"[A-Za-zÇĞİÖŞÜçğıöşü0-9]+", title):
+        if len(w) >= 3 and (w.isupper() or any(c.isdigit() for c in w)) and not re.fullmatch(r"\d{4}|\d+\.?", w) and _fold(w) in havuz.split(): return True
+        f = _fold(w)
+        if len(f) >= 9 and f not in GENEL and f in havuz: return True
+    return False
+
 def duyuru_adaylari(items, bilinen_urller, bilinen_kodlar=frozenset()):
     adaylar, kontrol = [], []
     for it in items:
         if it["url"] in bilinen_urller: continue
         if not YENI_KELIMELER.search(it["title"]) or ELE_KELIMELER.search(it["title"]): continue
+        if zaten_listede(it["title"], bilinen_kodlar): continue    # PBS/BİDEB listesinde zaten var
         kod = re.match(r"\s*(\d{4})\b", it["title"])
         if kod and any(ad.strip().startswith(kod.group(1)) for ad in bilinen_kodlar): continue   # zaten başvuru sistemi/BİDEB listesinde
         try:
