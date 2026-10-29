@@ -136,19 +136,68 @@ AYLAR = {a: i + 1 for i, a in enumerate("ocak şubat mart nisan mayıs haziran t
 TARIH = re.compile(r"(\d{1,2})\s+(" + "|".join(AYLAR) + r")\s+(\d{4})|(\d{1,2})[./](\d{1,2})[./](\d{4})", re.I)
 SAAT = re.compile(r"(?:saat\s*)?(\d{1,2})[.:](\d{2})", re.I)
 
+ANAHTAR = re.compile(r"son\s*ba[şs]vuru|son\s*tarih|kapan[ıi][şs]|biti[şs]\s*tarih|ba[şs]vurular.{0,30}(?:kadar|sona)", re.I)      # tarih ifadenin ardından gelir
+GERI = re.compile(r"tarihine\s*kadar|tarihleri\s*aras[ıi]nda|tarihinde\s*sona|sona\s*erecek", re.I)                                 # tarih ifadenin önünde yer alır
+SAAT2 = re.compile(r"saat\s*(\d{1,2})[.:](\d{2})|(?<![\d.])(\d{1,2}):(\d{2})", re.I)
+
+def _iso_tarihler(win):
+    out = []
+    for d in TARIH.finditer(win):
+        if d.group(1): dd, mo, y = int(d.group(1)), AYLAR[d.group(2).lower()], int(d.group(3))
+        else: dd, mo, y = int(d.group(4)), int(d.group(5)), int(d.group(6))
+        if not (1 <= dd <= 31 and 1 <= mo <= 12): continue
+        iso = f"{y}-{mo:02d}-{dd:02d}"
+        nxt = TARIH.search(win, d.end())
+        tail = win[d.end(): (nxt.start() if nxt else d.end() + 30)][:30]
+        sm = SAAT2.search(tail)
+        if sm:
+            h, mi = (sm.group(1), sm.group(2)) if sm.group(1) else (sm.group(3), sm.group(4))
+            if int(h) < 24 and int(mi) < 60: iso += f"T{int(h):02d}:{mi}"
+        out.append(iso)
+    return out
+
+def tarihler(text):
+    """Anahtar ifadelerin (son başvuru, kapanış, '... tarihine kadar') çevresindeki tarihleri ISO olarak döndürür."""
+    flat = re.sub(r"\s+", " ", text)
+    out = []
+    for m in ANAHTAR.finditer(flat):
+        out += _iso_tarihler(flat[m.start(): m.end() + 140])
+    for m in GERI.finditer(flat):
+        t = _iso_tarihler(flat[max(0, m.start() - 70): m.end() + 25])
+        if t: out.append(t[-1])                                    # aralıkta ("01 Eylül – 13 Kasım") bitiş tarihi
+    seen = []
+    for t in out:
+        if t not in seen: seen.append(t)
+    return seen
+
+def tarih_sec(adaylar):
+    """Bir sonraki (bugünden sonraki en yakın) tarihi seç; hiçbiri makul değilse ilkini döndür (elle kontrol için)."""
+    uygun = sorted(t for t in adaylar if now_iso() <= t[:10] <= max_iso())
+    return uygun[0] if uygun else (adaylar[0] if adaylar else "")
+
 def tarih_cikar(text):
-    """'son başvuru/son tarih' içeren ilk cümleden tarih(+saat) -> ISO ya da ''. Her zaman doğrulama gerektirir."""
-    for sent in re.split(r"(?<=[.!?])\s+|\n", text):
-        if not re.search(r"son\s+(başvuru|tarih)|tarihine kadar|kadar", sent, re.I): continue
-        m = TARIH.search(sent)
-        if not m: continue
-        if m.group(1): d, mo, y = int(m.group(1)), AYLAR[m.group(2).lower()], int(m.group(3))
-        else: d, mo, y = int(m.group(4)), int(m.group(5)), int(m.group(6))
-        iso = f"{y}-{mo:02d}-{d:02d}"
-        tail = sent[m.end():m.end() + 40]
-        s = SAAT.search(tail)
-        if s and int(s.group(1)) < 24: iso += f"T{int(s.group(1)):02d}:{s.group(2)}"
-        return iso
+    return tarih_sec(tarihler(text))
+
+class PdfLinkParser(HTMLParser):
+    def __init__(self): super().__init__(); self.links = []
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs); h = a.get("href") or ""
+        if tag == "a" and ".pdf" in h.lower() and h not in self.links: self.links.append(h)
+
+def pdf_tarih(html, base):
+    """Sayfa metninde tarih yoksa sayfadaki PDF'lere (en çok 3) bak."""
+    try:
+        import butce_cikar
+    except Exception:
+        return ""
+    lp = PdfLinkParser(); lp.feed(html)
+    for h in lp.links[:3]:
+        try:
+            t, _ = butce_cikar.metin(urljoin(base, h))
+            c = tarih_sec(tarihler(t))
+            if c and now_iso() <= c[:10] <= max_iso(): return c
+        except Exception:
+            continue
     return ""
 
 def now_iso(): return datetime.now(IST).strftime("%Y-%m-%d")
@@ -171,17 +220,20 @@ def duyuru_adaylari(items, bilinen_urller, bilinen_kodlar=frozenset()):
         kod = re.match(r"\s*(\d{4})\b", it["title"])
         if kod and any(ad.strip().startswith(kod.group(1)) for ad in bilinen_kodlar): continue   # zaten başvuru sistemi/BİDEB listesinde
         try:
-            tp = TextParser(); tp.feed(get(it["url"])); text = "\n".join(tp.t)
+            html = get(it["url"]); tp = TextParser(); tp.feed(html); text = "\n".join(tp.t)
         except Exception as e:
             kontrol.append({**it, "neden": f"sayfa okunamadı: {e}"}); continue
-        end = tarih_cikar(text)
+        end = tarih_cikar(text); kaynak = "duyuru metninden"
+        if not end or not (now_iso() <= end[:10] <= max_iso()):
+            pe = pdf_tarih(html, it["url"])
+            if pe: end, kaynak = pe, "duyurudaki PDF'ten"
         if end and not (now_iso() <= end[:10] <= max_iso()):
             kontrol.append({**it, "neden": f"çıkarılan tarih makul değil ({end}); elle kontrol edin"}); continue
         if not end:
             kontrol.append({**it, "neden": "son başvuru tarihi metinden çıkarılamadı"}); continue
         adaylar.append({"key": "duyuru:" + it["url"],
             "row": ["duyuru", "TÜBİTAK Duyurusu", it["title"], "Duyuru", "", "", end, 0, it["url"], None,
-                    "Tarih duyuru metninden otomatik çıkarıldı; doğrulayınız.", it["date"]]})
+                    f"Tarih {kaynak} otomatik çıkarıldı; doğrulayınız.", it["date"]]})
     return adaylar, kontrol
 
 # ---------------------------------------------------------------- İSTKA (en iyi çaba; kırılgan)
