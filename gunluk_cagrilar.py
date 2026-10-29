@@ -244,6 +244,7 @@ def duyuru_adaylari(items, bilinen_urller, bilinen_kodlar=frozenset()):
         if not end or not (now_iso() <= end[:10] <= max_iso()):
             pe = pdf_tarih(html, it["url"])
             if pe: end, kaynak = pe, "duyurudaki PDF'ten"
+        if end and end[:10] < now_iso(): continue          # son başvuru tarihi geçmiş: kapanmış çağrı, ne listeye ne kontrol listesine
         if end and not (now_iso() <= end[:10] <= max_iso()):
             kontrol.append({**it, "neden": f"çıkarılan tarih makul değil ({end}); elle kontrol edin"}); continue
         if not end:
