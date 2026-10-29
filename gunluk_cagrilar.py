@@ -285,7 +285,7 @@ def main():
     for ad, lst in basarili.items():
         if lst: son[ad] = lst
     son_dosya.write_text(json.dumps(son, ensure_ascii=False), "utf-8")
-    (HERE / "uyarilar.json").write_text(json.dumps({"zaman": now.isoformat(timespec="minutes"), "hatalar": hatalar,
+    (HERE / "uyarilar.json").write_text(json.dumps({"zaman": now.isoformat(timespec="minutes"), "hatalar": hatalar, "kontrol_gerekli": kontrol,
         "kaynak_sayilari": {k: sum(1 for r in rows if r[0] == k) for k in sorted({r[0] for r in rows})}}, ensure_ascii=False, indent=1), "utf-8")
     # Günlük durum günlüğü: aynı güne ait çalışmalar tek kayıtta birleşir -> DURUM.md
     try:
