@@ -2,6 +2,17 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 30.10.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **195** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 2 · Ufuk Avrupa 131 · İSTKA 1 · UIDB 24
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [EITHEALTH Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15563) (son tarih: 2026-11-02 18:00)
+  - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15803) (son tarih: 2026-12-10 19:00)
+- Son tarihi değişenler: 
+  - **Ufuk Avrupa** — ['Innovate to transform' support for SME's sustainability transition (CSA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15162): 2026-11-09 17:00 → 2026-11-09 20:00
+- Uyarılar: yok
+
 ## 29.10.2026
 
 - Son çalışma: **14:39** (İstanbul) · o gün 10 çalışma
