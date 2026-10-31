@@ -2,6 +2,17 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 31.10.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **192** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 2 · Ufuk Avrupa 129 · İSTKA 1 · UIDB 23
+- Yeni çağrılar: yok
+- Son tarihi değişenler: 
+  - **UIDB** — [Belmont Forum- Resilience Ortak Araştırma Aksiyonu Çağrısı (2. Aşama)
+](https://tubitak.gov.tr/sites/default/files/2025-06/Iki_asamali_Surec_Dokumani_Resilience.pdf): 2026-10-30 23:59 → 2026-11-03 23:59
+  - **Ufuk Avrupa** — [EITCULTURE Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16143): 2026-10-30 19:00 → 2027-03-15 19:00
+- Uyarılar: yok
+
 ## 30.10.2026
 
 - Son çalışma: **13:52** (İstanbul) · o gün 2 çalışma

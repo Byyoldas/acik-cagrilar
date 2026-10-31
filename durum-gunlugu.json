@@ -62,5 +62,27 @@
   },
   "kontrol": 0,
   "hatalar": []
+ },
+ "2026-10-31": {
+  "yeni": [],
+  "degisen": [
+   "**UIDB** — [Belmont Forum- Resilience Ortak Araştırma Aksiyonu Çağrısı (2. Aşama)\r\n](https://tubitak.gov.tr/sites/default/files/2025-06/Iki_asamali_Surec_Dokumani_Resilience.pdf): 2026-10-30 23:59 → 2026-11-03 23:59",
+   "**Ufuk Avrupa** — [EITCULTURE Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16143): 2026-10-30 19:00 → 2027-03-15 19:00"
+  ],
+  "calisma": 1,
+  "saat": "07:17",
+  "toplam": 192,
+  "kaynaklar": {
+   "ardeb": 12,
+   "bideb": 4,
+   "bt": 6,
+   "duyuru": 15,
+   "erasmus": 2,
+   "eu": 129,
+   "istka": 1,
+   "uidb": 23
+  },
+  "kontrol": 0,
+  "hatalar": []
  }
 }
