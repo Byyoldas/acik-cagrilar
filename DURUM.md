@@ -4,9 +4,11 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 31.10.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **192** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 2 · Ufuk Avrupa 129 · İSTKA 1 · UIDB 23
-- Yeni çağrılar: yok
+- Son çalışma: **13:23** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **194** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 2 · Ufuk Avrupa 131 · İSTKA 1 · UIDB 23
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [Approaches to reuse vacant, obsolete or underutilised spaces](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-03) (son tarih: 2026-12-01)
+  - **Ufuk Avrupa** — [Advancing promising results from Pillar II collaborative research through the innovation journey](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-02-05) (son tarih: 2027-01-28)
 - Son tarihi değişenler: 
   - **UIDB** — [Belmont Forum- Resilience Ortak Araştırma Aksiyonu Çağrısı (2. Aşama)
 ](https://tubitak.gov.tr/sites/default/files/2025-06/Iki_asamali_Surec_Dokumani_Resilience.pdf): 2026-10-30 23:59 → 2026-11-03 23:59

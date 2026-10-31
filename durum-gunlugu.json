@@ -64,21 +64,24 @@
   "hatalar": []
  },
  "2026-10-31": {
-  "yeni": [],
+  "yeni": [
+   "**Ufuk Avrupa** — [Approaches to reuse vacant, obsolete or underutilised spaces](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-03) (son tarih: 2026-12-01)",
+   "**Ufuk Avrupa** — [Advancing promising results from Pillar II collaborative research through the innovation journey](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-02-05) (son tarih: 2027-01-28)"
+  ],
   "degisen": [
    "**UIDB** — [Belmont Forum- Resilience Ortak Araştırma Aksiyonu Çağrısı (2. Aşama)\r\n](https://tubitak.gov.tr/sites/default/files/2025-06/Iki_asamali_Surec_Dokumani_Resilience.pdf): 2026-10-30 23:59 → 2026-11-03 23:59",
    "**Ufuk Avrupa** — [EITCULTURE Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16143): 2026-10-30 19:00 → 2027-03-15 19:00"
   ],
-  "calisma": 1,
-  "saat": "07:17",
-  "toplam": 192,
+  "calisma": 2,
+  "saat": "13:23",
+  "toplam": 194,
   "kaynaklar": {
    "ardeb": 12,
    "bideb": 4,
    "bt": 6,
    "duyuru": 15,
    "erasmus": 2,
-   "eu": 129,
+   "eu": 131,
    "istka": 1,
    "uidb": 23
   },
