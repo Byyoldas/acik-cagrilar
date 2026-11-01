@@ -89,18 +89,23 @@
   "hatalar": []
  },
  "2026-11-01": {
-  "yeni": [],
+  "yeni": [
+   "**Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15681) (son tarih: 2026-11-17 01:59)",
+   "**Ufuk Avrupa** — [Approaches to reuse vacant, obsolete or underutilised spaces](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-03) (son tarih: 2026-12-01)",
+   "**Ufuk Avrupa** — [EITHEALTH Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16641) (son tarih: 2027-01-13 18:00)",
+   "**Ufuk Avrupa** — [Advancing promising results from Pillar II collaborative research through the innovation journey](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-02-05) (son tarih: 2027-01-28)"
+  ],
   "degisen": [],
-  "calisma": 1,
-  "saat": "07:17",
-  "toplam": 191,
+  "calisma": 2,
+  "saat": "14:15",
+  "toplam": 193,
   "kaynaklar": {
    "ardeb": 12,
    "bideb": 4,
    "bt": 6,
    "duyuru": 14,
    "erasmus": 2,
-   "eu": 129,
+   "eu": 131,
    "istka": 1,
    "uidb": 23
   },
