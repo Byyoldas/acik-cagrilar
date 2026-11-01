@@ -87,5 +87,24 @@
   },
   "kontrol": 0,
   "hatalar": []
+ },
+ "2026-11-01": {
+  "yeni": [],
+  "degisen": [],
+  "calisma": 1,
+  "saat": "07:17",
+  "toplam": 191,
+  "kaynaklar": {
+   "ardeb": 12,
+   "bideb": 4,
+   "bt": 6,
+   "duyuru": 14,
+   "erasmus": 2,
+   "eu": 129,
+   "istka": 1,
+   "uidb": 23
+  },
+  "kontrol": 0,
+  "hatalar": []
  }
 }
