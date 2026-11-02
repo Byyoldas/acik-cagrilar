@@ -16,24 +16,29 @@ SURE_CUMLE = re.compile(r"proje süre|destek süre|süre üst|süre sınır|azam
 SURE_SAYI = re.compile(r"(\d{1,2})\s*(ay|yıl|months?|years?)(?![\p{L}])" if False else r"(\d{1,2})\s*(ay|yıl|months?|years?)(?:dır|dir|lık|lik|ı|a)?(?![a-zçğıöşüA-ZÇĞİÖŞÜ])", re.I)
 GURULTU = re.compile(r"seyahat|kilometre|yolluk|yol,? konaklama|konaklama|yemek|kongre|konferans|toplantı|gündelik|harcırah|katılım ücreti|ödeme yapılmaktadır|brüt", re.I)
 GUCLU = re.compile(r"proje bütçesi|toplam bütçe|bütçe üst|destek üst limit|bütçe sınır|destek tutar|burs miktar|toplam destek|call budget|total budget|indicative budget|bütçeye sahip", re.I)
-VER = 6
+VER = 7
 
 def indir(url):
     req = urllib.request.Request(url, headers=UA)
     with urllib.request.urlopen(req, timeout=45) as r:
         return r.read(15_000_000), r.headers.get("Content-Type", "")
 
+def temizle(t):
+    """PDF'lerdeki Wingdings/Symbol madde imlerini (özel kullanım alanı, örn. U+F0A7, U+F076) '•' yap; kalan görünmez/özel karakterleri at."""
+    t = re.sub(r"[\ue000-\uf8ff]", "•", t)
+    return re.sub(r"[\u200b-\u200f\u2028\u2029\ufeff]", "", t)
+
 def metin(url):
     veri, tip = indir(url)
     if veri[:4] == b"%PDF" or url.lower().split("?")[0].endswith(".pdf"):
         from pypdf import PdfReader
         rd = PdfReader(io.BytesIO(veri))
-        return "\n".join((p.extract_text() or "") for p in rd.pages[:40]), "pdf"
+        return temizle("\n".join((p.extract_text() or "") for p in rd.pages[:40])), "pdf"
     h = veri.decode("utf-8", "replace")
     h = re.sub(r"(?is)<(script|style|nav|footer|header)[^>]*>.*?</\1>", " ", h)
     h = re.sub(r"(?s)<[^>]+>", " ", h)
     import html
-    return html.unescape(h), "html"
+    return temizle(html.unescape(h)), "html"
 
 def cumleler(t):
     t = re.sub(r"[ \t\r\f\v]+", " ", t.replace("\xa0", " "))
