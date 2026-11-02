@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Çağrı Yönetim Paneli</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --text:#1b2430; --muted:#5f6b7a; --line:#e3e7ed; --accent:#00338D; --accent-soft:#e6ebf5; --on-accent:#fff; --brand2:#A30050; --err:#A30050; --ok:#1d6b3a; --warn:#8a5a00; --warn-bg:#fff4dc; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#12161c; --card:#1a2029; --text:#e8ecf1; --muted:#9aa6b5; --line:#2a3340; --accent:#8fb0f0; --accent-soft:#1b2740; --on-accent:#0b1a3d; --brand2:#f08ab5; --err:#f08ab5; --ok:#7fd29b; --warn:#f0c46a; --warn-bg:#2e2410; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap { max-width:980px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { margin:0 0 4px; font-size:1.6rem; color:var(--accent); }
+  h2 { font-size:1.05rem; margin:0 0 10px; padding-left:10px; border-left:4px solid var(--brand2); }
+  .lead { margin:0 0 16px; color:var(--muted); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:16px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px 16px; }
+  .full { grid-column:1 / -1; }
+  label { display:block; font-size:.85rem; font-weight:600; margin-bottom:3px; }
+  .opt { font-weight:400; color:var(--muted); }
+  input, select, textarea { width:100%; padding:9px 10px; font:inherit; color:var(--text); background:var(--bg); border:1px solid var(--line); border-radius:8px; }
+  input[type=checkbox] { width:auto; }
+  input:focus, select:focus, textarea:focus, button:focus-visible { outline:2px solid var(--accent); outline-offset:1px; }
+  textarea { min-height:64px; resize:vertical; }
+  .hint { font-size:.78rem; color:var(--muted); margin:3px 0 0; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  button { font:inherit; font-size:.9rem; padding:7px 13px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--text); cursor:pointer; }
+  button.primary { background:var(--accent); border-color:var(--accent); color:var(--on-accent); font-weight:600; }
+  button.danger { color:var(--err); }
+  button:disabled { opacity:.5; cursor:not-allowed; }
+  .msg { margin:10px 0 0; font-size:.9rem; }
+  .msg.err { color:var(--err); } .msg.ok { color:var(--ok); }
+  .stats { display:flex; gap:8px; flex-wrap:wrap; margin:0 0 10px; }
+  .chip { background:var(--accent-soft); color:var(--accent); border-radius:999px; padding:2px 10px; font-size:.8rem; }
+  .item { border:1px solid var(--line); border-left:4px solid var(--warn); border-radius:8px; padding:10px 12px; margin:8px 0; background:var(--card); }
+  .item .why { display:inline-block; background:var(--warn-bg); color:var(--warn); border-radius:6px; padding:1px 8px; font-size:.78rem; margin:4px 0; }
+  .item .t { font-weight:600; }
+  .item a { color:var(--accent); word-break:break-all; font-size:.82rem; }
+  .item.done { opacity:.55; border-left-color:var(--ok); }
+  table { width:100%; border-collapse:collapse; font-size:.85rem; }
+  th, td { text-align:left; padding:6px 8px; border-top:1px solid var(--line); vertical-align:top; }
+  th { color:var(--muted); font-weight:600; }
+  .savebar { position:sticky; bottom:0; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 16px; display:flex; gap:12px; flex-wrap:wrap; align-items:center; box-shadow:0 -2px 10px rgba(0,0,0,.08); }
+  .savebar .grow { flex:1; min-width:180px; font-size:.88rem; }
+  @media (max-width:640px) { .grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Çağrı Yönetim Paneli</h1>
+  <p class="lead">Günlük betiğin uyarılarını görün, elle kontrol gereken çağrıların verisini girin. Kaydettiğinizde değişiklik doğrudan GitHub'a yazılır ve betik kendiliğinden çalışıp siteyi günceller.</p>
+
+  <div class="card">
+    <h2>1. GitHub bağlantısı</h2>
+    <div class="grid">
+      <div class="full">
+        <label for="tok">GitHub erişim anahtarı (fine-grained token)</label>
+        <input id="tok" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…">
+        <p class="hint">Yalnızca <b>Byyoldas/acik-cagrilar</b> reposu için, <b>Contents: Read and write</b> izniyle oluşturun. Anahtar yalnızca GitHub'a gönderilir; repoya veya sayfaya yazılmaz.</p>
+      </div>
+      <div class="full"><label><input type="checkbox" id="rem"> Bu tarayıcıda hatırla <span class="opt">(ortak bilgisayarda işaretlemeyin)</span></label></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="primary" id="connect" type="button">Bağlan ve verileri yükle</button>
+      <button id="forget" type="button">Anahtarı bu tarayıcıdan sil</button>
+    </div>
+    <p class="msg" id="conMsg" role="status"></p>
+  </div>
+
+  <div class="card" id="uyCard" hidden>
+    <h2>2. Uyarılar</h2>
+    <div class="stats" id="stats"></div>
+    <p class="hint" id="uyZaman"></p>
+    <div id="hatalar"></div>
+    <h3 style="font-size:.95rem;margin:14px 0 4px">Elle kontrol bekleyen çağrılar <span class="opt" id="kcnt"></span></h3>
+    <div id="kontrol"></div>
+  </div>
+
+  <form class="card" id="f" novalidate hidden>
+    <h2 id="formTitle">3. Çağrı ekle / düzenle</h2>
+    <div class="grid">
+      <div><label for="src">Kaynak / kurum *</label>
+        <select id="src"><option value="tuseb">TÜSEB</option><option value="duyuru" selected>Duyuru (diğer kurumlar)</option><option value="istka">İSTKA</option><option value="bideb">BİDEB</option><option value="ardeb">ARDEB</option><option value="uidb">UIDB</option><option value="bt">Bilim ve Toplum</option></select></div>
+      <div><label for="program">Program <span class="opt">(grup başlığı)</span></label><input id="program" placeholder="örn. TÜSEB Proje Destek Programları"></div>
+      <div class="full"><label for="cagri">Çağrı adı *</label><input id="cagri" required></div>
+      <div><label for="kategori">Kategori <span class="opt">(isteğe bağlı)</span></label><input id="kategori"></div>
+      <div><label for="kod">Çağrı kodu <span class="opt">(isteğe bağlı)</span></label><input id="kod"></div>
+      <div><label for="bas">Başlangıç tarihi <span class="opt">(isteğe bağlı)</span></label><input type="date" id="bas"></div>
+      <div><label for="bit">Son başvuru tarihi <span class="opt">(boşsa "sürekli açık")</span></label><input type="date" id="bit"></div>
+      <div><label for="saat">Son başvuru saati <span class="opt">(biliniyorsa)</span></label><input type="time" id="saat"></div>
+      <div><label for="duy">Duyuru tarihi <span class="opt">("Yeni açılan" için)</span></label><input type="date" id="duy"></div>
+      <div class="full"><label for="link">Çağrı / duyuru bağlantısı *</label><input type="url" id="link" required placeholder="https://…"></div>
+      <div class="full"><label for="not">Not <span class="opt">(kartta görünür)</span></label><input id="not"></div>
+      <div class="full"><label><input type="checkbox" id="ikinci"> 2. aşama çağrısı</label></div>
+    </div>
+    <h2 style="margin-top:18px">Ayrıntılar <span class="opt">(isteğe bağlı — "Detaylar" bölümü)</span></h2>
+    <div class="grid">
+      <div><label for="sure">Destek süresi</label><input id="sure" placeholder="örn. En fazla 18 ay"></div>
+      <div><label for="butce">Bütçe / destek tutarı</label><input id="butce" placeholder="örn. En fazla 3.000.000 TL"></div>
+      <div class="full"><label for="kimler">Kimler başvurabilir</label><textarea id="kimler"></textarea></div>
+      <div><label for="intl">Uluslararası son tarih</label><input type="date" id="intl"></div>
+      <div><label for="esign">e-imza son tarihi</label><input type="date" id="esign"></div>
+      <div class="full"><label for="durum">Doğrulama durumu</label>
+        <select id="durum"><option value="dogrulandi">Resmi kaynaktan doğrulandı</option><option value="kismi" selected>Kısmen doğrulandı</option><option value="celiski">Kaynaklar çelişiyor</option></select></div>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <button type="submit" class="primary" id="addBtn">Taslağa ekle</button>
+      <button type="button" id="clearBtn">Formu temizle</button>
+    </div>
+    <p class="msg" id="msg" role="status"></p>
+  </form>
+
+  <div class="card" id="manCard" hidden>
+    <h2>4. Manuel kayıtlar</h2>
+    <p class="hint" id="count"></p>
+    <div style="overflow:auto"><table id="tbl"><thead><tr><th>Kaynak</th><th>Çağrı</th><th>Son tarih</th><th></th></tr></thead><tbody></tbody></table></div>
+  </div>
+
+  <div class="card" id="yokCard" hidden>
+    <h2>5. Yoksayılan duyurular</h2>
+    <p class="hint">Buradaki bağlantılar bir daha uyarı listesine düşmez.</p>
+    <div id="yoklist"></div>
+  </div>
+
+  <div class="savebar" id="bar" hidden>
+    <div class="grow" id="dirty">Değişiklik yok.</div>
+    <button id="discard" type="button">Değişiklikleri at</button>
+    <button id="save" type="button" class="primary" disabled>GitHub'a kaydet</button>
+  </div>
+  <p class="msg" id="saveMsg" role="status"></p>
+</div>
+
+<script>
+const REPO = "Byyoldas/acik-cagrilar", BRANCH = "main", API = "https://api.github.com/repos/" + REPO;
+const FILES = ["manuel.json", "cagri-detaylari.json", "yoksay.json"];
+const $ = id => document.getElementById(id);
+const esc = t => String(t == null ? "" : t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const safeUrl = u => /^https?:\/\//i.test(String(u || "")) ? esc(u) : "#";
+const PROG = { tuseb: "TÜSEB Proje Destek Programları", istka: "İSTKA Mali Destek Programları", duyuru: "TÜBİTAK / Diğer Duyurular" };
+const store = {
+  get(k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} },
+};
+
+let token = "", data = {}, orig = {}, shas = {}, uyari = null, editIdx = -1, doneUrls = new Set();
+
+function b64dec(s) { const b = atob(s.replace(/\n/g, "")); return new TextDecoder().decode(Uint8Array.from(b, c => c.charCodeAt(0))); }
+function b64enc(s) { const u = new TextEncoder().encode(s); let b = ""; u.forEach(c => b += String.fromCharCode(c)); return btoa(b); }
+async function gh(path, opt = {}) {
+  const r = await fetch(API + path, { ...opt, cache: "no-store", headers: { Accept: "application/vnd.github+json", ...(token ? { Authorization: "Bearer " + token } : {}), ...(opt.headers || {}) } });
+  if (!r.ok) { let m = ""; try { m = (await r.json()).message; } catch (e) {} const err = new Error("GitHub " + r.status + (m ? ": " + m : "")); err.status = r.status; throw err; }
+  return r.json();
+}
+async function readFile(name, fallback) {
+  try {
+    const j = await gh("/contents/" + name + "?ref=" + BRANCH);
+    return { json: JSON.parse(b64dec(j.content)), sha: j.sha };
+  } catch (e) { if (e.status === 404) return { json: fallback, sha: null }; throw e; }
+}
+const ser = o => JSON.stringify(o, null, 1) + "\n";
+const isDirty = n => ser(data[n]) !== ser(orig[n]);
+
+async function connect() {
+  token = $("tok").value.trim();
+  const m = $("conMsg"); m.className = "msg"; m.textContent = "Bağlanılıyor…";
+  if (!token) { m.className = "msg err"; m.textContent = "Anahtar girin."; return; }
+  try {
+    const repo = await gh("");
+    if (!repo.permissions || !repo.permissions.push) throw new Error("Bu anahtarın yazma izni yok (Contents: Read and write gerekli).");
+    if ($("rem").checked) store.set("yonetimToken", token); else store.del("yonetimToken");
+    const [man, det, yok, uy] = await Promise.all([readFile("manuel.json", []), readFile("cagri-detaylari.json", []), readFile("yoksay.json", []), readFile("uyarilar.json", null)]);
+    data = { "manuel.json": man.json, "cagri-detaylari.json": det.json, "yoksay.json": yok.json };
+    shas = { "manuel.json": man.sha, "cagri-detaylari.json": det.sha, "yoksay.json": yok.sha };
+    orig = JSON.parse(JSON.stringify(data)); uyari = uy.json;
+    ["uyCard", "f", "manCard", "yokCard", "bar"].forEach(i => $(i).hidden = false);
+    m.className = "msg ok"; m.textContent = "Bağlandı: " + repo.full_name + ".";
+    draw();
+  } catch (e) { m.className = "msg err"; m.textContent = "Bağlanılamadı — " + e.message; }
+}
+
+function drawUyari() {
+  const u = uyari || {}, ks = u.kaynak_sayilari || {};
+  $("stats").innerHTML = Object.keys(ks).sort().map(k => '<span class="chip">' + esc(k) + ": " + esc(ks[k]) + "</span>").join("");
+  $("uyZaman").textContent = u.zaman ? "Son betik çalışması: " + String(u.zaman).replace("T", " ") : "uyarilar.json bulunamadı.";
+  const h = u.hatalar || [];
+  $("hatalar").innerHTML = h.length ? h.map(x => '<div class="item"><span class="why">Hata</span> ' + esc(typeof x === "string" ? x : JSON.stringify(x)) + "</div>").join("")
+    : '<p class="msg ok" style="margin:6px 0">Betik hatası yok.</p>';
+  const k = (u.kontrol_gerekli || []).filter(x => !data["yoksay.json"].includes(x.url));
+  $("kcnt").textContent = "(" + k.length + ")";
+  $("kontrol").innerHTML = k.length ? k.map((x, i) => {
+    const added = data["manuel.json"].some(r => r[8] === x.url);
+    return '<div class="item' + (added ? " done" : "") + '"><div class="t">' + esc(x.title) + '</div><span class="why">' + esc(x.neden || "") + "</span><br>" +
+      '<a href="' + safeUrl(x.url) + '" target="_blank" rel="noopener noreferrer">' + esc(x.url) + "</a> " + (x.date ? '<span class="hint">· duyuru: ' + esc(x.date) + "</span>" : "") +
+      '<div class="row" style="margin-top:6px">' + (added ? '<span class="hint">Taslağa eklendi / listede.</span>' :
+      '<button type="button" data-k="' + i + '" data-a="fill" class="primary">Verileri gir</button><button type="button" data-k="' + i + '" data-a="skip">Yoksay (çağrı değil / kapandı)</button>') + "</div></div>";
+  }).join("") : '<p class="msg ok" style="margin:6px 0">Elle kontrol bekleyen çağrı yok.</p>';
+  $("kontrol")._list = k;
+}
+function drawMan() {
+  const man = data["manuel.json"];
+  $("tbl").querySelector("tbody").innerHTML = man.map((r, i) =>
+    "<tr><td>" + esc(r[0]) + "</td><td>" + esc(r[2]) + "</td><td>" + esc(r[6] ? r[6].replace("T", " ") : "sürekli") + '</td><td style="white-space:nowrap"><button type="button" data-e="' + i + '">Düzenle</button> <button type="button" class="danger" data-d="' + i + '">Sil</button></td></tr>').join("");
+  $("count").textContent = man.length + " manuel satır, " + data["cagri-detaylari.json"].length + " ayrıntı kaydı.";
+  $("yoklist").innerHTML = data["yoksay.json"].length ? data["yoksay.json"].map((u, i) =>
+    '<div class="row" style="margin:4px 0"><a href="' + safeUrl(u) + '" target="_blank" rel="noopener noreferrer" style="word-break:break-all;font-size:.85rem">' + esc(u) + '</a><button type="button" data-y="' + i + '">Geri al</button></div>').join("") : '<p class="hint">Yoksayılan duyuru yok.</p>';
+}
+function drawBar() {
+  const ch = FILES.filter(isDirty);
+  $("dirty").textContent = ch.length ? "Kaydedilmemiş değişiklik: " + ch.join(", ") : "Değişiklik yok.";
+  $("save").disabled = !ch.length; $("discard").disabled = !ch.length;
+}
+function draw() { drawUyari(); drawMan(); drawBar(); $("addBtn").textContent = editIdx >= 0 ? "Değişikliği taslağa uygula" : "Taslağa ekle"; }
+
+const v = id => $(id).value.trim();
+const iso = (d, t) => d ? (t ? d + "T" + t : d) : "";
+function fillForm(o) {
+  $("f").reset();
+  for (const k in o) { const el = $(k); if (el) { if (el.type === "checkbox") el.checked = !!o[k]; else el.value = o[k] || ""; } }
+  $("f").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function rowToForm(r, d) {
+  const [bit, saat] = (r[6] || "").split("T");
+  const o = { src: r[0], program: r[1], cagri: r[2], kategori: r[3], kod: r[4], bas: r[5], bit: bit || "", saat: saat || "", ikinci: r[7], link: r[8], not: r[10], duy: r[11] };
+  if (d) Object.assign(o, { sure: d.sure, butce: d.butce, kimler: d.kimler, intl: d.intl, esign: d.esign, durum: d.durum || "kismi" });
+  return o;
+}
+const findDetail = r => data["cagri-detaylari.json"].findIndex(d => d.m === r[2] && d.kaynak === r[8]);
+
+$("kontrol").addEventListener("click", e => {
+  const b = e.target.closest("button[data-k]"); if (!b) return;
+  const x = $("kontrol")._list[+b.dataset.k];
+  if (b.dataset.a === "skip") {
+    if (!confirm("Bu duyuru bir daha uyarı listesine düşmesin mi?\n" + x.title)) return;
+    data["yoksay.json"].push(x.url);
+  } else {
+    editIdx = -1; fillForm({ src: "duyuru", program: "TÜBİTAK Duyurusu", cagri: x.title, kategori: "Duyuru", link: x.url, duy: x.date || "", durum: "kismi" });
+    $("msg").className = "msg"; $("msg").textContent = "Duyuru sayfasını açıp son başvuru tarihini ve ayrıntıları girin.";
+  }
+  draw();
+});
+$("tbl").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.e !== undefined) { editIdx = +b.dataset.e; const r = data["manuel.json"][editIdx], di = findDetail(r); fillForm(rowToForm(r, di >= 0 ? data["cagri-detaylari.json"][di] : null)); draw(); }
+  if (b.dataset.d !== undefined) {
+    const r = data["manuel.json"][+b.dataset.d]; if (!confirm("Bu satır silinsin mi?\n" + r[2])) return;
+    const di = findDetail(r); if (di >= 0) data["cagri-detaylari.json"].splice(di, 1);
+    data["manuel.json"].splice(+b.dataset.d, 1); editIdx = -1; draw();
+  }
+});
+$("yoklist").addEventListener("click", e => { const b = e.target.closest("button[data-y]"); if (!b) return; data["yoksay.json"].splice(+b.dataset.y, 1); draw(); });
+
+$("f").addEventListener("submit", e => {
+  e.preventDefault();
+  const err = [], man = data["manuel.json"], det = data["cagri-detaylari.json"], m = $("msg");
+  if (!v("cagri")) err.push("Çağrı adı");
+  if (!/^https?:\/\//i.test(v("link"))) err.push("Bağlantı (http/https)");
+  m.className = "msg err";
+  if (err.length) { m.textContent = "Eksik/hatalı: " + err.join(", "); return; }
+  if (v("bas") && v("bit") && v("bas") > v("bit")) { m.textContent = "Başlangıç tarihi son tarihten sonra olamaz."; return; }
+  if (v("saat") && !v("bit")) { m.textContent = "Saat girildiyse son başvuru tarihi de gerekli."; return; }
+  if (v("bit") && v("bit") < new Date().toISOString().slice(0, 10) && !confirm("Son başvuru tarihi geçmişte görünüyor; yine de eklensin mi?")) return;
+  if (man.some((r, i) => i !== editIdx && r[2] === v("cagri") && r[8] === v("link"))) { m.textContent = "Bu çağrı zaten listede."; return; }
+  const src = v("src");
+  const row = [src, v("program") || PROG[src] || src.toUpperCase(), v("cagri"), v("kategori"), v("kod"), v("bas"), iso(v("bit"), v("saat")), $("ikinci").checked ? 1 : 0, v("link"), null, v("not"), v("duy")];
+  const old = editIdx >= 0 ? man[editIdx] : null;
+  if (old) { const di = findDetail(old); if (di >= 0) det.splice(di, 1); man[editIdx] = row; } else man.push(row);
+  const d = { m: v("cagri") };
+  ["sure", "butce", "kimler", "intl", "esign"].forEach(k => { if (v(k)) d[k] = v(k); });
+  if (v("bit")) d.natl = iso(v("bit"), v("saat"));
+  if (v("not")) d.not = v("not");
+  d.durum = $("durum").value; d.kaynak = v("link");
+  if (["sure", "butce", "kimler", "intl", "esign"].some(k => v(k))) det.push(d);
+  m.className = "msg ok"; m.textContent = (old ? "Güncellendi: " : "Eklendi: ") + v("cagri") + ". Sayfanın altından GitHub'a kaydedin.";
+  editIdx = -1; $("f").reset(); draw();
+});
+$("clearBtn").addEventListener("click", () => { editIdx = -1; $("f").reset(); $("msg").textContent = ""; draw(); });
+$("discard").addEventListener("click", () => { if (!confirm("Kaydedilmemiş tüm değişiklikler atılsın mı?")) return; data = JSON.parse(JSON.stringify(orig)); editIdx = -1; draw(); });
+
+$("save").addEventListener("click", async () => {
+  const m = $("saveMsg"), ch = FILES.filter(isDirty); if (!ch.length) return;
+  $("save").disabled = true; m.className = "msg"; m.textContent = "Kaydediliyor…";
+  try {
+    for (const n of ch) {
+      const body = { message: "Yönetim paneli: " + n + " güncellendi", content: b64enc(ser(data[n])), branch: BRANCH };
+      if (shas[n]) body.sha = shas[n];
+      const r = await gh("/contents/" + n, { method: "PUT", body: JSON.stringify(body), headers: { "Content-Type": "application/json" } });
+      shas[n] = r.content.sha; orig[n] = JSON.parse(JSON.stringify(data[n]));
+    }
+    m.className = "msg ok"; m.textContent = "Kaydedildi: " + ch.join(", ") + ". Betik birkaç dakika içinde çalışıp siteyi güncelleyecek (Actions sekmesinden izlenebilir).";
+  } catch (e) {
+    m.className = "msg err";
+    m.textContent = "Kaydedilemedi — " + e.message + (e.status === 409 || e.status === 422 ? " (dosya başka yerden değişmiş olabilir; sayfayı yenileyip yeniden bağlanın)" : "");
+  }
+  draw();
+});
+
+$("connect").addEventListener("click", connect);
+$("forget").addEventListener("click", () => { store.del("yonetimToken"); $("tok").value = ""; token = ""; $("conMsg").className = "msg ok"; $("conMsg").textContent = "Anahtar bu tarayıcıdan silindi."; });
+window.addEventListener("beforeunload", e => { if (FILES.some(n => data[n] && isDirty(n))) { e.preventDefault(); e.returnValue = ""; } });
+const saved = store.get("yonetimToken"); if (saved) { $("tok").value = saved; $("rem").checked = true; }
+</script>
+</body>
+</html>

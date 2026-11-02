@@ -228,6 +228,14 @@ def zaten_listede(title, bilinen):
         if len(f) >= 9 and f not in GENEL and f in havuz: return True
     return False
 
+def yoksay_urller():
+    """yoksay.json: yönetim panelinden 'yoksay' denen duyuru bağlantıları (bir daha aday/uyarı olmaz)."""
+    try:
+        v = json.loads((HERE / "yoksay.json").read_text("utf-8"))
+        return {u for u in v if isinstance(u, str)}
+    except Exception:
+        return set()
+
 def duyuru_adaylari(items, bilinen_urller, bilinen_kodlar=frozenset()):
     adaylar, kontrol = [], []
     for it in items:
@@ -326,7 +334,7 @@ def main():
     # Otomatik duyuru adayları (manuel listede olmayanlar)
     kontrol = []
     try:
-        adaylar, kontrol = duyuru_adaylari(fetch_duyuru(args.duyuru_sayfa), {r[8] for r in manuel}, {r[2] for r in kayitlar.values() if r[0] in ("ardeb", "uidb", "bt", "bideb")})
+        adaylar, kontrol = duyuru_adaylari(fetch_duyuru(args.duyuru_sayfa), {r[8] for r in manuel} | yoksay_urller(), {r[2] for r in kayitlar.values() if r[0] in ("ardeb", "uidb", "bt", "bideb")})
         ekle(adaylar, "duyuru")
     except Exception as e: hatalar.append(f"duyuru: {e}")
 

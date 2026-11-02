@@ -6,7 +6,7 @@ on:
   workflow_dispatch: {}         # elle çalıştırma
   push:
     branches: [main]
-    paths: [butce_cikar.py, "manuel.json", "cagri-detaylari.json", "site/**", "gunluk_cagrilar.py", "fetch_eu_calls.py"]
+    paths: [butce_cikar.py, "manuel.json", "cagri-detaylari.json", "yoksay.json", "site/**", "gunluk_cagrilar.py", "fetch_eu_calls.py"]
 
 permissions:
   contents: write

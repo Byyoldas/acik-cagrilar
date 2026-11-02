@@ -120,3 +120,7 @@ window.addEventListener("message", function (e) {
 ## ⚠️ Sorumluluk notu
 
 Bütçe ve süre bilgilerinin bir kısmı otomatik çıkarılır ve hatalı olabilir; bu bilgiler sayfada "Otomatik çıkarıldı" etiketiyle gösterilir. Başvuru öncesinde her zaman çağrının resmi sayfasını kontrol edin.
+
+## Yönetim paneli
+
+`/yonetim.html` sayfası uyarıları (betik hataları, elle kontrol bekleyen duyurular) gösterir; çağrı verisi girip düzenlemeye ve duyuruyu yoksaymaya izin verir. Değişiklikler GitHub anahtarıyla doğrudan `manuel.json`, `cagri-detaylari.json` ve `yoksay.json` dosyalarına yazılır.
