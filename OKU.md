@@ -8,9 +8,8 @@ Günlük çalışan derleyici + yayın. Sayfa: GitHub Pages (`site/index.html`),
 Actions → "Açık çağrılar (günlük)" → Run workflow.
 
 ## Manuel çağrı ekleme
-1. `site/giris-formu.html` (yayınlanan adreste `/giris-formu.html`) formunu açın, mevcut `manuel.json`'ı seçin,
-   çağrıyı ekleyin, `manuel.json` dosyasını indirin.
-2. Depoda `manuel.json` dosyasını açın → kalem simgesi yerine "Upload files" ile üzerine yazın (veya düzenleyip commit edin).
+1. `/yonetim.html` yönetim panelini açın, GitHub anahtarınızla bağlanın.
+2. Formdan çağrıyı ekleyin ve "GitHub'a kaydet" deyin.
 3. `manuel.json` değiştiği anda akış kendiliğinden çalışır ve siteyi günceller.
 
 ## E-posta (şu an pasif)

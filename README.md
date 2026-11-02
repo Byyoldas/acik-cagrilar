@@ -9,7 +9,7 @@
 ![Diller](https://img.shields.io/badge/dil-TR%20%7C%20EN-A30050)
 ![Tema](https://img.shields.io/badge/tema-a%C3%A7%C4%B1k%20%7C%20koyu-555)
 
-### 🔗 [Canlı sayfa](https://byyoldas.github.io/acik-cagrilar/) · [Günlük durum](DURUM.md) · [Manuel giriş formu](https://byyoldas.github.io/acik-cagrilar/giris-formu.html)
+### 🔗 [Canlı sayfa](https://byyoldas.github.io/acik-cagrilar/) · [Günlük durum](DURUM.md) · [Yönetim paneli](https://byyoldas.github.io/acik-cagrilar/yonetim.html)
 
 <img src="docs/ekran-acik.png" alt="Açık Çağrılar sayfası – açık tema" width="760">
 
@@ -68,14 +68,14 @@ flowchart LR
 | İSTKA | Açık mali destek programları | Sayfa ayrıştırma |
 | Ufuk Avrupa | Doğrudan ve kademeli (cascade) çağrılar | F&T Portal Search API |
 | Erasmus+ | Merkezi (EACEA) çağrılar | F&T Portal Search API |
-| Elle girilenler | TÜSEB, ÖzÜ iç fonları vb. | `manuel.json`, form |
+| Elle girilenler | TÜSEB, ÖzÜ iç fonları vb. | `manuel.json`, yönetim paneli |
 
 > **Kapsam dışı:** TÜSEB siteleri, Eureka (bot koruması) ve ua.gov.tr (robots.txt) otomatik okunmaya izin vermiyor; bu çağrılar yalnızca elle eklenir. Erasmus+ Ulusal Ajans çağrıları, yıllık Programme Guide yayımlandığında toplu olarak elle girilir.
 
 ## ✍️ Elle çağrı ekleme
 
-1. [Giriş formunu](https://byyoldas.github.io/acik-cagrilar/giris-formu.html) açın, mevcut `manuel.json` dosyasını seçin, çağrıyı ekleyip yeni dosyayı indirin.
-2. Depoda `manuel.json` dosyasının üzerine yükleyin (commit).
+1. [Yönetim panelini](https://byyoldas.github.io/acik-cagrilar/yonetim.html) açın ve GitHub anahtarınızla bağlanın.
+2. Formdan çağrıyı (ve varsa bütçe, süre gibi ayrıntıları) ekleyin, "GitHub'a kaydet" deyin.
 3. Akış kendiliğinden çalışır ve sayfa güncellenir.
 
 Bütçe, süre, kimler başvurabilir gibi ayrıntılar için `cagri-detaylari.json` dosyasına çağrı adının bir parçasını (`"m"`) ve bilgileri yazın. Bu dosyadaki bilgi otomatik çıkarılanın önüne geçer.
@@ -101,11 +101,11 @@ window.addEventListener("message", function (e) {
 | Dosya | Görevi |
 |---|---|
 | `site/index.html` | Yayınlanan sayfa (tek dosya) |
-| `site/giris-formu.html` | Manuel çağrı giriş formu |
+| `site/yonetim.html` | Yönetim paneli: uyarılar ve manuel çağrı girişi |
 | `gunluk_cagrilar.py` | Ana betik: toplar, birleştirir, çıktı üretir |
 | `fetch_eu_calls.py` | F&T Portal API (Ufuk Avrupa, Erasmus+) |
 | `butce_cikar.py` | Çağrı sayfa ve PDF'lerinden bütçe/süre çıkarma |
-| `manuel.json` · `cagri-detaylari.json` | Elle girilen çağrılar ve ayrıntılar |
+| `manuel.json` · `cagri-detaylari.json` · `yoksay.json` | Elle girilen çağrılar ve ayrıntılar |
 | `DURUM.md` | Günlük durum özeti (otomatik) |
 | `uyarilar.json` · `son-iyi.json` · `durum.json` · `butce-onbellek.json` | Bot tarafından tutulan durum/önbellek dosyaları |
 | `.github/workflows/gunluk.yml` | Günlük akış tanımı |
