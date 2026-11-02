@@ -4,8 +4,8 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 02.11.2026
 
-- Son çalışma: **08:28** (İstanbul) · o gün 3 çalışma
-- Açık çağrı: **191** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 2 · Ufuk Avrupa 129 · İSTKA 1 · UIDB 23
+- Son çalışma: **10:39** (İstanbul) · o gün 4 çalışma
+- Açık çağrı: **193** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 2 · Ufuk Avrupa 131 · İSTKA 1 · UIDB 23
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [EITHEALTH Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15563) (son tarih: 2026-11-02 18:00)
   - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15803) (son tarih: 2026-12-10 19:00)
