@@ -4,13 +4,14 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 02.11.2026
 
-- Son çalışma: **10:39** (İstanbul) · o gün 4 çalışma
-- Açık çağrı: **193** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 2 · Ufuk Avrupa 131 · İSTKA 1 · UIDB 23
+- Son çalışma: **13:44** (İstanbul) · o gün 5 çalışma
+- Açık çağrı: **192** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 2 · Ufuk Avrupa 130 · İSTKA 1 · UIDB 23
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [EITHEALTH Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15563) (son tarih: 2026-11-02 18:00)
   - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15803) (son tarih: 2026-12-10 19:00)
   - **Ufuk Avrupa** — [Approaches to reuse vacant, obsolete or underutilised spaces](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-BUSINESS-03) (son tarih: 2026-12-01)
   - **Ufuk Avrupa** — [Advancing promising results from Pillar II collaborative research through the innovation journey](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-02-05) (son tarih: 2027-01-28)
+  - **Ufuk Avrupa** — [New forms of cooperation in agriculture and the forest-based sector](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16861) (son tarih: 2026-12-31 19:00)
 - Son tarihi değişenler: yok
 - Uyarılar: yok
 
