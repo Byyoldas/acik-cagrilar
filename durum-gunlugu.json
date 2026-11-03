@@ -138,5 +138,26 @@
   },
   "kontrol": 0,
   "hatalar": []
+ },
+ "2026-11-03": {
+  "yeni": [
+   "**Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15803) (son tarih: 2026-12-10 19:00)"
+  ],
+  "degisen": [],
+  "calisma": 1,
+  "saat": "07:17",
+  "toplam": 187,
+  "kaynaklar": {
+   "ardeb": 12,
+   "bideb": 4,
+   "bt": 6,
+   "duyuru": 14,
+   "erasmus": 2,
+   "eu": 126,
+   "istka": 1,
+   "uidb": 22
+  },
+  "kontrol": 0,
+  "hatalar": []
  }
 }

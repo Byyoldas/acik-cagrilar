@@ -2,6 +2,15 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 03.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **187** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 2 · Ufuk Avrupa 126 · İSTKA 1 · UIDB 22
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15803) (son tarih: 2026-12-10 19:00)
+- Son tarihi değişenler: yok
+- Uyarılar: yok
+
 ## 02.11.2026
 
 - Son çalışma: **15:23** (İstanbul) · o gün 6 çalışma
