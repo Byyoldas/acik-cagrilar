@@ -4,10 +4,18 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 03.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **187** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 2 · Ufuk Avrupa 126 · İSTKA 1 · UIDB 22
+- Son çalışma: **14:55** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **193** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 2 · Ufuk Avrupa 132 · İSTKA 1 · UIDB 22
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15803) (son tarih: 2026-12-10 19:00)
+  - **Ufuk Avrupa** — [European partnership on sustainable food systems for people, planet and climate](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16841) (son tarih: 2027-01-13 19:00)
+  - **Ufuk Avrupa** — [Drive the evolution of the internet towards open and interoperable Web 4.0 and Virtual Worlds: building blocks in priority areas (RIA) (Virtual Worlds Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17041) (son tarih: 2027-02-03 14:00)
+  - **Ufuk Avrupa** — [Development of innovative antimicrobials against pathogens resistant to antimicrobials](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-08) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Prevention and management of chronic non-communicable diseases in children and young people (GACD)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-10) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Tools and technologies to support health adaptation to climate change](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-ENVHLTH-MISSCLIMA-03) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of cell-free protein synthesis platforms for discovery and/or production of biologicals](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-IND-01) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Integrating climate-related exposures into the human exposome and characterising its changes in response to climate change](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-ENVHLTH-02) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Clinical trials for advancing innovative interventions for neurodegenerative diseases](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-02-DISEASE-14-two-stage) (son tarih: 2027-02-17)
 - Son tarihi değişenler: yok
 - Uyarılar: yok
 
