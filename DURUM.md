@@ -2,6 +2,16 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 04.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **184** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 2 · Ufuk Avrupa 125 · İSTKA 1 · UIDB 20
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [Open Internet Stack: development of technological commons/open-source 3C building blocks (RIA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17043) (son tarih: 2027-01-03 14:00)
+  - **Ufuk Avrupa** — [Industrial leadership in AI, Data and Robotics boosting competitiveness and the green transition (AI Data and Robotics Partnership) (IA)[[https://www.europarl.europa.eu/RegData/etudes/STUD/2021/662906/IPOL_STU(2021)662906_EN.pdf]]](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16881) (son tarih: 2027-01-27 19:00)
+- Son tarihi değişenler: yok
+- Uyarılar: yok
+
 ## 03.11.2026
 
 - Son çalışma: **14:55** (İstanbul) · o gün 2 çalışma

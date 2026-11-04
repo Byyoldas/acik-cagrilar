@@ -167,5 +167,27 @@
   },
   "kontrol": 0,
   "hatalar": []
+ },
+ "2026-11-04": {
+  "yeni": [
+   "**Ufuk Avrupa** — [Open Internet Stack: development of technological commons/open-source 3C building blocks (RIA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17043) (son tarih: 2027-01-03 14:00)",
+   "**Ufuk Avrupa** — [Industrial leadership in AI, Data and Robotics boosting competitiveness and the green transition (AI Data and Robotics Partnership) (IA)[[https://www.europarl.europa.eu/RegData/etudes/STUD/2021/662906/IPOL_STU(2021)662906_EN.pdf]]](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16881) (son tarih: 2027-01-27 19:00)"
+  ],
+  "degisen": [],
+  "calisma": 1,
+  "saat": "07:17",
+  "toplam": 184,
+  "kaynaklar": {
+   "ardeb": 12,
+   "bideb": 4,
+   "bt": 6,
+   "duyuru": 14,
+   "erasmus": 2,
+   "eu": 125,
+   "istka": 1,
+   "uidb": 20
+  },
+  "kontrol": 0,
+  "hatalar": []
  }
 }
