@@ -4,11 +4,15 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 04.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **184** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 2 · Ufuk Avrupa 125 · İSTKA 1 · UIDB 20
+- Son çalışma: **15:07** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **186** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 2 · Ufuk Avrupa 124 · İSTKA 1 · UIDB 23
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [Open Internet Stack: development of technological commons/open-source 3C building blocks (RIA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17043) (son tarih: 2027-01-03 14:00)
   - **Ufuk Avrupa** — [Industrial leadership in AI, Data and Robotics boosting competitiveness and the green transition (AI Data and Robotics Partnership) (IA)[[https://www.europarl.europa.eu/RegData/etudes/STUD/2021/662906/IPOL_STU(2021)662906_EN.pdf]]](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16881) (son tarih: 2027-01-27 19:00)
+  - **UIDB** — [Belmont Forum- Resilience Ortak Araştırma Aksiyonu Çağrısı (2. Aşama)
+](https://tubitak.gov.tr/sites/default/files/2025-06/Iki_asamali_Surec_Dokumani_Resilience.pdf) (son tarih: 2026-11-04 23:59)
+  - **UIDB** — [Marlen 2026 Yılı Tek Aşamalı Çağrısı](https://ufukavrupa.org.tr/sites/default/files/2026-04/MaRLEN_2026_Cagrisi_Tek%20a%C5%9Famal%C4%B1_S%C3%BCre%C3%A7%20Dok%C3%BCman%C4%B1.pdf) (son tarih: 2026-11-06 17:30)
+  - **UIDB** — [Chips JU 2025-2 ÇAĞRISI 1. AŞAMA](https://tubitak.gov.tr/sites/default/files/2025-04/Detaylar-Chips_Ortak_Girisimi_2025-2_Yili_Cagrisi_Surec_Dokumani.pdf) (son tarih: 2026-11-12 23:59)
 - Son tarihi değişenler: yok
 - Uyarılar: yok
 
