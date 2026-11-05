@@ -2,6 +2,18 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 05.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **183** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 4 · Duyuru 16 · Erasmus+ 3 · Ufuk Avrupa 121 · İSTKA 1 · UIDB 22
+- Yeni çağrılar: 
+  - **Duyuru** — [TÜBİTAK Bilim Söyleşileri 2026 Yılı Başvuruları Başladı](https://tubitak.gov.tr/tr/duyuru/tubitak-bilim-soylesileri-2026-yili-basvurulari-basladi) (son tarih: 2026-11-05 17:30)
+  - **Duyuru** — [2244–Sanayi Doktora Programı 2026 Yılı Çağrısı Açıldı](https://tubitak.gov.tr/tr/duyuru/2244-sanayi-doktora-programi-2026-yili-cagrisi-acildi-0) (son tarih: 2026-12-22)
+  - **Ufuk Avrupa** — [Co-funded European partnership for Resilient Cultural Heritage](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17181) (son tarih: 2027-01-11 17:00)
+  - **Erasmus+** — [European Degree Exploratory Action](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-EDU-2026-EUED) (son tarih: 2027-02-18)
+- Son tarihi değişenler: yok
+- Uyarılar: yok
+
 ## 04.11.2026
 
 - Son çalışma: **15:07** (İstanbul) · o gün 2 çalışma

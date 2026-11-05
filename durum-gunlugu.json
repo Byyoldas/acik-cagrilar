@@ -192,5 +192,29 @@
   },
   "kontrol": 0,
   "hatalar": []
+ },
+ "2026-11-05": {
+  "yeni": [
+   "**Duyuru** — [TÜBİTAK Bilim Söyleşileri 2026 Yılı Başvuruları Başladı](https://tubitak.gov.tr/tr/duyuru/tubitak-bilim-soylesileri-2026-yili-basvurulari-basladi) (son tarih: 2026-11-05 17:30)",
+   "**Duyuru** — [2244–Sanayi Doktora Programı 2026 Yılı Çağrısı Açıldı](https://tubitak.gov.tr/tr/duyuru/2244-sanayi-doktora-programi-2026-yili-cagrisi-acildi-0) (son tarih: 2026-12-22)",
+   "**Ufuk Avrupa** — [Co-funded European partnership for Resilient Cultural Heritage](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17181) (son tarih: 2027-01-11 17:00)",
+   "**Erasmus+** — [European Degree Exploratory Action](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-EDU-2026-EUED) (son tarih: 2027-02-18)"
+  ],
+  "degisen": [],
+  "calisma": 1,
+  "saat": "07:17",
+  "toplam": 183,
+  "kaynaklar": {
+   "ardeb": 12,
+   "bideb": 4,
+   "bt": 4,
+   "duyuru": 16,
+   "erasmus": 3,
+   "eu": 121,
+   "istka": 1,
+   "uidb": 22
+  },
+  "kontrol": 0,
+  "hatalar": []
  }
 }
