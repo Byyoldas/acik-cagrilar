@@ -4,13 +4,29 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 05.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **183** — ARDEB 12 · BİDEB 4 · Bilim ve Toplum 4 · Duyuru 16 · Erasmus+ 3 · Ufuk Avrupa 121 · İSTKA 1 · UIDB 22
+- Son çalışma: **15:19** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **184** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 3 · Ufuk Avrupa 121 · İSTKA 1 · UIDB 22
 - Yeni çağrılar: 
   - **Duyuru** — [TÜBİTAK Bilim Söyleşileri 2026 Yılı Başvuruları Başladı](https://tubitak.gov.tr/tr/duyuru/tubitak-bilim-soylesileri-2026-yili-basvurulari-basladi) (son tarih: 2026-11-05 17:30)
   - **Duyuru** — [2244–Sanayi Doktora Programı 2026 Yılı Çağrısı Açıldı](https://tubitak.gov.tr/tr/duyuru/2244-sanayi-doktora-programi-2026-yili-cagrisi-acildi-0) (son tarih: 2026-12-22)
   - **Ufuk Avrupa** — [Co-funded European partnership for Resilient Cultural Heritage](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17181) (son tarih: 2027-01-11 17:00)
   - **Erasmus+** — [European Degree Exploratory Action](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-EDU-2026-EUED) (son tarih: 2027-02-18)
+  - **Bilim ve Toplum** — [Bilim Söyleşileri Konuşmacı Başvurusu 2026-2027](https://bilimsoylesileri.tubitak.gov.tr/tr) (son tarih: 2026-11-13 17:30)
+  - **Bilim ve Toplum** — [Bilim Söyleşileri Okul/Kurum Başvurusu 2026-2027](https://bilimsoylesileri.tubitak.gov.tr/tr) (son tarih: 2026-11-13 17:30)
+  - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15681) (son tarih: 2026-11-17 01:59)
+  - **BİDEB** — [2244- Sanayi Doktora Programı 2026/1](http://www.tubitak.gov.tr/tr/burslar/lisansustu/egitim-burs-programlari/icerik-2244-sanayi-doktora-programi) (son tarih: 2026-12-22)
+  - **Ufuk Avrupa** — [Prevention and management of chronic non-communicable diseases in children and young people (GACD)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-10) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of innovative antimicrobials against pathogens resistant to antimicrobials](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-08) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Tools and technologies to support health adaptation to climate change](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-ENVHLTH-MISSCLIMA-03) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of cell-free protein synthesis platforms for discovery and/or production of biologicals](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-IND-01) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Integrating climate-related exposures into the human exposome and characterising its changes in response to climate change](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-ENVHLTH-02) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Clinical trials for advancing innovative interventions for neurodegenerative diseases](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-02-DISEASE-14-two-stage) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Addressing disabilities through the life course to support independent living and inclusion](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-STAYHLTH-01) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Personalised approaches to reduce risks from Adverse Drug Reactions due to administration of multiple medications](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-CARE-02) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of novel small molecule antiviral therapeutics for pathogens with epidemic potential](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-05) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of monoclonal antibodies to prevent and treat infections from Filo-, Nairo-, Phenui-, Picorna- and Toga viruses](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-07) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of predictive biomarkers of disease progression and treatment response by using AI methodologies for chronic non-communicable diseases](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-02-TOOL-01-two-stage) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of monoclonal antibodies to prevent and treat infections from Flaviviruses](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-06) (son tarih: 2027-02-17)
 - Son tarihi değişenler: yok
 - Uyarılar: yok
 
