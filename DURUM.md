@@ -4,10 +4,20 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 06.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **169** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 3 · Ufuk Avrupa 106 · İSTKA 1 · UIDB 22
+- Son çalışma: **15:06** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **178** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 3 · Ufuk Avrupa 114 · İSTKA 1 · UIDB 23
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [European Partnership on Personalised Medicine](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17044) (son tarih: 2027-01-20 16:00)
+  - **UIDB** — OH TREAT OHAMR 2026-2 (son tarih: 2026-11-13 23:59)
+  - **Ufuk Avrupa** — [Trapped-Ion Platform Technologies](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-TIPT-09-01) (son tarih: 2026-11-17)
+  - **Ufuk Avrupa** — [Sustainable, inclusive, affordable and beautiful solutions for thermal comfort in buildings](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-01) (son tarih: 2026-12-01)
+  - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15803) (son tarih: 2026-12-10 19:00)
+  - **Ufuk Avrupa** — [Co-funded European partnership for Resilient Cultural Heritage](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17181) (son tarih: 2027-01-11 17:00)
+  - **Ufuk Avrupa** — [ERC Consolidator Grant](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERC-2027-COG) (son tarih: 2027-01-12)
+  - **Ufuk Avrupa** — [European partnership fostering a European Research Area (ERA) for health research](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16261) (son tarih: 2027-01-14 14:00)
+  - **Ufuk Avrupa** — [Industrial leadership in AI, Data and Robotics boosting competitiveness and the green transition (AI Data and Robotics Partnership) (IA)[[https://www.europarl.europa.eu/RegData/etudes/STUD/2021/662906/IPOL_STU(2021)662906_EN.pdf]]](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16881) (son tarih: 2027-01-27 19:00)
+  - **Ufuk Avrupa** — [Quantum Machine Learning](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QML-07-01) (son tarih: 2027-01-28)
+  - **Ufuk Avrupa** — [Valorising Horizon project results via innovation ecosystems](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-06-02) (son tarih: 2027-02-16)
 - Son tarihi değişenler: 
   - **UIDB** — [EP PerMed RTIC2026 (MultiPMData2026) Ortak Çağrısı 2. Aşama](https://tubitak.gov.tr/sites/default/files/2025-10/EK_2_Ulusal_Basvuru_Kurallari_RTICs_2026_Olur_sonrasi_0.pdf): 2026-11-06 23:59 → 2026-11-20 23:59
 - Uyarılar: yok
