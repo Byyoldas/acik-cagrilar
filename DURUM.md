@@ -2,6 +2,16 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 06.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **169** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 3 · Ufuk Avrupa 106 · İSTKA 1 · UIDB 22
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [European Partnership on Personalised Medicine](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17044) (son tarih: 2027-01-20 16:00)
+- Son tarihi değişenler: 
+  - **UIDB** — [EP PerMed RTIC2026 (MultiPMData2026) Ortak Çağrısı 2. Aşama](https://tubitak.gov.tr/sites/default/files/2025-10/EK_2_Ulusal_Basvuru_Kurallari_RTICs_2026_Olur_sonrasi_0.pdf): 2026-11-06 23:59 → 2026-11-20 23:59
+- Uyarılar: yok
+
 ## 05.11.2026
 
 - Son çalışma: **15:19** (İstanbul) · o gün 2 çalışma
