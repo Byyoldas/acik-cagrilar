@@ -2,6 +2,23 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 08.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **178** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 3 · Ufuk Avrupa 115 · İSTKA 1 · UIDB 22
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15681) (son tarih: 2026-11-17 01:59)
+  - **Ufuk Avrupa** — [Prevention and management of chronic non-communicable diseases in children and young people (GACD)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-10) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of innovative antimicrobials against pathogens resistant to antimicrobials](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-08) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of cell-free protein synthesis platforms for discovery and/or production of biologicals](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-IND-01) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Integrating climate-related exposures into the human exposome and characterising its changes in response to climate change](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-ENVHLTH-02) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Clinical trials for advancing innovative interventions for neurodegenerative diseases](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-02-DISEASE-14-two-stage) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Addressing disabilities through the life course to support independent living and inclusion](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-STAYHLTH-01) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Personalised approaches to reduce risks from Adverse Drug Reactions due to administration of multiple medications](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-CARE-02) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of novel small molecule antiviral therapeutics for pathogens with epidemic potential](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-05) (son tarih: 2027-02-17)
+- Son tarihi değişenler: yok
+- Uyarılar: yok
+
 ## 07.11.2026
 
 - Son çalışma: **14:03** (İstanbul) · o gün 2 çalışma

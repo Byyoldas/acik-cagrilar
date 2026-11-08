@@ -296,5 +296,34 @@
   },
   "kontrol": 0,
   "hatalar": []
+ },
+ "2026-11-08": {
+  "yeni": [
+   "**Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15681) (son tarih: 2026-11-17 01:59)",
+   "**Ufuk Avrupa** — [Prevention and management of chronic non-communicable diseases in children and young people (GACD)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-10) (son tarih: 2027-02-17)",
+   "**Ufuk Avrupa** — [Development of innovative antimicrobials against pathogens resistant to antimicrobials](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-08) (son tarih: 2027-02-17)",
+   "**Ufuk Avrupa** — [Development of cell-free protein synthesis platforms for discovery and/or production of biologicals](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-IND-01) (son tarih: 2027-02-17)",
+   "**Ufuk Avrupa** — [Integrating climate-related exposures into the human exposome and characterising its changes in response to climate change](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-ENVHLTH-02) (son tarih: 2027-02-17)",
+   "**Ufuk Avrupa** — [Clinical trials for advancing innovative interventions for neurodegenerative diseases](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-02-DISEASE-14-two-stage) (son tarih: 2027-02-17)",
+   "**Ufuk Avrupa** — [Addressing disabilities through the life course to support independent living and inclusion](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-STAYHLTH-01) (son tarih: 2027-02-17)",
+   "**Ufuk Avrupa** — [Personalised approaches to reduce risks from Adverse Drug Reactions due to administration of multiple medications](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-CARE-02) (son tarih: 2027-02-17)",
+   "**Ufuk Avrupa** — [Development of novel small molecule antiviral therapeutics for pathogens with epidemic potential](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-05) (son tarih: 2027-02-17)"
+  ],
+  "degisen": [],
+  "calisma": 1,
+  "saat": "07:17",
+  "toplam": 178,
+  "kaynaklar": {
+   "ardeb": 12,
+   "bideb": 5,
+   "bt": 6,
+   "duyuru": 14,
+   "erasmus": 3,
+   "eu": 115,
+   "istka": 1,
+   "uidb": 22
+  },
+  "kontrol": 0,
+  "hatalar": []
  }
 }
