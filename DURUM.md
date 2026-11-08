@@ -4,8 +4,8 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 08.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **178** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 3 · Ufuk Avrupa 115 · İSTKA 1 · UIDB 22
+- Son çalışma: **14:16** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **170** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 3 · Ufuk Avrupa 107 · İSTKA 1 · UIDB 22
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15681) (son tarih: 2026-11-17 01:59)
   - **Ufuk Avrupa** — [Prevention and management of chronic non-communicable diseases in children and young people (GACD)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-10) (son tarih: 2027-02-17)
@@ -16,6 +16,7 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
   - **Ufuk Avrupa** — [Addressing disabilities through the life course to support independent living and inclusion](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-STAYHLTH-01) (son tarih: 2027-02-17)
   - **Ufuk Avrupa** — [Personalised approaches to reduce risks from Adverse Drug Reactions due to administration of multiple medications](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-CARE-02) (son tarih: 2027-02-17)
   - **Ufuk Avrupa** — [Development of novel small molecule antiviral therapeutics for pathogens with epidemic potential](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-05) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15803) (son tarih: 2026-12-10 19:00)
 - Son tarihi değişenler: yok
 - Uyarılar: yok
 
