@@ -4,8 +4,8 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 09.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **180** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 3 · Ufuk Avrupa 117 · İSTKA 1 · UIDB 22
+- Son çalışma: **15:51** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **183** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 3 · Ufuk Avrupa 117 · İSTKA 1 · UIDB 24
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15681) (son tarih: 2026-11-17 01:59)
   - **Ufuk Avrupa** — [EITFOOD Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17237) (son tarih: 2027-01-05 14:00)
@@ -19,7 +19,12 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
   - **Ufuk Avrupa** — [Addressing disabilities through the life course to support independent living and inclusion](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-STAYHLTH-01) (son tarih: 2027-02-17)
   - **Ufuk Avrupa** — [Personalised approaches to reduce risks from Adverse Drug Reactions due to administration of multiple medications](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-CARE-02) (son tarih: 2027-02-17)
   - **Ufuk Avrupa** — [Development of novel small molecule antiviral therapeutics for pathogens with epidemic potential](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-05) (son tarih: 2027-02-17)
-- Son tarihi değişenler: yok
+  - **UIDB** — [WATER4ALL Ortaklığı 2025 Çağrısı 2. Aşama](https://ufukavrupa.org.tr/sites/default/files/users/user397/Water4All_Ortakligi_2025_Cagrisi_Ar-Ge_ve_Yenilik_Projeleri_Ulusal_Basvuru_Kurallari_8.pdf) (son tarih: 2026-11-23 23:59)
+  - **Ufuk Avrupa** — [Implementing co-funded action plans for connected regional innovation valleys](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15803) (son tarih: 2026-12-10 19:00)
+  - **UIDB** — [2508 - Slovenya Araştırma ve Yenilik Ajansı (ARIS) ile İkili İşbirliği Çağrısı](https://tubitak.gov.tr/sites/default/files/2026-10/2508-ARIS-call_text_2026.pdf) (son tarih: 2026-12-21 23:59)
+  - **Duyuru** — [1832-Sanayide Yeşil Dönüşüm 2026-2 Çağrısı Başvuruya Açıldı](https://tubitak.gov.tr/tr/duyuru/1832-sanayide-yesil-donusum-2026-2-cagrisi-basvuruya-acildi) (son tarih: 2026-12-30)
+- Son tarihi değişenler: 
+  - **UIDB** — OH TREAT OHAMR 2026-2: 2026-11-13 23:59 → 2026-11-30 23:59
 - Uyarılar: yok
 
 ## 08.11.2026
