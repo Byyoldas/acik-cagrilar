@@ -4,11 +4,13 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 10.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **183** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 3 · Ufuk Avrupa 117 · İSTKA 1 · UIDB 24
+- Son çalışma: **15:38** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **184** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 3 · Ufuk Avrupa 117 · İSTKA 1 · UIDB 25
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [Facilitate the engagement in global ICT standardisation development (CSA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17243) (son tarih: 2027-01-08 19:00)
-- Son tarihi değişenler: yok
+  - **UIDB** — [CETPartnership 2026 Ortak Çağrısı - 1. Aşama](https://ufukavrupa.org.tr/tr/haberler/cetpartnership-2026-ortak-cagrisi) (son tarih: 2026-11-12 23:59)
+- Son tarihi değişenler: 
+  - **Ufuk Avrupa** — [European partnership rescuing biodiversity to safeguard life on Earth](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15441): 2026-11-10 14:00 → 2027-04-16 13:00
 - Uyarılar: yok
 
 ## 09.11.2026
