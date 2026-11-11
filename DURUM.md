@@ -4,11 +4,12 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 11.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **186** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 16 · Erasmus+ 3 · Ufuk Avrupa 118 · İSTKA 1 · UIDB 25
+- Son çalışma: **14:52** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **180** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 16 · Erasmus+ 3 · Ufuk Avrupa 112 · İSTKA 1 · UIDB 25
 - Yeni çağrılar: 
   - **Duyuru** — [Kişiselleştirilmiş Tıp Avrupa Ortaklığı 2027 Yılı Çağrısı Açıldı](https://tubitak.gov.tr/tr/duyuru/kisisellestirilmis-tip-avrupa-ortakligi-2027-yili-cagrisi-acildi) (son tarih: 2027-01-20)
   - **Ufuk Avrupa** — [Short proposal](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2027-ACCELERATOR-01) (son tarih: 2027-12-16)
+  - **Ufuk Avrupa** — [EITFOOD Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17239) (son tarih: 2026-12-16 14:00)
 - Son tarihi değişenler: 
   - **Ufuk Avrupa** — [European Partnership Water Security for the Planet (Water4All)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15581): 2026-11-10 17:00 → 2027-04-06 16:00
 - Uyarılar: yok

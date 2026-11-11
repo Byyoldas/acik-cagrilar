@@ -392,21 +392,22 @@
  "2026-11-11": {
   "yeni": [
    "**Duyuru** — [Kişiselleştirilmiş Tıp Avrupa Ortaklığı 2027 Yılı Çağrısı Açıldı](https://tubitak.gov.tr/tr/duyuru/kisisellestirilmis-tip-avrupa-ortakligi-2027-yili-cagrisi-acildi) (son tarih: 2027-01-20)",
-   "**Ufuk Avrupa** — [Short proposal](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2027-ACCELERATOR-01) (son tarih: 2027-12-16)"
+   "**Ufuk Avrupa** — [Short proposal](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2027-ACCELERATOR-01) (son tarih: 2027-12-16)",
+   "**Ufuk Avrupa** — [EITFOOD Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17239) (son tarih: 2026-12-16 14:00)"
   ],
   "degisen": [
    "**Ufuk Avrupa** — [European Partnership Water Security for the Planet (Water4All)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15581): 2026-11-10 17:00 → 2027-04-06 16:00"
   ],
-  "calisma": 1,
-  "saat": "07:17",
-  "toplam": 186,
+  "calisma": 2,
+  "saat": "14:52",
+  "toplam": 180,
   "kaynaklar": {
    "ardeb": 12,
    "bideb": 5,
    "bt": 6,
    "duyuru": 16,
    "erasmus": 3,
-   "eu": 118,
+   "eu": 112,
    "istka": 1,
    "uidb": 25
   },
