@@ -4,8 +4,8 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 12.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **186** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 3 · Ufuk Avrupa 119 · İSTKA 1 · UIDB 25
+- Son çalışma: **15:42** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **182** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 15 · Erasmus+ 3 · Ufuk Avrupa 114 · İSTKA 1 · UIDB 26
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [Trapped-Ion Platform Technologies](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-TIPT-09-01) (son tarih: 2026-11-17)
   - **Ufuk Avrupa** — [Sustainable, inclusive, affordable and beautiful solutions for thermal comfort in buildings](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-01) (son tarih: 2026-12-01)
@@ -14,6 +14,9 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
   - **Ufuk Avrupa** — [Piloting emerging Smart IoT Platforms and decentralized intelligence (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15741) (son tarih: 2027-01-14 19:00)
   - **Ufuk Avrupa** — [Industrial leadership in AI, Data and Robotics boosting competitiveness and the green transition (AI Data and Robotics Partnership) (IA)[[https://www.europarl.europa.eu/RegData/etudes/STUD/2021/662906/IPOL_STU(2021)662906_EN.pdf]]](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16881) (son tarih: 2027-01-27 19:00)
   - **Ufuk Avrupa** — [Quantum Machine Learning](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QML-07-01) (son tarih: 2027-01-28)
+  - **Ufuk Avrupa** — [EITFOOD Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17237) (son tarih: 2027-01-05 14:00)
+  - **UIDB** — RCH ORTAKLIĞI 2027 YILI ÇAĞRISI 1. AŞAMA (son tarih: 2027-01-14 23:59)
+  - **Ufuk Avrupa** — [Proof of Concept Grant](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERC-2027-POC) (son tarih: 2027-03-10)
 - Son tarihi değişenler: yok
 - Uyarılar: yok
 
