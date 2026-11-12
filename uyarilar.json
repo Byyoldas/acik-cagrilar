@@ -1,14 +1,14 @@
 {
- "zaman": "2026-11-11T14:52+03:00",
+ "zaman": "2026-11-12T07:17+03:00",
  "hatalar": [],
  "kontrol_gerekli": [],
  "kaynak_sayilari": {
   "ardeb": 12,
   "bideb": 5,
   "bt": 6,
-  "duyuru": 16,
+  "duyuru": 15,
   "erasmus": 3,
-  "eu": 112,
+  "eu": 119,
   "istka": 1,
   "uidb": 25
  }
