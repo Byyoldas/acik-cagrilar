@@ -2,6 +2,22 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 13.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **179** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 14 · Erasmus+ 3 · Ufuk Avrupa 114 · İSTKA 1 · UIDB 24
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [EITFOOD Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17239) (son tarih: 2026-12-16 14:00)
+  - **Ufuk Avrupa** — [Prevention and management of chronic non-communicable diseases in children and young people (GACD)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-10) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of innovative antimicrobials against pathogens resistant to antimicrobials](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-08) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Clinical trials for advancing innovative interventions for neurodegenerative diseases](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-02-DISEASE-14-two-stage) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Addressing disabilities through the life course to support independent living and inclusion](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-STAYHLTH-01) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Personalised approaches to reduce risks from Adverse Drug Reactions due to administration of multiple medications](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-CARE-02) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of novel small molecule antiviral therapeutics for pathogens with epidemic potential](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-05) (son tarih: 2027-02-17)
+- Son tarihi değişenler: 
+  - **Ufuk Avrupa** — [Support for R&I policy making in the EU enlargement countries](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15261): 2026-11-12 19:00 → 2027-05-05 18:00
+- Uyarılar: yok
+
 ## 12.11.2026
 
 - Son çalışma: **15:42** (İstanbul) · o gün 2 çalışma
