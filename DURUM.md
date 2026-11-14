@@ -4,7 +4,7 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 14.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Son çalışma: **14:27** (İstanbul) · o gün 2 çalışma
 - Açık çağrı: **184** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 3 · Ufuk Avrupa 120 · İSTKA 1 · UIDB 24
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [Trapped-Ion Platform Technologies](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-TIPT-09-01) (son tarih: 2026-11-17)
