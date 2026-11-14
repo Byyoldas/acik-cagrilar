@@ -2,6 +2,22 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 14.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **184** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 3 · Ufuk Avrupa 120 · İSTKA 1 · UIDB 24
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [Trapped-Ion Platform Technologies](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-TIPT-09-01) (son tarih: 2026-11-17)
+  - **UIDB** — [ERA4Health ORTAKLIĞI JTC8 PREVENT-OO 2026 YILI ÇAĞRISI (2. AŞAMA)](https://tubitak.gov.tr/sites/default/files/2025-12/Iki_asamali_Surec_Dokumani_JTC-Ulusal_Kurallar_Dokumani.pdf) (son tarih: 2026-11-27 23:59)
+  - **Ufuk Avrupa** — [Sustainable, inclusive, affordable and beautiful solutions for thermal comfort in buildings](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NEB-2026-01-REGEN-01) (son tarih: 2026-12-01)
+  - **Ufuk Avrupa** — [EITFOOD Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17237) (son tarih: 2027-01-05 14:00)
+  - **Ufuk Avrupa** — [Co-funded European partnership for Resilient Cultural Heritage](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17181) (son tarih: 2027-01-11 17:00)
+  - **Ufuk Avrupa** — [European partnership fostering a European Research Area (ERA) for health research](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16261) (son tarih: 2027-01-14 14:00)
+  - **Ufuk Avrupa** — [Industrial leadership in AI, Data and Robotics boosting competitiveness and the green transition (AI Data and Robotics Partnership) (IA)[[https://www.europarl.europa.eu/RegData/etudes/STUD/2021/662906/IPOL_STU(2021)662906_EN.pdf]]](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/16881) (son tarih: 2027-01-27 19:00)
+  - **Ufuk Avrupa** — [Quantum Machine Learning](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QML-07-01) (son tarih: 2027-01-28)
+- Son tarihi değişenler: yok
+- Uyarılar: yok
+
 ## 13.11.2026
 
 - Son çalışma: **15:12** (İstanbul) · o gün 2 çalışma
