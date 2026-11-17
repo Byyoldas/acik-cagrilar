@@ -2,6 +2,17 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 17.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **184** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 3 · Ufuk Avrupa 121 · İSTKA 1 · UIDB 23
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [EITFOOD Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17239) (son tarih: 2026-12-16 14:00)
+  - **Ufuk Avrupa** — [Advanced integrated photonic devices for extended features and ultra-low power consumption (RIA) (Photonics Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-05-DIGITAL-EMERGING-03) (son tarih: 2027-03-18)
+- Son tarihi değişenler: 
+  - **Ufuk Avrupa** — [European Partnership for a climate neutral, sustainable and productive Blue Economy](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15721): 2026-11-16 17:00 → 2027-06-14 16:00
+- Uyarılar: yok
+
 ## 16.11.2026
 
 - Son çalışma: **15:44** (İstanbul) · o gün 2 çalışma
