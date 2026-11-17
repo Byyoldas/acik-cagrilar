@@ -4,14 +4,30 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 17.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **184** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 3 · Ufuk Avrupa 121 · İSTKA 1 · UIDB 23
+- Son çalışma: **16:25** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **190** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 3 · Ufuk Avrupa 127 · İSTKA 1 · UIDB 23
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [EITFOOD Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17239) (son tarih: 2026-12-16 14:00)
   - **Ufuk Avrupa** — [Advanced integrated photonic devices for extended features and ultra-low power consumption (RIA) (Photonics Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-05-DIGITAL-EMERGING-03) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [EITFOOD Business Plan 2026](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17237) (son tarih: 2027-01-05 14:00)
+  - **Ufuk Avrupa** — [Create a thriving and competitive Virtual Worlds and Web 4.0 ecosystem (CSA) (Virtual Worlds Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-02) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [International cooperation in AI (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-06) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [Energy efficiency and sustainability of AI data processing in Data Centres (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-09) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [Advanced and Innovative hardware components for Virtual Worlds (RIA) (Virtual Worlds Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-01) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [Horizon scanning and foresight in future enabling digital technologies (CSA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-10) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [EU Frontier AI Initiative:  Developing frontier AI solutions that are safe and computationally efficient within Apply AI (RIA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-11) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [Apply AI: Challenge-Driven AI Innovation Booster in Apply AI prioritised sectors (RIA) (Partnership in AI, Data and Robotics)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-04) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [Demand-side 3C pilot demonstrators on converged Telco Edge Cloud Infrastructure (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-08) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [Apply AI: AI-Driven Robotics for Industry: Enabling System Integration and Adoption (IA) (Partnership in AI, Data and Robotics)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-05) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [New approaches for decentralized, federated and sustainable AI data processing (RIA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-03) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [Facilitate the engagement of European stakeholders in international digital standardisation (CSA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-07) (son tarih: 2027-03-18)
 - Son tarihi değişenler: 
   - **Ufuk Avrupa** — [European Partnership for a climate neutral, sustainable and productive Blue Economy](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15721): 2026-11-16 17:00 → 2027-06-14 16:00
-- Uyarılar: yok
+  - **Ufuk Avrupa** — [Co-Funded Partnership: Driving Urban Transitions to a sustainable future (DUT)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/15122): 2026-11-17 15:00 → 2027-04-15 14:00
+- Uyarılar: 
+  - ardeb: kaynak boş döndü -> önceki başarılı sonuç kullanıldı (12 kayıt)
+  - uidb: kaynak boş döndü -> önceki başarılı sonuç kullanıldı (23 kayıt)
+  - bt: kaynak boş döndü -> önceki başarılı sonuç kullanıldı (6 kayıt)
 
 ## 16.11.2026
 
