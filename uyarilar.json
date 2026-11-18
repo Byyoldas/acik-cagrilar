@@ -1,10 +1,6 @@
 {
- "zaman": "2026-11-17T16:25+03:00",
- "hatalar": [
-  "ardeb: kaynak boş döndü -> önceki başarılı sonuç kullanıldı (12 kayıt)",
-  "uidb: kaynak boş döndü -> önceki başarılı sonuç kullanıldı (23 kayıt)",
-  "bt: kaynak boş döndü -> önceki başarılı sonuç kullanıldı (6 kayıt)"
- ],
+ "zaman": "2026-11-18T07:17+03:00",
+ "hatalar": [],
  "kontrol_gerekli": [],
  "kaynak_sayilari": {
   "ardeb": 12,
@@ -12,8 +8,8 @@
   "bt": 6,
   "duyuru": 13,
   "erasmus": 3,
-  "eu": 127,
+  "eu": 120,
   "istka": 1,
-  "uidb": 23
+  "uidb": 24
  }
 }

@@ -2,6 +2,18 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 18.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **184** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 3 · Ufuk Avrupa 120 · İSTKA 1 · UIDB 24
+- Yeni çağrılar: 
+  - **UIDB** — [WATER4ALL Ortaklığı 2026 Çağrısı 1. Aşama](https://ufukavrupa.org.tr/tr/node/6723) (son tarih: 2026-11-18 23:59)
+  - **Ufuk Avrupa** — ['Innovate to transform' support for SME's sustainability transition (CSA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17261) (son tarih: 2027-01-19 18:00)
+  - **Ufuk Avrupa** — [Development of innovative antimicrobials against pathogens resistant to antimicrobials](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-08) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Next Generation Innovation Talents](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17236) (son tarih: 2027-07-31 18:00)
+- Son tarihi değişenler: yok
+- Uyarılar: yok
+
 ## 17.11.2026
 
 - Son çalışma: **16:25** (İstanbul) · o gün 2 çalışma
