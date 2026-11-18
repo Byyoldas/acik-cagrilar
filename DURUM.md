@@ -4,13 +4,22 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 18.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **184** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 3 · Ufuk Avrupa 120 · İSTKA 1 · UIDB 24
+- Son çalışma: **16:02** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **193** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 3 · Ufuk Avrupa 128 · İSTKA 1 · UIDB 25
 - Yeni çağrılar: 
   - **UIDB** — [WATER4ALL Ortaklığı 2026 Çağrısı 1. Aşama](https://ufukavrupa.org.tr/tr/node/6723) (son tarih: 2026-11-18 23:59)
   - **Ufuk Avrupa** — ['Innovate to transform' support for SME's sustainability transition (CSA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17261) (son tarih: 2027-01-19 18:00)
   - **Ufuk Avrupa** — [Development of innovative antimicrobials against pathogens resistant to antimicrobials](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-08) (son tarih: 2027-02-17)
   - **Ufuk Avrupa** — [Next Generation Innovation Talents](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17236) (son tarih: 2027-07-31 18:00)
+  - **UIDB** — [CETPartnership 2026 Ortak Çağrısı - 1. Aşama](https://ufukavrupa.org.tr/tr/haberler/cetpartnership-2026-ortak-cagrisi) (son tarih: 2026-11-19 23:59)
+  - **Ufuk Avrupa** — [Large-Scale piloting of next-generation AI-driven digital platforms for a more affordable, secure and sustainable European energy system (IA) - Apply AI](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-12) (son tarih: 2027-02-16)
+  - **Ufuk Avrupa** — [EU Frontier AI Initiative: Advanced Scaling Frameworks for High-Performance AI Models (RIA) - Apply AI](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-13) (son tarih: 2027-02-16)
+  - **Ufuk Avrupa** — [Autonomous Drive Ambition Cities (IA) - Apply AI](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-10) (son tarih: 2027-02-16)
+  - **Ufuk Avrupa** — [EU AI Media Platform – modular multilingual public-interest infrastructure for European news and audiovisual media (IA) - Apply AI](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-09) (son tarih: 2027-02-16)
+  - **Ufuk Avrupa** — [Prevention and management of chronic non-communicable diseases in children and young people (GACD)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-10) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Addressing disabilities through the life course to support independent living and inclusion](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-STAYHLTH-01) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Personalised approaches to reduce risks from Adverse Drug Reactions due to administration of multiple medications](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-CARE-02) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Development of novel small molecule antiviral therapeutics for pathogens with epidemic potential](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-05) (son tarih: 2027-02-17)
 - Son tarihi değişenler: yok
 - Uyarılar: yok
 
