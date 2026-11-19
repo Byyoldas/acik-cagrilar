@@ -2,6 +2,17 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 19.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **195** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 4 · Ufuk Avrupa 130 · İSTKA 1 · UIDB 24
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [Enhancing working conditions and strengthening the work force through digital and data technologies – the potential of robotics and augmented reality in agriculture](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17481) (son tarih: 2027-01-25 19:00)
+  - **Erasmus+** — [Erasmus Mundus Design Measures](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-EDU-2027-EMJM-DESIGN) (son tarih: 2027-02-16)
+  - **Ufuk Avrupa** — [EIC STEP Scale Up](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2027-STEP) (son tarih: 2027-11-24)
+- Son tarihi değişenler: yok
+- Uyarılar: yok
+
 ## 18.11.2026
 
 - Son çalışma: **16:02** (İstanbul) · o gün 2 çalışma
