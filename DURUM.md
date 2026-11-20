@@ -4,11 +4,20 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 20.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **196** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 5 · Ufuk Avrupa 130 · İSTKA 1 · UIDB 24
+- Son çalışma: **15:53** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **203** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 5 · Ufuk Avrupa 137 · İSTKA 1 · UIDB 24
 - Yeni çağrılar: 
   - **Erasmus+** — [Erasmus Mundus Joint Masters](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-EDU-2027-PEX-EMJM-MOB) (son tarih: 2027-02-16)
-- Son tarihi değişenler: yok
+  - **Ufuk Avrupa** — [Africa-EU CO-FUND action on climate](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-11) (son tarih: 2027-03-04)
+  - **Ufuk Avrupa** — [Palaeoclimate science for a better understanding of Earth system dynamics](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-08) (son tarih: 2027-03-04)
+  - **Ufuk Avrupa** — [Next generation scenarios for informing climate and sustainability transitions](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-13) (son tarih: 2027-03-04)
+  - **Ufuk Avrupa** — [Assessing the performance of policy instruments to inform climate change mitigation action](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-09) (son tarih: 2027-03-04)
+  - **Ufuk Avrupa** — [Better understanding and attribution of land and ocean carbon sources and sinks](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-12) (son tarih: 2027-03-04)
+  - **Ufuk Avrupa** — [Advancing understanding, modelling and prediction of extreme events in a changing climate](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-07) (son tarih: 2027-03-04)
+  - **Ufuk Avrupa** — [Understanding and avoiding maladaptation to climate change](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-01-D1-10) (son tarih: 2027-03-04)
+- Son tarihi değişenler: 
+  - **UIDB** — [SBEP ORTAKLIĞI 2026 YILI ÇAĞRISI 1. AŞAMA](https://tubitak.gov.tr/sites/default/files/2026-10/SBEP_2026_Cagrisi_Ulusal_Basvuru_Kurallari.pdf): 2026-11-23 23:59 → 2026-11-26 23:59
+  - **UIDB** — [WATER4ALL Ortaklığı 2025 Çağrısı 2. Aşama](https://ufukavrupa.org.tr/sites/default/files/users/user397/Water4All_Ortakligi_2025_Cagrisi_Ar-Ge_ve_Yenilik_Projeleri_Ulusal_Basvuru_Kurallari_8.pdf): 2026-11-23 23:59 → 2026-11-30 23:59
 - Uyarılar: yok
 
 ## 19.11.2026
