@@ -650,5 +650,26 @@
   },
   "kontrol": 0,
   "hatalar": []
+ },
+ "2026-11-20": {
+  "yeni": [
+   "**Erasmus+** — [Erasmus Mundus Joint Masters](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-EDU-2027-PEX-EMJM-MOB) (son tarih: 2027-02-16)"
+  ],
+  "degisen": [],
+  "calisma": 1,
+  "saat": "07:17",
+  "toplam": 196,
+  "kaynaklar": {
+   "ardeb": 12,
+   "bideb": 5,
+   "bt": 6,
+   "duyuru": 13,
+   "erasmus": 5,
+   "eu": 130,
+   "istka": 1,
+   "uidb": 24
+  },
+  "kontrol": 0,
+  "hatalar": []
  }
 }
