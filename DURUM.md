@@ -2,6 +2,15 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 21.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **201** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 5 · Ufuk Avrupa 137 · İSTKA 1 · UIDB 22
+- Yeni çağrılar: yok
+- Son tarihi değişenler: 
+  - **UIDB** — [DUT Ortaklığı 2026 Yılı Çağrısı 1. Aşama](https://ufukavrupa.org.tr/sites/default/files/users/user20728/DUT%202026_%C4%B0ki%20a%C5%9Famal%C4%B1_S%C3%BCre%C3%A7%20Dok%C3%BCman%C4%B1.pdf): 2026-11-20 23:59 → 2026-11-24 23:59
+- Uyarılar: yok
+
 ## 20.11.2026
 
 - Son çalışma: **15:53** (İstanbul) · o gün 2 çalışma
