@@ -2,6 +2,14 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 22.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **201** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 13 · Erasmus+ 5 · Ufuk Avrupa 137 · İSTKA 1 · UIDB 22
+- Yeni çağrılar: yok
+- Son tarihi değişenler: yok
+- Uyarılar: yok
+
 ## 21.11.2026
 
 - Son çalışma: **15:38** (İstanbul) · o gün 2 çalışma
