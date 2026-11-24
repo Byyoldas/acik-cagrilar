@@ -2,6 +2,16 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 24.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **202** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 12 · Erasmus+ 7 · Ufuk Avrupa 137 · İSTKA 1 · UIDB 22
+- Yeni çağrılar: 
+  - **Erasmus+** — [Not-for-profit European sport events](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-SPORT-2027-SNCESE) (son tarih: 2027-01-19)
+  - **Erasmus+** — [Large scale not-for-profit European sport event](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-SPORT-2027-LSSNCESE) (son tarih: 2027-01-19)
+- Son tarihi değişenler: yok
+- Uyarılar: yok
+
 ## 23.11.2026
 
 - Son çalışma: **17:37** (İstanbul) · o gün 2 çalışma

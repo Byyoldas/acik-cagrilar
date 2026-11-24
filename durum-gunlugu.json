@@ -740,5 +740,27 @@
   },
   "kontrol": 0,
   "hatalar": []
+ },
+ "2026-11-24": {
+  "yeni": [
+   "**Erasmus+** — [Not-for-profit European sport events](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-SPORT-2027-SNCESE) (son tarih: 2027-01-19)",
+   "**Erasmus+** — [Large scale not-for-profit European sport event](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-SPORT-2027-LSSNCESE) (son tarih: 2027-01-19)"
+  ],
+  "degisen": [],
+  "calisma": 1,
+  "saat": "07:17",
+  "toplam": 202,
+  "kaynaklar": {
+   "ardeb": 12,
+   "bideb": 5,
+   "bt": 6,
+   "duyuru": 12,
+   "erasmus": 7,
+   "eu": 137,
+   "istka": 1,
+   "uidb": 22
+  },
+  "kontrol": 0,
+  "hatalar": []
  }
 }
