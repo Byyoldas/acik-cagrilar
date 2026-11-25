@@ -2,6 +2,17 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 25.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **201** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 12 · Erasmus+ 7 · Ufuk Avrupa 136 · İSTKA 1 · UIDB 22
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [Facilitate the engagement of European stakeholders in international digital standardisation (CSA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-07) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [Create a thriving and competitive Virtual Worlds and Web 4.0 ecosystem (CSA) (Virtual Worlds Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-HUMAN-02) (son tarih: 2027-03-18)
+  - **Ufuk Avrupa** — [Horizon scanning and foresight in future enabling digital technologies (CSA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-10) (son tarih: 2027-03-18)
+- Son tarihi değişenler: yok
+- Uyarılar: yok
+
 ## 24.11.2026
 
 - Son çalışma: **17:51** (İstanbul) · o gün 2 çalışma
