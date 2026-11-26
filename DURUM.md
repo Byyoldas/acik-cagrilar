@@ -2,6 +2,24 @@
 
 Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı güne ait birden fazla çalışma tek kayıtta birleşir.
 
+## 26.11.2026
+
+- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
+- Açık çağrı: **204** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 12 · Erasmus+ 16 · Ufuk Avrupa 129 · İSTKA 1 · UIDB 23
+- Yeni çağrılar: 
+  - **Ufuk Avrupa** — [A European Collaborative Cloud for Cultural Heritage – Innovative tools for the study, conservation and restoration of heritage objects](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17463) (son tarih: 2027-01-27 19:00)
+  - **Erasmus+** — [Jean Monnet Network on internal policy: The role of education and culture for integration and cooperation in Europe](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-NETWORKS-HEI-EU-EDU-CUL) (son tarih: 2027-02-03)
+  - **Erasmus+** — [Jean Monnet Networks on internal policy: Strategic autonomy of the European political area – digital and economic independence](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-NETWORKS-HEI-EU-DIG-ECO) (son tarih: 2027-02-03)
+  - **Erasmus+** — [Jean Monnet Network on external policy: EU-Ukraine-Moldova](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-NETWORKS-HEI-NON-EU-UA-MLD) (son tarih: 2027-02-03)
+  - **Erasmus+** — [Jean Monnet Network on external policy: EU-Canada](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-NETWORKS-HEI-NON-EU-CANADA) (son tarih: 2027-02-03)
+  - **Erasmus+** — [Jean Monnet Networks in other fields of education and training](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-NETWORKS-SCHOOLS) (son tarih: 2027-02-03)
+  - **Erasmus+** — [Jean Monnet Actions for other fields of Education and Training: Teacher Training](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-OFET-TT) (son tarih: 2027-02-03)
+  - **Erasmus+** — [ERASMUS-JMO-2027-MODULE](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-HEI-TCH-RSCH-MODULE) (son tarih: 2027-02-03)
+  - **Erasmus+** — [ERASMUS-JMO-2027-CoE](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-HEI-TCH-RSCH-CoE) (son tarih: 2027-02-03)
+  - **Erasmus+** — [ERASMUS-JMO-2027-CHAIR](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-HEI-TCH-RSCH-CHAIR) (son tarih: 2027-02-03)
+- Son tarihi değişenler: yok
+- Uyarılar: yok
+
 ## 25.11.2026
 
 - Son çalışma: **17:21** (İstanbul) · o gün 2 çalışma
