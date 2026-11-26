@@ -1,5 +1,5 @@
 {
- "zaman": "2026-11-26T07:17+03:00",
+ "zaman": "2026-11-26T16:53+03:00",
  "hatalar": [],
  "kontrol_gerekli": [],
  "kaynak_sayilari": {
@@ -7,9 +7,9 @@
   "bideb": 5,
   "bt": 6,
   "duyuru": 12,
-  "erasmus": 16,
-  "eu": 129,
+  "erasmus": 17,
+  "eu": 138,
   "istka": 1,
-  "uidb": 23
+  "uidb": 25
  }
 }

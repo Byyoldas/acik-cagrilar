@@ -4,8 +4,8 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 26.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **204** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 12 · Erasmus+ 16 · Ufuk Avrupa 129 · İSTKA 1 · UIDB 23
+- Son çalışma: **16:53** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **216** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 12 · Erasmus+ 17 · Ufuk Avrupa 138 · İSTKA 1 · UIDB 25
 - Yeni çağrılar: 
   - **Ufuk Avrupa** — [A European Collaborative Cloud for Cultural Heritage – Innovative tools for the study, conservation and restoration of heritage objects](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/17463) (son tarih: 2027-01-27 19:00)
   - **Erasmus+** — [Jean Monnet Network on internal policy: The role of education and culture for integration and cooperation in Europe](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-NETWORKS-HEI-EU-EDU-CUL) (son tarih: 2027-02-03)
@@ -17,7 +17,20 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
   - **Erasmus+** — [ERASMUS-JMO-2027-MODULE](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-HEI-TCH-RSCH-MODULE) (son tarih: 2027-02-03)
   - **Erasmus+** — [ERASMUS-JMO-2027-CoE](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-HEI-TCH-RSCH-CoE) (son tarih: 2027-02-03)
   - **Erasmus+** — [ERASMUS-JMO-2027-CHAIR](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-HEI-TCH-RSCH-CHAIR) (son tarih: 2027-02-03)
-- Son tarihi değişenler: yok
+  - **Ufuk Avrupa** — [Systemic approaches to accelerate transformative change for biodiversity](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-03) (son tarih: 2027-01-14)
+  - **Ufuk Avrupa** — [Cost-effective biodiversity monitoring for EU policies](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-05) (son tarih: 2027-01-14)
+  - **Ufuk Avrupa** — [Networking to scale up living labs for nature restoration solutions and to address bottlenecks to implementation](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-02-03) (son tarih: 2027-01-14)
+  - **Ufuk Avrupa** — [Better understanding, anticipating and addressing the biodiversity benefits and impacts of the clean and digital industries](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-NATURE-2027-01-02) (son tarih: 2027-01-14)
+  - **UIDB** — [FutureFoodS Ortaklığı 2026 Çağrısı 1. Aşama](https://ufukavrupa.org.tr/sites/default/files/users/user20732/FutureFoodS%202026%20%C3%87a%C4%9Fr%C4%B1s%C4%B1%20Ulusal%20Ba%C5%9Fvuru%20Kurallar%C4%B1_web_0.pdf) (son tarih: 2027-01-22 23:59)
+  - **Ufuk Avrupa** — [Advancing promising results from Pillar II collaborative research through the innovation journey](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-02-05) (son tarih: 2027-01-28)
+  - **Erasmus+** — [Jean Monnet Actions for other fields of Education and Training: Learning EU](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/ERASMUS-JMO-2027-OFET-LEARNING-EU) (son tarih: 2027-02-03)
+  - **UIDB** — [EUP OHAMR Ortaklığı 2027 1. Aşama Ulusal Başvuruları](https://tubitak.gov.tr/sites/default/files/2026-11/OHAMR_2027_Ulusal_Basvuru_Kurallari.pdf) (son tarih: 2027-02-09 23:59)
+  - **Ufuk Avrupa** — [Sustainability and resilience of climate projections and related data records for European and global science and policy](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-04-08) (son tarih: 2027-02-16)
+  - **Ufuk Avrupa** — [Bringing innovative climate preparedness and resilience solutions closer to the market](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-04-03) (son tarih: 2027-02-16)
+  - **Ufuk Avrupa** — [Innovative healthcare interventions for non-communicable diseases](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-02-DISEASE-01-two-stage) (son tarih: 2027-02-17)
+  - **Ufuk Avrupa** — [Prevention and management of chronic non-communicable diseases in children and young people (GACD)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-01-DISEASE-10) (son tarih: 2027-02-17)
+- Son tarihi değişenler: 
+  - **UIDB** — [DUT Ortaklığı 2026 Yılı Çağrısı 1. Aşama](https://ufukavrupa.org.tr/sites/default/files/users/user20728/DUT%202026_%C4%B0ki%20a%C5%9Famal%C4%B1_S%C3%BCre%C3%A7%20Dok%C3%BCman%C4%B1.pdf): 2026-11-26 23:59 → 2026-11-27 23:59
 - Uyarılar: yok
 
 ## 25.11.2026
