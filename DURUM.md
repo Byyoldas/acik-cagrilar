@@ -4,8 +4,8 @@ Bu dosya her çalışmada otomatik güncellenir (en yeni gün en üstte). Aynı 
 
 ## 28.11.2026
 
-- Son çalışma: **07:17** (İstanbul) · o gün 1 çalışma
-- Açık çağrı: **211** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 12 · Erasmus+ 17 · Ufuk Avrupa 137 · İSTKA 1 · UIDB 21
+- Son çalışma: **15:58** (İstanbul) · o gün 2 çalışma
+- Açık çağrı: **208** — ARDEB 12 · BİDEB 5 · Bilim ve Toplum 6 · Duyuru 12 · Erasmus+ 17 · Ufuk Avrupa 134 · İSTKA 1 · UIDB 21
 - Yeni çağrılar: yok
 - Son tarihi değişenler: yok
 - Uyarılar: yok

@@ -856,16 +856,16 @@
  "2026-11-28": {
   "yeni": [],
   "degisen": [],
-  "calisma": 1,
-  "saat": "07:17",
-  "toplam": 211,
+  "calisma": 2,
+  "saat": "15:58",
+  "toplam": 208,
   "kaynaklar": {
    "ardeb": 12,
    "bideb": 5,
    "bt": 6,
    "duyuru": 12,
    "erasmus": 17,
-   "eu": 137,
+   "eu": 134,
    "istka": 1,
    "uidb": 21
   },
